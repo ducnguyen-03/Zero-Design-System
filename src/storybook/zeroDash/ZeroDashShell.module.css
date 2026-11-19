@@ -1,0 +1,310 @@
+/* ZeroDash app shell — design "ZeroDash Overview" (sidebar, maintenance bar, stub pages). */
+.app {
+  --zd-maintenance-bar: #fce27c; /* design's alert yellow, between yellow-50 and yellow-100 */
+  --zd-ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--insight-color-grey-10);
+  color: var(--insight-color-foreground-text-primary);
+  font-family: var(--insight-font-family-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Maintenance alert bar (45px, slides open) ─────────────────── */
+.barWrap {
+  flex: 0 0 auto;
+  overflow: hidden;
+  height: 0;
+  transition: height 320ms var(--zd-ease-out);
+}
+.barWrapShown {
+  height: 45px;
+}
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 45px;
+  padding: 0 var(--insight-spacing-2xl);
+  background: var(--zd-maintenance-bar);
+  color: var(--insight-color-foreground-text-primary);
+  font-size: 13.5px;
+  line-height: 1.4;
+  text-align: center;
+}
+.bar svg {
+  flex: 0 0 auto;
+  width: 17px;
+  height: 17px;
+}
+.bar strong {
+  font-weight: var(--insight-font-weight-bold);
+}
+
+/* ── Layout ─────────────────────────────────────────────────────── */
+.body {
+  display: flex;
+  align-items: flex-start;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.sidebar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  flex: 0 0 auto;
+  height: 100vh;
+}
+.main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .barWrap,
+  .subWrap,
+  .chevron {
+    transition: none;
+  }
+}
+
+/* ── Logo ───────────────────────────────────────────────────────── */
+.wordmark,
+.mark {
+  display: inline-flex;
+  align-items: baseline;
+  line-height: 1;
+}
+.wordmarkText {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--insight-color-foreground-text-primary);
+  white-space: nowrap;
+}
+.wordmark svg,
+.mark svg {
+  flex: 0 0 auto;
+}
+.markDash {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 14px;
+  height: 6px;
+  margin-left: var(--insight-spacing-xs);
+  border-radius: 3px;
+  background: var(--insight-color-brand-logo-magenta);
+}
+
+/* ── Sidebar groups ─────────────────────────────────────────────── */
+.navDivider {
+  align-self: stretch;
+  height: 1px;
+  margin: var(--insight-spacing-sm) var(--insight-spacing-md);
+  background: var(--insight-color-grey-30);
+}
+:global([data-collapsed]) .navDivider {
+  width: 28px;
+  margin: var(--insight-spacing-sm) auto;
+}
+.group {
+  display: flex;
+  flex-direction: column;
+}
+.groupParentActive {
+  background: var(--insight-color-grey-30);
+}
+.chevron {
+  color: var(--insight-color-grey-100);
+  transition: transform 180ms ease;
+}
+.chevronOpen {
+  transform: rotate(90deg);
+}
+.subWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 220ms var(--zd-ease-out), opacity 180ms ease;
+}
+.subWrapOpen {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.subInner {
+  min-height: 0;
+  overflow: hidden;
+}
+.subList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xs);
+  margin: var(--insight-spacing-xs) 0 0 19px;
+  border-left: 1px solid var(--insight-color-grey-30);
+}
+.subWrap:not(.subWrapOpen) .subList {
+  visibility: hidden;
+  transition: visibility 0s 220ms;
+}
+.subRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  width: calc(100% - 4px);
+  min-height: 28px;
+  margin-left: var(--insight-spacing-xs);
+  padding: var(--insight-spacing-sm) var(--insight-spacing-md);
+  border: none;
+  border-radius: var(--insight-radius-md);
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: var(--insight-type-body-tiny-line-height);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-grey-200);
+  text-align: left;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+.subRow:hover {
+  background: var(--insight-color-grey-30);
+  color: var(--insight-color-foreground-text-primary);
+}
+.subRow:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: -2px;
+}
+.subRowActive,
+.subRowActive:hover {
+  background: var(--insight-color-green-10);
+  color: var(--insight-color-green-300);
+}
+.subIcon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+}
+.subIcon svg {
+  width: 16px;
+  height: 16px;
+}
+.subLabel {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Collapsed rail: hover flyout for groups */
+.flyHost {
+  position: relative;
+}
+.flyout {
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xs);
+  box-sizing: border-box;
+  width: 180px;
+  padding: var(--insight-spacing-sm);
+  background: var(--insight-color-white);
+  border: 1px solid var(--insight-color-grey-30);
+  border-radius: var(--insight-radius-sm);
+  box-shadow: var(--insight-shadow-dropdown);
+}
+/* Bridge the gap so the pointer can travel from the row into the menu. */
+.flyout::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 0;
+  width: 14px;
+  height: 100%;
+}
+.flyTitle {
+  padding: var(--insight-spacing-xs) var(--insight-spacing-md) 2px;
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: var(--insight-type-body-tiny-line-height);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-grey-200);
+  white-space: nowrap;
+}
+.flyRow {
+  width: 100%;
+  margin-left: 0;
+}
+
+/* ── Notifications popover ─────────────────────────────────────── */
+.notifScrim {
+  position: fixed;
+  inset: 0;
+  z-index: 58;
+}
+.notifPop {
+  position: fixed;
+  bottom: 14px;
+  z-index: 60;
+  width: 384px;
+  max-height: calc(100vh - 28px);
+  display: flex;
+  border-radius: var(--insight-radius-sm);
+  box-shadow: 0 20px 48px rgba(10, 10, 35, 0.24);
+  overflow: hidden;
+  animation: zdFade 160ms ease;
+}
+@keyframes zdFade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ── Stub pages (meetings, unbuilt destinations) ─────────────── */
+.stub {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  padding: 38px 34px 60px;
+}
+.crumbs {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--insight-type-body-small-size);
+  line-height: var(--insight-type-body-small-line-height);
+  color: var(--insight-color-grey-100);
+}
+.crumbs li + li::before {
+  content: "›";
+  margin-right: var(--insight-spacing-sm);
+}
+.crumbs li:last-child:not(:first-child) {
+  color: var(--insight-color-grey-200);
+}
+.stubTitle {
+  margin: 0;
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: -0.01em;
+}
+.stubEmpty {
+  margin-top: var(--insight-spacing-2xl);
+  padding: 40px var(--insight-spacing-2xl);
+  border: 1px solid var(--insight-color-grey-40);
+  border-radius: var(--insight-radius-card);
+  background: var(--insight-color-white);
+  font-size: var(--insight-type-body-small-size);
+  line-height: var(--insight-type-body-small-line-height);
+  color: var(--insight-color-grey-100);
+  text-align: center;
+}

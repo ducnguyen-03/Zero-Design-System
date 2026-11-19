@@ -1,0 +1,35 @@
+/* Insights wordmark + release badge (Claude Design "Insights Onboarding"). */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  min-width: 0;
+}
+.logo > img {
+  display: block;
+  flex-shrink: 0;
+}
+/* The release label: purple outlined pill, 8% tracking, uppercase. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 18px;
+  padding: 0 7px;
+  border: 1px solid var(--insight-color-purple-100);
+  border-radius: var(--insight-radius-chip);
+  font-family: var(--insight-font-family-sans);
+  font-size: 10.5px;
+  line-height: 1;
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--insight-color-purple-150);
+  white-space: nowrap;
+}
+.onDark .badge {
+  border-color: var(--insight-color-purple-50);
+  color: var(--insight-color-purple-30);
+}
+.onDark > img {
+  filter: brightness(0) invert(1);
+}

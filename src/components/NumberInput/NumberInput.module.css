@@ -1,0 +1,175 @@
+/* Figma Input Stepper (3538:26302). Field chrome mirrors Input (3412:10815) —
+   same corner, border, focus ring, value colour, label and helper type — so a
+   stepper sits in a form without reading as a different control. */
+.root {
+  --insight-components-input-stepper-container-background: var(--insight-color-white);
+  --insight-components-input-stepper-container-border: var(--insight-color-grey-75);
+  --insight-components-input-stepper-container-border-focus: var(--insight-color-green-160);
+  --insight-components-input-stepper-container-border-error: var(--insight-color-red-150);
+  --insight-components-input-stepper-button-border: var(--insight-color-grey-50);
+  --insight-components-input-stepper-button-icon: var(--insight-color-grey-200);
+  --insight-components-input-stepper-button-icon-disabled: var(--insight-color-grey-60);
+  --insight-components-input-stepper-button-background-hover: var(--insight-color-grey-20);
+  --insight-components-input-stepper-button-background-active: var(--insight-color-grey-30);
+  --insight-components-input-stepper-value-text: var(--insight-color-off-black-100);
+  --insight-components-input-stepper-label-text: var(--insight-color-off-black-100);
+  --insight-components-input-stepper-muted-text: var(--insight-color-grey-100);
+  --insight-components-input-stepper-disabled-background: var(--insight-color-grey-30);
+  --insight-components-input-stepper-disabled-border: var(--insight-color-grey-50);
+  --insight-components-input-stepper-error-text: var(--insight-color-red-300);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xs);
+  max-width: 100%;
+  min-width: 0;
+  font-family: var(--insight-font-family-sans);
+}
+
+.label {
+  margin: 0;
+  font-size: var(--insight-type-body-small-size);
+  line-height: var(--insight-type-body-small-line-height);
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: 0.25px;
+  color: var(--insight-components-input-stepper-label-text);
+}
+.helper {
+  margin: 0;
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: var(--insight-type-body-tiny-line-height);
+  letter-spacing: 0.25px;
+  color: var(--insight-components-input-stepper-muted-text);
+}
+
+.box {
+  display: flex;
+  align-items: stretch;
+  height: var(--insight-control-height-md);
+  box-sizing: border-box;
+  border: 1px solid var(--insight-components-input-stepper-container-border);
+  border-radius: var(--insight-radius-input);
+  background: var(--insight-components-input-stepper-container-background);
+  overflow: hidden;
+  transition:
+    border-color var(--insight-duration-fast) ease,
+    box-shadow var(--insight-duration-fast) ease;
+}
+/* Same as Input State=Active: 2px green (1px border + 1px inset ring, no reflow). */
+.box:focus-within {
+  border-color: var(--insight-components-input-stepper-container-border-focus);
+  box-shadow: inset 0 0 0 1px var(--insight-components-input-stepper-container-border-focus);
+}
+
+.field {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  padding: 0 var(--insight-spacing-xl);
+}
+.adorn,
+.input {
+  font-size: var(--insight-type-body-default-size);
+  line-height: var(--insight-type-body-default-line-height);
+  letter-spacing: 0.5px;
+}
+.adorn {
+  flex-shrink: 0;
+  white-space: nowrap;
+  color: var(--insight-components-input-stepper-muted-text);
+}
+.input {
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  color: var(--insight-components-input-stepper-value-text);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+/* With an adornment the value reads left-to-right next to it, like Input. */
+.start .input,
+.end .input {
+  text-align: left;
+}
+
+.step {
+  flex-shrink: 0;
+  width: var(--insight-control-height-md);
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--insight-components-input-stepper-button-icon);
+  cursor: pointer;
+  transition: background-color var(--insight-duration-fast) ease;
+}
+.step svg {
+  width: var(--insight-icon-size-md);
+  height: var(--insight-icon-size-md);
+  stroke-width: var(--insight-icon-stroke);
+}
+.step:hover:not(:disabled) {
+  background: var(--insight-components-input-stepper-button-background-hover);
+}
+.step:active:not(:disabled) {
+  background: var(--insight-components-input-stepper-button-background-active);
+}
+.step:disabled {
+  cursor: not-allowed;
+  color: var(--insight-components-input-stepper-button-icon-disabled);
+}
+
+/* One divider colour for every layout. */
+.split .step:first-child {
+  border-right: 1px solid var(--insight-components-input-stepper-button-border);
+}
+.split .step:last-child,
+.end .step {
+  border-left: 1px solid var(--insight-components-input-stepper-button-border);
+}
+.start .step {
+  border-right: 1px solid var(--insight-components-input-stepper-button-border);
+}
+
+/* Error — matches Input. */
+.error .box {
+  border-color: var(--insight-components-input-stepper-container-border-error);
+}
+.error .box:focus-within {
+  box-shadow: inset 0 0 0 1px var(--insight-components-input-stepper-container-border-error);
+}
+.error .helper {
+  color: var(--insight-components-input-stepper-error-text);
+}
+
+/* Disabled — matches Input. */
+.disabled .box {
+  background: var(--insight-components-input-stepper-disabled-background);
+  border-color: var(--insight-components-input-stepper-disabled-border);
+}
+.disabled .step {
+  border-color: var(--insight-components-input-stepper-disabled-border);
+}
+.disabled .input,
+.disabled .adorn {
+  color: var(--insight-components-input-stepper-muted-text);
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .box,
+  .step {
+    transition: none;
+  }
+}

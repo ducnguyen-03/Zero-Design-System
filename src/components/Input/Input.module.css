@@ -1,0 +1,139 @@
+/* Figma "input" set 3412:10815 — component tokens mapped to core colours. */
+.field {
+  --insight-components-input-background-default: var(--insight-color-white);
+  --insight-components-input-background-disabled: var(--insight-color-grey-30);
+  --insight-components-input-border-default: var(--insight-color-grey-75);
+  --insight-components-input-border-focus: var(--insight-color-green-160);
+  --insight-components-input-icon-error: var(--insight-color-red-150);
+  --insight-components-input-icon-success: var(--insight-color-green-150);
+  --insight-components-input-icon-tertiary: var(--insight-color-grey-100);
+  --insight-components-input-text-value: var(--insight-color-off-black-100);
+  --insight-components-input-text-placeholder: var(--insight-color-grey-100);
+  --insight-components-input-status-error-foreground: var(--insight-color-red-300);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xs);
+  font-family: var(--insight-font-family-sans);
+  min-width: 0;
+}
+
+.label {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: 0.25px;
+  color: var(--insight-components-input-text-value);
+}
+.required {
+  color: var(--insight-components-input-status-error-foreground);
+}
+.help,
+.errorText {
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: var(--insight-type-body-tiny-line-height);
+  font-weight: var(--insight-font-weight-regular);
+  letter-spacing: 0.25px;
+  color: var(--insight-components-input-icon-tertiary);
+}
+.errorText {
+  color: var(--insight-components-input-status-error-foreground);
+}
+
+/* ---- Field -------------------------------------------------------------- */
+.control {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  height: 40px;
+  padding: var(--insight-spacing-md) var(--insight-spacing-lg) var(--insight-spacing-md)
+    var(--insight-spacing-xl);
+  background: var(--insight-components-input-background-default);
+  border: 1px solid var(--insight-components-input-border-default);
+  border-radius: var(--insight-radius-input);
+  color: var(--insight-components-input-text-value);
+  overflow: hidden;
+  transition: border-color var(--insight-duration-fast) ease,
+    box-shadow var(--insight-duration-fast) ease;
+}
+.control.md {
+  height: 48px;
+  padding-top: var(--insight-spacing-lg);
+  padding-bottom: var(--insight-spacing-lg);
+}
+/* Link Input / lead adornment: 8px lead padding. */
+.control.hasLead {
+  padding-left: var(--insight-spacing-md);
+}
+
+/* Figma State=Active: 2px green border (1px border + 1px inset ring, no reflow). */
+.control:focus-within {
+  border-color: var(--insight-components-input-border-focus);
+  box-shadow: inset 0 0 0 1px var(--insight-components-input-border-focus);
+}
+.control.error {
+  border-color: var(--insight-components-input-icon-error);
+  box-shadow: none;
+}
+.control.error:focus-within {
+  box-shadow: inset 0 0 0 1px var(--insight-components-input-icon-error);
+}
+.control.disabled {
+  background: var(--insight-components-input-background-disabled);
+  border-color: var(--insight-color-grey-50);
+  color: var(--insight-components-input-icon-tertiary);
+  box-shadow: none;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  color: inherit;
+  text-overflow: ellipsis;
+}
+.input::placeholder {
+  color: var(--insight-components-input-text-placeholder);
+}
+.input:disabled {
+  cursor: not-allowed;
+}
+
+.adornment,
+.status {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  color: var(--insight-components-input-icon-tertiary);
+}
+.adornment svg {
+  width: var(--insight-icon-size-lg);
+  height: var(--insight-icon-size-lg);
+}
+.adornment.errorTint {
+  color: var(--insight-components-input-icon-error);
+}
+
+/* Status: solid disc with white glyph (Figma status icon). */
+.status svg {
+  width: var(--insight-icon-size-md);
+  height: var(--insight-icon-size-md);
+  fill: currentColor;
+  stroke: var(--insight-color-white);
+}
+.statusSuccess {
+  color: var(--insight-components-input-icon-success);
+}
+.statusError {
+  color: var(--insight-components-input-icon-error);
+}

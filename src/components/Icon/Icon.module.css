@@ -1,0 +1,23 @@
+.icon {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.xs { width: var(--insight-icon-size-xs); height: var(--insight-icon-size-xs); }
+.sm { width: var(--insight-icon-size-sm); height: var(--insight-icon-size-sm); }
+.md { width: var(--insight-icon-size-md); height: var(--insight-icon-size-md); }
+.lg { width: var(--insight-icon-size-lg); height: var(--insight-icon-size-lg); }
+.xl { width: var(--insight-icon-size-xl); height: var(--insight-icon-size-xl); }
+.xxl { width: var(--insight-icon-size-2xl); height: var(--insight-icon-size-2xl); }
+
+.tone-inherit { color: inherit; }
+.tone-primary { color: var(--insight-color-foreground-text-primary); }
+.tone-secondary { color: var(--insight-color-foreground-text-secondary); }
+.tone-tertiary { color: var(--insight-color-foreground-text-tertiary); }
+.tone-brand { color: var(--insight-color-green-200); }
+.tone-success { color: var(--insight-color-status-success-foreground); }
+.tone-danger { color: var(--insight-color-status-error-foreground); }
+.tone-warning { color: var(--insight-color-status-warning-foreground-strong); }
+.tone-info { color: var(--insight-color-status-info-foreground); }
+.tone-on-dark { color: var(--insight-color-foreground-text-on-dark); }

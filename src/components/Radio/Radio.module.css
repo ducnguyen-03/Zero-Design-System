@@ -1,0 +1,87 @@
+/* Figma component tokens (Radio 3412:12451), mapped to core colours. */
+.root {
+  --insight-components-radio-indicator-neutral-foreground: var(--insight-color-grey-200);
+  --insight-components-radio-border-hover: var(--insight-color-off-black-200);
+  --insight-components-radio-border-focus: var(--insight-color-off-black-200);
+  --insight-components-radio-border-default: var(--insight-color-grey-75);
+  --insight-components-radio-border-error: var(--insight-color-warm-red-150);
+  --insight-components-radio-selected-foreground: var(--insight-color-green-175);
+  --insight-components-radio-disabled-foreground: var(--insight-color-grey-40);
+  --insight-components-radio-control-focus-ring: var(--insight-color-green-100);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  font-family: var(--insight-font-family-sans);
+  font-size: var(--insight-component-button-small-size);
+  line-height: var(--insight-component-button-small-line-height);
+  letter-spacing: var(--insight-component-button-small-letter-spacing);
+  color: var(--insight-color-foreground-text-inclusive);
+  cursor: pointer;
+  user-select: none;
+}
+.root.disabled {
+  cursor: not-allowed;
+  color: var(--insight-color-status-disabled-foreground);
+}
+.control {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+.dot {
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+  border: 1.4px solid var(--insight-components-radio-indicator-neutral-foreground);
+  border-radius: 50%;
+  background: var(--insight-color-white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--insight-duration-fast) var(--insight-ease-emphasis);
+}
+.dot::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--insight-components-radio-selected-foreground);
+  transform: scale(0);
+  transition: transform var(--insight-duration-fast) var(--insight-ease-emphasis);
+}
+.input:checked + .dot::after {
+  transform: scale(1);
+}
+
+.root:not(.disabled):hover .dot {
+  border-color: var(--insight-components-radio-border-hover);
+}
+.input:focus-visible + .dot {
+  border-color: var(--insight-components-radio-border-focus);
+  outline: 2px solid var(--insight-components-radio-control-focus-ring);
+  outline-offset: -0.4px;
+}
+
+.error .dot,
+.root.error:not(.disabled):hover .dot {
+  border-color: var(--insight-components-radio-border-error);
+}
+
+.disabled .dot {
+  border-color: var(--insight-components-radio-border-default);
+}
+.disabled .dot::after {
+  background: var(--insight-components-radio-disabled-foreground);
+}

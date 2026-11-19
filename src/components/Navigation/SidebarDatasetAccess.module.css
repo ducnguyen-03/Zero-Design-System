@@ -1,0 +1,70 @@
+/* Sidebar "Dataset access" block (Insights Onboarding). */
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-10);
+  padding: var(--insight-spacing-md);
+  border-radius: var(--insight-radius-card);
+  background: var(--insight-color-grey-20);
+  font-family: var(--insight-font-family-sans);
+}
+.trigger,
+.static {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-10);
+  margin: calc(-1 * var(--insight-spacing-xs));
+  padding: var(--insight-spacing-xs);
+  border: 0;
+  border-radius: var(--insight-radius-sm);
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+.trigger {
+  cursor: pointer;
+  transition: background-color var(--insight-duration-fast) ease;
+}
+.trigger:hover {
+  background: var(--insight-color-grey-30);
+}
+.trigger:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+}
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--insight-spacing-sm);
+}
+.title {
+  font-size: 11.2px;
+  line-height: 1.4;
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--insight-color-grey-100);
+}
+.count {
+  font-size: 11.5px;
+  color: var(--insight-color-grey-100);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.request {
+  width: 100%;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  .trigger {
+    transition: none;
+  }
+}

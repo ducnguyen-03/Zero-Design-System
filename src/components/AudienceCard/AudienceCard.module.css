@@ -1,0 +1,38 @@
+.card {
+  background: #fff;
+  border: 1.5px solid var(--c-grey-50);
+  border-radius: var(--r-7);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 220px;
+  transition:
+    border var(--dur-med) var(--ease-emphasis),
+    box-shadow var(--dur-med) var(--ease-emphasis);
+}
+.card:hover {
+  border: 3px solid var(--c-green-100);
+  padding: 26.5px;
+  box-shadow: var(--shadow-hover-green);
+}
+.icon {
+  width: 40px;
+  height: 40px;
+}
+.icon svg {
+  width: var(--insight-icon-size-2xl);
+  height: var(--insight-icon-size-2xl);
+}
+.title {
+  font-size: 18px;
+  font-weight: var(--fw-medium);
+  margin: 0;
+  color: var(--fg-1);
+}
+.desc {
+  font-size: var(--t-body-sm);
+  color: var(--c-grey-100);
+  line-height: 1.5;
+  margin: 0;
+}

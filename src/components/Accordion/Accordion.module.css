@@ -1,0 +1,265 @@
+/* ------------------------------------------------------------------
+ * Accordion — Figma "Accordion" 3542:2292 (State Expanded/Close × Variant Underline/Card).
+ * Component tokens mirror Figma's `component/accordion/*` variables.
+ * ------------------------------------------------------------------ */
+.root {
+  --insight-components-accordion-surface-default: var(--insight-color-white);
+  --insight-components-accordion-surface-hover: var(--insight-color-grey-20);
+  /* Figma binds border/default to #00000000: rows and closed cards carry no rule. */
+  --insight-components-accordion-border-default: transparent;
+  --insight-components-accordion-border-hover: var(--insight-color-support-border-grey);
+  /* Expanded card: 1px green-10 ring + Figma "footer" elevation. */
+  --insight-components-accordion-ring-active: var(--insight-color-green-10);
+  --insight-components-accordion-text-primary: var(--insight-color-grey-100);
+  --insight-components-accordion-text-hover: var(--insight-color-off-black-100);
+  --insight-components-accordion-text-brand: var(--insight-color-green-175);
+  --insight-components-accordion-icon-default: var(--insight-color-grey-100);
+  --insight-components-accordion-icon-brand: var(--insight-color-green-175);
+  --insight-components-accordion-focus: var(--insight-color-green-160);
+
+  --acc-ease: var(--insight-ease-emphasis, cubic-bezier(0.19, 1, 0.22, 1));
+  --acc-duration: 280ms;
+
+  display: flex;
+  flex-direction: column;
+  font-family: var(--insight-font-family-sans);
+  color: var(--insight-components-accordion-text-primary);
+}
+.card {
+  gap: var(--insight-spacing-md);
+}
+
+/* Item ------------------------------------------------------------- */
+.item {
+  display: flex;
+  flex-direction: column;
+}
+.underline .item {
+  border-bottom: 1px solid var(--insight-components-accordion-border-default);
+}
+.card .item {
+  background: var(--insight-components-accordion-surface-default);
+  border: 1px solid var(--insight-components-accordion-border-default);
+  border-radius: var(--insight-radius-md);
+  overflow: hidden;
+  transition:
+    border-color var(--insight-duration-fast) ease,
+    box-shadow var(--acc-duration) var(--acc-ease);
+}
+.card .item:not(.expanded):has(.trigger:hover:not(:disabled)) {
+  border-color: var(--insight-components-accordion-border-hover);
+}
+.card .item.expanded {
+  box-shadow:
+    0 0 0 1px var(--insight-components-accordion-ring-active),
+    var(--insight-shadow-footer);
+}
+
+.heading {
+  margin: 0;
+  font: inherit;
+}
+
+/* Trigger ---------------------------------------------------------- */
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-lg);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--insight-spacing-lg) var(--insight-spacing-xs);
+  border: none;
+  border-radius: var(--insight-radius-sm);
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--insight-duration-fast) ease;
+}
+.card .trigger {
+  padding: var(--insight-spacing-lg) var(--insight-spacing-xl);
+  border-radius: 0;
+}
+.underline .trigger:hover:not(:disabled) {
+  background: var(--insight-components-accordion-surface-hover);
+}
+.trigger:focus-visible {
+  outline: 2px solid var(--insight-components-accordion-focus);
+  outline-offset: -2px;
+}
+.card .trigger:focus-visible {
+  border-radius: calc(var(--insight-radius-md) - 1px);
+}
+.trigger:disabled {
+  cursor: not-allowed;
+}
+.trigger:disabled .title,
+.trigger:disabled .subtitle,
+.trigger:disabled .meta,
+.trigger:disabled .chevron {
+  color: var(--insight-color-grey-75);
+}
+
+.lead {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-lg);
+  min-width: 0;
+}
+.iconBox {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-components-accordion-surface-default);
+  color: var(--insight-components-accordion-icon-default);
+  transition: color var(--insight-duration-fast) ease;
+}
+.expanded .iconBox {
+  color: var(--insight-components-accordion-icon-brand);
+}
+.iconBox svg {
+  width: 16px;
+  height: 16px;
+}
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-2xs);
+  min-width: 0;
+}
+.title {
+  font-size: 14px;
+  line-height: 19.6px;
+  font-weight: var(--insight-font-weight-bold);
+  color: var(--insight-components-accordion-text-primary);
+  text-wrap: balance;
+  transition: color var(--insight-duration-fast) ease;
+}
+.trigger:hover:not(:disabled) .title {
+  color: var(--insight-components-accordion-text-hover);
+}
+.expanded .title,
+.expanded .trigger:hover .title {
+  color: var(--insight-components-accordion-text-brand);
+}
+.subtitle {
+  font-size: 12px;
+  line-height: 15.6px;
+  color: var(--insight-components-accordion-text-primary);
+}
+
+.trail {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.meta {
+  padding: var(--insight-spacing-2xs) var(--insight-spacing-md);
+  border-radius: var(--insight-radius-lg);
+  background: var(--insight-components-accordion-surface-default);
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: var(--insight-font-weight-bold);
+  letter-spacing: 0.2px;
+  font-variant-numeric: tabular-nums;
+  color: var(--insight-components-accordion-text-primary);
+  white-space: nowrap;
+  transition: color var(--insight-duration-fast) ease;
+}
+.underline .meta {
+  /* Rows tint grey on hover; a white tag would read as a stray chip there. */
+  background: transparent;
+}
+.expanded .meta {
+  color: var(--insight-components-accordion-text-brand);
+}
+.chevron {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--insight-components-accordion-icon-default);
+  transition:
+    transform var(--acc-duration) var(--acc-ease),
+    color var(--insight-duration-fast) ease;
+}
+.trigger:hover:not(:disabled) .chevron {
+  color: var(--insight-components-accordion-text-hover);
+}
+.expanded .chevron,
+.expanded .trigger:hover .chevron {
+  transform: rotate(180deg);
+  color: var(--insight-components-accordion-icon-brand);
+}
+
+/* Panel ------------------------------------------------------------ */
+.panelWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows var(--acc-duration) var(--acc-ease),
+    visibility 0s linear var(--acc-duration);
+}
+.expanded .panelWrap {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition:
+    grid-template-rows var(--acc-duration) var(--acc-ease),
+    visibility 0s;
+}
+.panel {
+  min-height: 0;
+  overflow: hidden;
+  padding: 0 var(--insight-spacing-xs);
+  font-size: 13.5px;
+  line-height: 22.275px;
+  color: var(--insight-components-accordion-text-primary);
+  opacity: 0;
+  transition:
+    opacity var(--acc-duration) var(--acc-ease),
+    padding var(--acc-duration) var(--acc-ease);
+}
+.expanded .panel {
+  padding-bottom: var(--insight-spacing-lg);
+  opacity: 1;
+}
+.card .panel {
+  padding-inline: var(--insight-spacing-xl);
+}
+.card .expanded .panel {
+  padding-top: var(--insight-spacing-xs);
+  padding-bottom: var(--insight-spacing-xl);
+}
+.panel code {
+  display: inline-block;
+  margin: 1px 2px;
+  padding: 0 6px;
+  border: 1px solid var(--insight-components-accordion-border-default);
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-components-accordion-surface-default);
+  font-family: var(--insight-font-family-mono);
+  font-size: 12px;
+  line-height: 19.8px;
+  color: var(--insight-components-accordion-text-brand);
+  overflow-wrap: anywhere;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    --acc-duration: 0ms;
+  }
+  .trigger,
+  .title,
+  .iconBox,
+  .meta,
+  .card .item {
+    transition: none;
+  }
+}

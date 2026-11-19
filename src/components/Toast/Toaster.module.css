@@ -1,0 +1,103 @@
+/* Fixed stack for transient toasts. Sits above Modal (1000), below Tooltip (1100). */
+.viewport {
+  --toaster-gutter: var(--insight-spacing-xl);
+  --toaster-gap: var(--insight-spacing-md);
+  --toaster-enter-y: 16px;
+
+  position: fixed;
+  z-index: 1050;
+  inset-inline: var(--toaster-gutter);
+  display: flex;
+  pointer-events: none;
+  outline: none;
+}
+.viewport[data-placement^="bottom"] { bottom: var(--toaster-gutter); }
+.viewport[data-placement^="top"] { top: var(--toaster-gutter); --toaster-enter-y: -16px; }
+.viewport[data-placement$="right"] { justify-content: flex-end; }
+.viewport[data-placement$="center"] { justify-content: center; }
+
+.list {
+  display: flex;
+  flex-direction: column;
+  width: 390px;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* Newest toast always lands nearest the screen edge. */
+.viewport[data-placement^="top"] .list { flex-direction: column-reverse; }
+
+/* The row collapses its own height on exit so neighbours glide into place. */
+.item {
+  display: grid;
+  grid-template-rows: 1fr;
+  pointer-events: auto;
+  outline: none;
+  touch-action: pan-y;
+  transition:
+    grid-template-rows var(--insight-duration-fast) var(--insight-ease-emphasis),
+    transform var(--insight-duration-fast) var(--insight-ease-emphasis),
+    opacity var(--insight-duration-fast) var(--insight-ease-emphasis);
+}
+.item[data-swiping] { transition: none; }
+.item[data-state="closed"] {
+  grid-template-rows: 0fr;
+  pointer-events: none;
+}
+
+/* Padding (not gap/margin) carries the spacing so it collapses with the row and leaves room for the shadow. */
+.inner {
+  min-height: 0;
+  padding-block: calc(var(--toaster-gap) / 2);
+  animation: toast-in var(--insight-duration-fast) var(--insight-ease-emphasis) both;
+}
+.item[data-state="closed"] .inner {
+  overflow: hidden;
+  animation: toast-out 200ms ease-in both;
+}
+.item:focus-visible .inner > * {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: 2px;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--toaster-enter-y)) scale(0.97);
+    filter: blur(4px);
+  }
+}
+@keyframes toast-out {
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+/* Phones: full-width stack, standard cards stretch edge to edge. */
+@media (max-width: 599px) {
+  .viewport[data-placement] { --toaster-gutter: 12px; justify-content: stretch; }
+  .list { width: 100%; }
+  .list .inner > * { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item { transition: none; }
+  .inner,
+  .item[data-state="closed"] .inner {
+    animation: none;
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

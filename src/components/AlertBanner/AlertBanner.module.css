@@ -1,0 +1,129 @@
+/* Tinted, bordered row; icon on a white tile;
+   14px medium title over a 12px description. */
+.banner {
+  /* per-colour slots */
+  --alert-bg: var(--insight-color-blue-10);
+  --alert-border: var(--insight-color-blue-150);
+  --alert-accent: var(--insight-color-blue-150);
+
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-md);
+  border: 1px solid var(--alert-border);
+  border-radius: var(--insight-radius-md);
+  background: var(--alert-bg);
+  font-family: var(--insight-font-family-sans);
+  color: var(--insight-color-off-black-100);
+}
+
+.info    { --alert-bg: var(--insight-color-blue-10);   --alert-border: var(--insight-color-blue-150);     --alert-accent: var(--insight-color-blue-150); --alert-link: var(--insight-color-blue-200); }
+.success { --alert-bg: var(--insight-color-green-10);  --alert-border: var(--insight-color-green-200);    --alert-accent: var(--insight-color-green-200); --alert-link: var(--insight-color-green-200); }
+.warning { --alert-bg: var(--insight-color-yellow-10); --alert-border: var(--insight-color-yellow-300);   --alert-accent: var(--insight-color-yellow-300); --alert-link: var(--insight-color-orange-300); /* yellow-300 is 3.47:1 on yellow-10 */ }
+.danger  { --alert-bg: var(--insight-color-red-10);    --alert-border: var(--insight-color-warm-red-150); --alert-accent: var(--insight-color-red-150); --alert-link: var(--insight-color-red-300); }
+/* Neutral — the same shape in greys. */
+.neutral { --alert-bg: var(--insight-color-grey-10);   --alert-border: var(--insight-color-grey-100);     --alert-accent: var(--insight-color-grey-200); --alert-link: var(--insight-color-grey-200); }
+
+.inline { width: 100%; }
+.standard { width: 390px; max-width: 100%; }
+
+/* 24px icon on a white 4px-padded tile. */
+.icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  padding: var(--insight-spacing-xs);
+  border-radius: var(--insight-radius-md);
+  background: var(--insight-color-white);
+  color: var(--alert-accent);
+}
+.icon svg { width: 24px; height: 24px; }
+
+.content {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--insight-spacing-xs);
+}
+.title,
+.body {
+  margin: 0;
+  overflow-wrap: break-word;
+}
+.title {
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: 0.14px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-200);
+}
+.body {
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: var(--insight-font-weight-regular);
+  color: var(--insight-color-off-black-100);
+}
+
+/* Action row under the description: a text link, then the timestamp on the right. */
+.footer {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-lg);
+  margin-top: var(--insight-spacing-xs);
+}
+.timestamp {
+  margin-left: auto;
+  font-family: var(--insight-font-family-mono);
+  font-size: 11px;
+  line-height: 15px;
+  color: var(--insight-color-grey-100);
+}
+/* Actions: DS text Buttons flattened to links in the banner's hue. The main one is
+   underlined; a second one sits after a "·" and underlines on hover. */
+.actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-sm);
+  color: var(--alert-link);
+}
+.dot { font-size: 14px; line-height: 20px; }
+.footer button.action {
+  height: auto;
+  padding: 0;
+  color: var(--alert-link);
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.footer button.action:hover { background: transparent; text-decoration-thickness: 2px; }
+.footer button.secondary { text-decoration: none; }
+.footer button.secondary:hover { text-decoration: underline; text-decoration-thickness: 1px; }
+
+.dismiss {
+  flex-shrink: 0;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  border-radius: var(--insight-radius-sm);
+  background: transparent;
+  color: var(--insight-color-grey-200);
+  cursor: pointer;
+}
+.dismiss svg { width: var(--insight-icon-size-sm); height: var(--insight-icon-size-sm); }
+.dismiss:hover {
+  background: color-mix(in srgb, var(--alert-accent) 12%, transparent);
+  color: var(--insight-color-off-black-100);
+}
+
+.dismiss:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: 2px;
+}

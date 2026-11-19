@@ -1,0 +1,196 @@
+/* ------------------------------------------------------------------
+ * Tabs — Figma "Tab" 3412:12104 and "Tabs group" 3412:11343.
+ * Component tokens mapped locally to core colours (not in tokens.css).
+ * ------------------------------------------------------------------ */
+.tablist,
+.doubleTier {
+  --insight-components-tab-text-primary: var(--insight-color-foreground-text-primary);
+  --insight-components-tab-text-tertiary: var(--insight-color-foreground-text-tertiary);
+  --insight-components-tab-text-on-dark: var(--insight-color-foreground-text-on-dark);
+  --insight-components-tab-background-header: var(--insight-color-off-black-100);
+  --insight-components-tab-background-inverse-hover: var(--insight-color-grey-200);
+  --insight-components-tab-background-active: var(--insight-color-background-system-primary);
+  --insight-components-tab-background-hover: var(--insight-color-background-subtle);
+  /* Figma #5dfca8 has no core token; green-50 is the nearest brand green. */
+  --insight-components-tab-group-border-active: var(--insight-color-green-50);
+  /* Figma #6a849e has no core token; grey-75 is the nearest. */
+  --insight-components-tab-group-border-subtle: var(--insight-color-grey-75);
+  --insight-components-tab-focus: var(--insight-color-green-150);
+  --insight-components-tab-background-secondary-active: var(--insight-color-green-10);
+  --insight-components-tab-background-secondary-active-hover: var(--insight-color-green-30);
+  --insight-components-tab-background-secondary-hover: var(--insight-color-grey-50);
+  --insight-components-tab-indicator-green-text: var(--insight-color-green-300);
+  --insight-component-tab-label-size: var(--insight-type-body-small-size);
+  --insight-component-tab-label-line-height: 20px;
+  --insight-component-tab-label-letter-spacing: 0.25px;
+}
+
+.tablist {
+  display: flex;
+  align-items: stretch;
+  font-family: var(--insight-font-family-sans);
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--insight-spacing-xs);
+  margin: 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: var(--insight-component-tab-label-size);
+  line-height: var(--insight-component-tab-label-line-height);
+  letter-spacing: var(--insight-component-tab-label-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--insight-duration-fast, 150ms),
+    color var(--insight-duration-fast, 150ms);
+}
+.tab:disabled {
+  cursor: not-allowed;
+}
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.icon svg {
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+}
+
+/* ---------------- Underline (legacy default) ---------------- */
+.underline {
+  gap: var(--insight-spacing-3xl);
+  border-bottom: 1px solid var(--insight-color-grey-50);
+}
+.underline .tab {
+  padding: var(--insight-spacing-xl) 0;
+  font-size: var(--insight-type-body-default-size);
+  letter-spacing: normal;
+  color: var(--insight-color-grey-100);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.underline .tab:hover:not(:disabled) {
+  color: var(--insight-color-off-black-100);
+}
+.underline .tab.active {
+  color: var(--insight-color-off-black-100);
+  border-bottom-color: var(--insight-color-green-150);
+}
+.underline .tab:disabled {
+  opacity: 0.5;
+}
+.underline .tab:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--insight-color-green-100) 35%, transparent);
+  outline-offset: 2px;
+  border-radius: var(--insight-radius-xs);
+}
+
+/* ---------------- Primary ---------------- */
+.primary .tab {
+  /* 4px top indicator is drawn inside the tab so active/inactive share a height (68 / 44). */
+  border-top: 4px solid transparent;
+  padding: calc(var(--insight-spacing-2xl) - 4px) var(--insight-spacing-3xl) var(--insight-spacing-2xl);
+}
+.primary.sm .tab {
+  padding: calc(var(--insight-spacing-lg) - 4px) var(--insight-spacing-3xl) var(--insight-spacing-lg);
+}
+.primary .tab:focus-visible {
+  outline: 2px solid var(--insight-components-tab-focus);
+  outline-offset: -2px;
+}
+.primary .tab.active {
+  background: var(--insight-components-tab-background-active);
+  border-top-color: var(--insight-components-tab-group-border-active);
+  color: var(--insight-components-tab-text-primary);
+}
+.primary .tab.active:hover {
+  background: var(--insight-components-tab-background-hover);
+}
+
+/* Light */
+.primary.light .tab:not(.active) {
+  color: var(--insight-components-tab-text-primary);
+}
+.primary.light .tab:not(.active):hover:not(:disabled) {
+  background: var(--insight-components-tab-background-hover);
+}
+
+/* Dark */
+.primary.dark .tab:not(.active) {
+  background: var(--insight-components-tab-background-header);
+  color: var(--insight-components-tab-text-on-dark);
+}
+.primary.dark .tab:not(.active):hover:not(:disabled) {
+  background: var(--insight-components-tab-background-inverse-hover);
+}
+
+.primary .tab:disabled,
+.primary.light .tab:disabled,
+.primary.dark .tab:disabled {
+  color: var(--insight-components-tab-text-tertiary);
+}
+
+/* ---------------- Secondary ---------------- */
+.secondary {
+  padding: var(--insight-spacing-md);
+}
+.secondary .tab {
+  padding: var(--insight-spacing-lg) var(--insight-spacing-2xl);
+  border: 1px solid transparent;
+  border-radius: var(--insight-radius-4xl);
+  color: var(--insight-components-tab-text-primary);
+}
+.secondary.sm .tab {
+  height: 32px;
+  padding: var(--insight-spacing-md) var(--insight-spacing-xl);
+  border-radius: var(--insight-radius-chip);
+}
+.secondary .tab:hover:not(:disabled) {
+  background: var(--insight-components-tab-background-secondary-hover);
+}
+.secondary .tab.active {
+  background: var(--insight-components-tab-background-secondary-active);
+  color: var(--insight-components-tab-indicator-green-text);
+}
+.secondary .tab.active:hover {
+  background: var(--insight-components-tab-background-secondary-active-hover);
+}
+.secondary .tab:focus-visible {
+  outline: none;
+  border-color: var(--insight-components-tab-focus);
+}
+.secondary .tab:not(.active):focus-visible {
+  background: var(--insight-components-tab-background-hover);
+}
+.secondary .tab:disabled {
+  color: var(--insight-components-tab-text-tertiary);
+}
+.fill .tab {
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+/* ---------------- Double tier ---------------- */
+.doubleTier {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.doubleTier.light > .primary {
+  border-bottom: 1px solid var(--insight-components-tab-group-border-subtle);
+}
+.subTier {
+  background: var(--insight-components-tab-background-active);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab {
+    transition: none;
+  }
+}

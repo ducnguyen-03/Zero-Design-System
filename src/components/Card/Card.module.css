@@ -1,0 +1,199 @@
+/* Figma "Card" (3412:10937) + "card" (3412:10920). Component tokens are local, mapped to core. */
+.card {
+  --insight-components-card-border-default: var(--insight-color-grey-75);
+  --insight-components-card-border-hover: var(--insight-color-green-175);
+  --insight-components-card-background-default: var(--insight-color-grey-10);
+  --insight-components-card-indicator-neutral-background: var(--insight-color-grey-30);
+  --insight-components-card-media-placeholder-background: var(--insight-color-grey-30);
+  --insight-components-card-text-primary: var(--insight-color-off-black-100);
+  --insight-components-card-text-tertiary: var(--insight-color-grey-100);
+  --insight-component-card-title-size: var(--insight-type-title-small-size);
+  --insight-component-card-title-line-height: var(--insight-type-title-small-line-height);
+  --insight-component-card-title-letter-spacing: var(--insight-type-title-small-letter-spacing);
+  --insight-component-card-description-size: 14px;
+  --insight-component-card-description-line-height: 20px;
+  --insight-component-card-description-letter-spacing: 0.25px;
+
+  box-sizing: border-box;
+  display: flex;
+  min-width: 0;
+  border: 1px solid var(--insight-components-card-border-default);
+  font-family: var(--insight-font-family-sans);
+  color: var(--insight-components-card-text-primary);
+  text-decoration: none;
+}
+
+/* Clinical Domain=Default */
+.default {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-lg);
+  border-radius: var(--insight-radius-lg);
+  background: var(--insight-color-background-system-secondary);
+}
+
+/* Cancer Category Tile */
+.category {
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  min-height: 56px;
+  padding: var(--insight-spacing-xs) var(--insight-spacing-10);
+  border-radius: var(--insight-radius-md);
+  background: var(--insight-components-card-background-default);
+  overflow: hidden;
+}
+.categoryText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+.categoryText .label {
+  margin-bottom: -2px;
+}
+
+.interactive {
+  cursor: pointer;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+.interactive:hover {
+  border-color: var(--insight-components-card-border-hover);
+}
+.interactive:focus-visible {
+  outline: 2px solid var(--insight-color-green-175);
+  outline-offset: 2px;
+}
+
+/* Chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--insight-spacing-md);
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  height: 28px;
+  padding: 0 var(--insight-spacing-lg);
+  border-radius: var(--insight-radius-chip);
+  background: var(--insight-components-card-indicator-neutral-background);
+  color: var(--insight-components-card-text-primary);
+  font-size: var(--insight-component-card-description-size);
+  line-height: var(--insight-component-card-description-line-height);
+  letter-spacing: var(--insight-component-card-description-letter-spacing);
+  white-space: nowrap;
+}
+
+/* Media */
+.media {
+  height: 220px;
+  border-radius: var(--insight-radius-md);
+  background: var(--insight-components-card-media-placeholder-background);
+  overflow: hidden;
+}
+.media > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Label / description */
+.text {
+  display: flex;
+  min-width: 0;
+}
+.stacked {
+  flex-direction: column;
+}
+.inline {
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--insight-spacing-xs);
+}
+.label {
+  margin: 0;
+  font-size: var(--insight-component-card-title-size);
+  line-height: var(--insight-component-card-title-line-height);
+  letter-spacing: var(--insight-component-card-title-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-components-card-text-primary);
+}
+.description {
+  margin: 0;
+  font-size: var(--insight-component-card-description-size);
+  line-height: var(--insight-component-card-description-line-height);
+  letter-spacing: var(--insight-component-card-description-letter-spacing);
+  font-weight: var(--insight-font-weight-regular);
+  color: var(--insight-components-card-text-tertiary);
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Citation */
+.citation {
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+  padding-right: var(--insight-spacing-2xl);
+  border-radius: var(--insight-radius-xs);
+}
+.quoteIcon {
+  display: flex;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  padding-left: 5px;
+  box-sizing: border-box;
+  color: var(--insight-components-card-text-tertiary);
+}
+.quoteIcon svg {
+  width: var(--insight-icon-size-md);
+  height: var(--insight-icon-size-md);
+  margin-top: 2px;
+}
+.citationText {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-size: var(--insight-component-card-description-size);
+  line-height: var(--insight-component-card-description-line-height);
+  letter-spacing: var(--insight-component-card-description-letter-spacing);
+  color: var(--insight-components-card-text-primary);
+}
+
+/* Category count */
+.count {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-2xs);
+  flex-shrink: 0;
+  font-size: var(--insight-component-card-description-size);
+  line-height: var(--insight-component-card-description-line-height);
+  letter-spacing: var(--insight-component-card-description-letter-spacing);
+  color: var(--insight-components-card-text-primary);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.count svg {
+  width: var(--insight-icon-size-md);
+  height: var(--insight-icon-size-md);
+  padding: 2px;
+  box-sizing: border-box;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

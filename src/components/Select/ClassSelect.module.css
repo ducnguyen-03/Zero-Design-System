@@ -1,0 +1,161 @@
+/* Figma "dropdown / class curation" 3412:10709 — component tokens → core colours. */
+.root {
+  --insight-components-dropdown-class-curation-text-primary: var(--insight-color-off-black-100);
+  --insight-components-dropdown-class-curation-text-secondary: var(--insight-color-grey-200);
+  --insight-components-dropdown-class-curation-indicator-neutral-background: var(--insight-color-grey-30);
+  --insight-components-dropdown-class-curation-status-success-background: var(--insight-color-green-10);
+  --insight-components-dropdown-class-curation-status-error-background: var(--insight-color-red-10);
+  --insight-components-dropdown-class-curation-indicator-red-text: var(--insight-color-red-300);
+  --insight-components-dropdown-class-curation-focus: var(--insight-color-green-160);
+
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  font-family: var(--insight-font-family-sans);
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-2xs);
+  max-width: 100%;
+  border-radius: var(--insight-radius-input);
+  color: var(--insight-components-dropdown-class-curation-text-primary);
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+.trigger:focus-visible,
+.trigger.open {
+  box-shadow: 0 0 0 2px var(--insight-components-dropdown-class-curation-focus);
+}
+
+/* Type = Filled */
+.filled {
+  padding: var(--insight-spacing-xs) var(--insight-spacing-xs) var(--insight-spacing-xs)
+    var(--insight-spacing-lg);
+}
+/* A selected class stretches the pill to the available width (Figma C2 / C3.8 / C5). */
+.root:has(.hasValue) {
+  display: block;
+}
+.hasValue {
+  display: flex;
+  width: 100%;
+}
+.hasValue .value {
+  flex: 1;
+}
+.empty {
+  background: var(--insight-components-dropdown-class-curation-indicator-neutral-background);
+  color: var(--insight-components-dropdown-class-curation-text-secondary);
+}
+.toneNeutral {
+  background: var(--insight-components-dropdown-class-curation-indicator-neutral-background);
+}
+.toneSuccess {
+  background: var(--insight-components-dropdown-class-curation-status-success-background);
+}
+.toneError {
+  background: var(--insight-components-dropdown-class-curation-status-error-background);
+  color: var(--insight-components-dropdown-class-curation-indicator-red-text);
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+.icon svg {
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+  transition: transform var(--insight-duration-fast) ease;
+}
+.open .icon svg {
+  transform: rotate(180deg);
+}
+
+/* ---- Listbox popup (not specified in Figma) ----------------------------- */
+.listbox {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + var(--insight-spacing-xs));
+  left: 0;
+  min-width: max(100%, 200px);
+  max-height: 264px;
+  overflow-y: auto;
+  margin: 0;
+  padding: var(--insight-spacing-xs) 0;
+  list-style: none;
+  background: var(--insight-color-white);
+  border: 1px solid var(--insight-color-grey-50);
+  border-radius: var(--insight-radius-input);
+  box-shadow: var(--insight-shadow-dropdown);
+}
+.listbox[hidden] {
+  display: none;
+}
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-md) var(--insight-spacing-lg);
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  color: var(--insight-components-dropdown-class-curation-text-primary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.optionLabel {
+  flex: 1;
+}
+.optionActive {
+  background: var(--insight-color-grey-20);
+}
+.optionSelected {
+  font-weight: var(--insight-font-weight-medium);
+}
+.optionDisabled {
+  color: var(--insight-color-grey-100);
+  cursor: not-allowed;
+}
+.optionCheck {
+  width: 16px;
+  height: 16px;
+  color: var(--insight-color-green-200);
+}
+.swatch {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--insight-radius-xs);
+}
+/* Swatches reuse the tone classes; text colour on them is irrelevant. */
+.swatch.toneError {
+  background: var(--insight-components-dropdown-class-curation-status-error-background);
+  box-shadow: inset 0 0 0 1px var(--insight-color-red-50);
+}
+.swatch.toneSuccess {
+  box-shadow: inset 0 0 0 1px var(--insight-color-green-50);
+}
+.swatch.toneNeutral {
+  box-shadow: inset 0 0 0 1px var(--insight-color-grey-50);
+}

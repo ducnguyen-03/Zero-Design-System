@@ -1,0 +1,419 @@
+/* Chat message — ZAK prototype "Agent in chat state" (13:1038). */
+.message {
+  --insight-components-chat-user-bubble: var(--insight-color-grey-30);
+  --insight-components-chat-text: var(--insight-color-off-black-100);
+
+  display: flex;
+  min-width: 0;
+  font-family: var(--insight-font-family-sans);
+  color: var(--insight-components-chat-text);
+}
+
+/* Figma "Body/Regular/Default": 16 / 1.5, 0.32px. */
+.bubble,
+.body {
+  font-size: var(--insight-type-body-default-size);
+  line-height: 1.5;
+  letter-spacing: var(--insight-type-body-default-letter-spacing);
+  overflow-wrap: anywhere;
+}
+.bubble > p,
+.body > p {
+  margin: 0;
+}
+/* A blank line between paragraphs, as in Figma (the body's 10px gap already applies). */
+.bubble > p + p {
+  margin-top: 1.5em;
+}
+.body > p + p {
+  margin-top: calc(1.5em - var(--insight-spacing-10));
+}
+
+/* ── User ── */
+.user {
+  flex-direction: column;
+  align-items: flex-end;
+}
+.bubble {
+  max-width: min(388px, 85%);
+  padding: var(--insight-spacing-10) 14px;
+  border-radius: 14px 14px var(--insight-radius-sm) 14px;
+  background: var(--insight-components-chat-user-bubble);
+}
+
+/* ── Assistant ── */
+.assistant {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--insight-spacing-lg);
+}
+.avatar {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+}
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-10);
+  min-width: 0;
+}
+
+/* Author line — when several agents speak in one turn. */
+.authorLine {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--insight-spacing-md);
+  min-width: 0;
+}
+.authorName {
+  font-size: var(--insight-type-body-small-size);
+  line-height: 20px;
+  font-weight: var(--insight-font-weight-medium);
+}
+.authorRole {
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 16px;
+  color: var(--insight-color-grey-100);
+}
+
+/* ── Reply quote ── */
+.quote {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--insight-spacing-xs);
+  min-width: 0;
+  padding-left: var(--insight-spacing-md);
+  border-left: 2px solid var(--insight-color-grey-50);
+  font-family: var(--insight-font-family-sans);
+}
+.quoteMain {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  margin: 0;
+  padding: 2px 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+button.quoteMain {
+  border-radius: var(--insight-radius-sm);
+  cursor: pointer;
+}
+button.quoteMain:hover .quoteText {
+  color: var(--insight-color-off-black-100);
+}
+button.quoteMain:focus-visible,
+.quoteDismiss:focus-visible,
+.action:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: 2px;
+}
+.quoteHead {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.quoteIcon {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  color: var(--insight-color-grey-100);
+}
+.quoteAvatar {
+  display: inline-flex;
+}
+.quoteAuthor {
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 16px;
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: 0;
+  color: var(--insight-color-off-black-100);
+}
+.quoteText {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 0;
+  color: var(--insight-color-grey-100);
+  transition: color 160ms ease;
+}
+/* Inside the user's grey bubble: a white well instead of a rail. */
+.quoteInBubble {
+  margin: -2px -6px var(--insight-spacing-md);
+  padding: 6px 8px;
+  border-left: 0;
+  border-radius: 10px 10px 4px 4px;
+  background: rgba(255, 255, 255, 0.72);
+}
+/* Above the composer while replying. */
+.quoteComposer {
+  align-items: center;
+  padding: 6px 4px 6px 10px;
+  border-left-color: var(--insight-color-green-175);
+  border-radius: 0 var(--insight-radius-sm) var(--insight-radius-sm) 0;
+  background: var(--insight-color-grey-10);
+}
+.quoteComposer .quoteText {
+  -webkit-line-clamp: 1;
+}
+.quoteDismiss {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--insight-radius-sm);
+  background: none;
+  color: var(--insight-color-grey-100);
+  cursor: pointer;
+}
+.quoteDismiss:hover {
+  background: var(--insight-color-grey-30);
+  color: var(--insight-color-off-black-100);
+}
+.quoteDismiss svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ── Actions ── */
+.actionsRow {
+  display: flex;
+  margin-top: calc(-1 * var(--insight-spacing-xs));
+}
+.user .actionsRow {
+  margin-top: var(--insight-spacing-xs);
+}
+.actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+.message:hover .actions,
+.message:focus-within .actions {
+  opacity: 1;
+}
+@media (hover: none) {
+  .actions {
+    opacity: 1;
+  }
+}
+.action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0 6px;
+  border: 0;
+  border-radius: var(--insight-radius-sm);
+  background: none;
+  color: var(--insight-color-grey-100);
+  font-family: var(--insight-font-family-sans);
+  font-size: var(--insight-type-body-tiny-size);
+  font-weight: var(--insight-font-weight-medium);
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+.action:hover {
+  background: var(--insight-color-grey-30);
+  color: var(--insight-color-off-black-100);
+}
+.action[aria-pressed="true"] {
+  color: var(--insight-color-green-200);
+}
+.actionLabelled {
+  padding: 0 8px 0 6px;
+}
+.actionIcon {
+  display: inline-flex;
+}
+.actionIcon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Jumped-to message: a soft green wash that fades out. */
+.highlighted {
+  border-radius: var(--insight-radius-md);
+  animation: chat-highlight 1.6s ease-out;
+}
+@keyframes chat-highlight {
+  0%,
+  40% {
+    background: var(--insight-color-green-10);
+    box-shadow: 0 0 0 6px var(--insight-color-green-10);
+  }
+  100% {
+    background: transparent;
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .actions,
+  .quoteText {
+    transition: none;
+  }
+  .highlighted {
+    animation: none;
+  }
+}
+
+/* ── Callout (answer block) ── */
+.callout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-md);
+  border-radius: var(--insight-radius-md);
+  background: var(--insight-color-grey-30);
+  font-family: var(--insight-font-family-sans);
+  font-size: var(--insight-type-body-small-size);
+  line-height: 1.4;
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+  color: var(--insight-color-off-black-100);
+}
+.calloutHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--insight-spacing-md);
+}
+.calloutTitle {
+  min-width: 0;
+  font-weight: var(--insight-font-weight-medium);
+}
+.calloutBody {
+  min-width: 0;
+}
+
+/* Task status — Figma "Label/Status Bold" 12 / 1.3, uppercase, 2/4px padding. */
+.taskStatus {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--insight-spacing-2xs) var(--insight-spacing-xs);
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-color-grey-30);
+  color: var(--insight-color-grey-200);
+  font-size: var(--insight-type-label-status-size);
+  line-height: 1.3;
+  letter-spacing: var(--insight-type-label-status-letter-spacing);
+  font-weight: var(--insight-font-weight-bold);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.taskSuccess {
+  background: var(--insight-color-green-10);
+  color: var(--insight-color-green-300);
+}
+
+/* ── Meta row ── */
+.meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--insight-spacing-sm);
+  font-family: var(--insight-font-family-sans);
+}
+.metaLabel {
+  font-size: var(--insight-type-body-small-size);
+  line-height: 20px;
+  color: var(--insight-color-grey-100);
+}
+
+/* ── Agent chip ── */
+.chip {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  margin: 0;
+  padding: var(--insight-spacing-xs) var(--insight-spacing-md) var(--insight-spacing-xs) var(--insight-spacing-xs);
+  border: 0;
+  border-radius: var(--insight-radius-chip);
+  background: var(--insight-color-grey-30);
+  color: var(--insight-color-grey-200);
+  font-family: var(--insight-font-family-sans);
+  cursor: pointer;
+}
+.chip:hover {
+  background: var(--insight-color-grey-50);
+}
+.chip:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: 2px;
+}
+.chipExpanded,
+.chipExpanded:hover {
+  background: var(--insight-color-green-10);
+}
+.chipName {
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 1.3;
+  font-weight: var(--insight-font-weight-medium);
+  white-space: nowrap;
+}
+.chipChevron {
+  width: var(--insight-icon-size-xs);
+  height: var(--insight-icon-size-xs);
+  transition: transform var(--insight-duration-fast) ease;
+}
+.chipExpanded .chipChevron {
+  transform: rotate(180deg);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chipChevron {
+    transition: none;
+  }
+}
+
+/* ── Handoff — "Zak opened the inquiry and called in PedTrial" ── */
+.handoff {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-sm);
+  margin: 0;
+  font-family: var(--insight-font-family-sans);
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 16px;
+  color: var(--insight-color-grey-100);
+}
+.handoff > svg {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}

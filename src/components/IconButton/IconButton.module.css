@@ -1,0 +1,62 @@
+/* IconButton — Figma "Icon Button" set (3412:9962). */
+.iconBtn {
+  /* Local component token (not in tokens.css) */
+  --insight-components-icon-button-indicator-neutral-background: var(--insight-color-grey-30);
+  --insight-components-icon-button-background-active: var(--insight-color-support-border-grey);
+  --insight-components-icon-button-border-focus: var(--insight-color-green-160);
+
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: var(--insight-radius-4xl);
+  background: transparent;
+  color: var(--insight-color-foreground-text-primary);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.iconBtn svg {
+  width: var(--icon-btn-glyph);
+  height: var(--icon-btn-glyph);
+  flex-shrink: 0;
+}
+
+/* ─── Sizes ─── */
+.sm {
+  width: var(--insight-control-height-xs);
+  height: var(--insight-control-height-xs);
+  --icon-btn-glyph: var(--insight-icon-size-sm);
+}
+.md {
+  width: var(--insight-control-height-sm);
+  height: var(--insight-control-height-sm);
+  --icon-btn-glyph: var(--insight-icon-size-md);
+}
+.lg {
+  width: var(--insight-control-height-lg);
+  height: var(--insight-control-height-lg);
+  --icon-btn-glyph: var(--insight-icon-size-lg);
+}
+
+/* ─── States ─── */
+.pressed {
+  background: var(--insight-components-icon-button-indicator-neutral-background);
+}
+.iconBtn:hover:not(:disabled) {
+  background: var(--insight-components-icon-button-indicator-neutral-background);
+}
+.iconBtn:active:not(:disabled) {
+  background: var(--insight-components-icon-button-background-active);
+}
+.iconBtn:focus-visible {
+  outline: 3px solid var(--insight-components-icon-button-border-focus);
+  outline-offset: 0;
+}
+.iconBtn:disabled {
+  color: var(--insight-color-status-disabled-foreground);
+  cursor: not-allowed;
+}

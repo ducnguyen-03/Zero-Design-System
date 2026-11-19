@@ -1,0 +1,279 @@
+/* Gene tab (Figma Insights-UI 7282:77274). */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xl);
+  box-sizing: border-box;
+  min-width: 0;
+  padding: var(--insight-spacing-xl);
+  font-family: var(--insight-font-family-sans);
+  color: var(--insight-color-foreground-text-primary);
+  background: var(--insight-color-background-system-primary);
+}
+
+.heading {
+  margin: 0;
+  font-size: var(--insight-type-title-default-size);
+  line-height: var(--insight-type-title-default-line-height);
+  letter-spacing: var(--insight-type-title-default-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-200);
+}
+.context {
+  color: var(--insight-color-green-200);
+}
+
+/* ── Headline stats ── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--insight-spacing-lg);
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xs);
+  min-width: 0;
+  padding: var(--insight-spacing-lg);
+  border: 1px solid var(--insight-color-support-border-grey);
+  border-radius: var(--insight-radius-md);
+  background: var(--insight-color-white);
+}
+.statLabel {
+  margin: 0;
+  overflow: hidden;
+  font-size: 11.2px;
+  line-height: 1.4;
+  letter-spacing: 0.784px;
+  font-weight: var(--insight-font-weight-medium);
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--insight-color-grey-100);
+}
+.statValue {
+  margin: 0;
+  font-size: var(--insight-type-title-default-size);
+  line-height: var(--insight-type-title-default-line-height);
+  letter-spacing: var(--insight-type-title-default-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-200);
+}
+.statUnit {
+  color: var(--insight-color-grey-100);
+}
+.statNote {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  margin: 0;
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 1.3;
+  color: var(--insight-color-grey-200);
+}
+.explore {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: var(--insight-spacing-xs);
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--insight-type-body-tiny-size);
+  font-weight: var(--insight-font-weight-bold);
+  color: var(--insight-color-green-200);
+  cursor: pointer;
+}
+.explore svg {
+  width: 14px;
+  height: 14px;
+}
+.explore:hover {
+  text-decoration: underline;
+}
+.explore:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: 2px;
+  border-radius: var(--insight-radius-xs);
+}
+
+/* ── Frequency chart ── */
+.card,
+.tableCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xl);
+  min-width: 0;
+  padding: var(--insight-spacing-xl);
+  border: 1px solid var(--insight-color-support-border-grey);
+  border-radius: var(--insight-radius-md);
+  background: var(--insight-color-white);
+}
+.cardHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-md);
+}
+.cardTitle {
+  margin: 0;
+  font-size: var(--insight-type-body-small-size);
+  line-height: var(--insight-type-body-small-line-height);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.legend {
+  display: flex;
+  gap: var(--insight-spacing-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 1.3;
+  color: var(--insight-color-off-black-100);
+}
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+}
+.swatch {
+  display: inline-block;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: var(--insight-radius-xs);
+}
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.barRow {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr) 40px;
+  align-items: center;
+  gap: var(--insight-spacing-lg);
+}
+.barGene {
+  text-align: right;
+  font-size: var(--insight-type-body-small-size);
+  line-height: var(--insight-type-body-small-line-height);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.barTrack {
+  display: flex;
+  height: 20px;
+  overflow: hidden;
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-color-grey-30);
+}
+.barPart {
+  height: 100%;
+  transition: width 400ms cubic-bezier(0.2, 0, 0, 1);
+}
+.barPct {
+  font-size: var(--insight-type-body-small-size);
+  line-height: var(--insight-type-body-small-line-height);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+
+/* ── Gene table ── */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--insight-spacing-lg);
+}
+.searchField {
+  width: 260px;
+}
+.range {
+  flex: 1;
+  font-size: var(--insight-type-body-small-size);
+  line-height: var(--insight-type-body-small-line-height);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.manage {
+  position: relative;
+}
+.manageMenu {
+  position: absolute;
+  top: calc(100% + var(--insight-spacing-xs));
+  right: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  min-width: 240px;
+  padding: var(--insight-spacing-lg);
+  border: 1px solid var(--insight-color-support-border-grey);
+  border-radius: var(--insight-radius-md);
+  background: var(--insight-color-white);
+  box-shadow: 0 8px 24px rgba(3, 13, 19, 0.12);
+}
+.tableScroll {
+  overflow-x: auto;
+}
+.tableScroll:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: 2px;
+}
+.groupHead {
+  text-align: center;
+}
+.mutationHead,
+.mutationCell {
+  text-align: center;
+}
+.gene {
+  font-weight: var(--insight-font-weight-medium);
+}
+.muted {
+  color: var(--insight-color-grey-100);
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 20px;
+  padding: 0 var(--insight-spacing-sm);
+  box-sizing: border-box;
+  border-radius: var(--insight-radius-sm);
+  font-size: var(--insight-type-body-tiny-size);
+  font-weight: var(--insight-font-weight-bold);
+  line-height: 1;
+  text-decoration: none;
+  color: var(--insight-color-white);
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 1100px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .barPart {
+    transition: none;
+  }
+}

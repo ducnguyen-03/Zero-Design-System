@@ -1,0 +1,107 @@
+/* Chat panel — ZAK prototype right section (1:6183) and full-page chat ("Setting up a space"). */
+.panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  background: var(--insight-color-white);
+  font-family: var(--insight-font-family-sans);
+}
+.page {
+  background: var(--insight-color-grey-10);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-md);
+  min-height: 64px;
+  box-sizing: border-box;
+  padding: var(--insight-spacing-lg) var(--insight-spacing-xl);
+  background: rgba(250, 251, 252, 0.9);
+  box-shadow: 0 8px 12px -8px rgba(2, 32, 52, 0.06);
+  position: relative;
+  z-index: 1;
+}
+.page .header {
+  background: transparent;
+  box-shadow: none;
+  padding-inline: var(--insight-spacing-3xl);
+}
+/* Figma "Body/Small/Medium": 14 / 1.4. */
+.title {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--insight-type-body-small-size);
+  line-height: 1.4;
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.page .title {
+  font-size: var(--insight-type-body-default-size);
+}
+.tools {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  flex-shrink: 0;
+}
+.tool {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--insight-radius-sm);
+  background: none;
+  color: var(--insight-color-off-black-100);
+  cursor: pointer;
+}
+.tool:hover {
+  background: var(--insight-color-grey-30);
+}
+.tool:focus-visible,
+.thread:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: -2px;
+}
+.tool svg {
+  width: var(--insight-icon-size-md);
+  height: var(--insight-icon-size-md);
+}
+
+.thread {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.threadInner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+  padding: var(--insight-spacing-lg) var(--insight-spacing-xl);
+}
+.page .threadInner,
+.page .composerInner {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.page .threadInner {
+  gap: var(--insight-spacing-xl);
+  padding-block: var(--insight-spacing-lg) var(--insight-spacing-3xl);
+}
+
+.composer {
+  padding: var(--insight-spacing-lg) var(--insight-spacing-xl) var(--insight-spacing-xl);
+}

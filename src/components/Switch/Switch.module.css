@@ -1,0 +1,210 @@
+/* Figma component tokens (Toggle / default 3412:12520, Toggle / Yes-No switch 3412:12616). */
+.root,
+.yesNo {
+  --insight-components-toggle-off-background: var(--insight-color-grey-100);
+  --insight-components-toggle-off-background-hover: var(--insight-color-grey-200);
+  --insight-components-toggle-disabled-background: var(--insight-color-grey-40);
+  --insight-components-toggle-disabled-knob: var(--insight-color-grey-10);
+  --insight-components-toggle-knob: var(--insight-color-white);
+  --insight-components-toggle-yes-no-background-default: var(--insight-color-white);
+  --insight-components-toggle-yes-no-border-default: var(--insight-color-grey-75);
+  --insight-components-toggle-yes-no-text-tertiary: var(--insight-color-grey-100);
+  --insight-components-toggle-yes-no-text-primary: var(--insight-color-off-black-100);
+  --insight-components-toggle-yes-no-action-primary-default: var(--insight-color-yellow-100);
+  --insight-components-toggle-yes-no-action-primary-hover: var(--insight-color-yellow-150);
+  --insight-components-toggle-yes-no-focus-ring: var(--insight-color-green-100);
+}
+
+/* On-state palettes. green = Figma default, red = Figma "Default=False" (danger). */
+.green {
+  --switch-on: var(--insight-color-green-175);
+  --switch-on-hover: var(--insight-color-green-200);
+}
+.red {
+  --switch-on: var(--insight-color-red-100);
+  --switch-on-hover: var(--insight-color-red-200);
+}
+.blue {
+  --switch-on: var(--insight-color-blue-150);
+  --switch-on-hover: var(--insight-color-blue-200);
+}
+.orange {
+  --switch-on: var(--insight-color-orange-150);
+  --switch-on-hover: var(--insight-color-orange-200);
+}
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  font-family: var(--insight-font-family-sans);
+  font-size: var(--insight-component-button-small-size);
+  line-height: var(--insight-component-button-small-line-height);
+  letter-spacing: var(--insight-component-button-small-letter-spacing);
+  color: var(--insight-color-foreground-text-inclusive);
+  cursor: pointer;
+  user-select: none;
+}
+.root.disabled {
+  cursor: not-allowed;
+  color: var(--insight-color-status-disabled-foreground);
+}
+.control {
+  position: relative;
+  width: 36px;
+  height: 22px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+  z-index: 1;
+}
+.track {
+  position: relative;
+  width: 32px;
+  height: 18px;
+  border-radius: var(--insight-radius-chip);
+  background: var(--insight-components-toggle-off-background);
+  color: var(--insight-color-white);
+  transition: background-color var(--insight-duration-fast) var(--insight-ease-emphasis);
+}
+.knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--insight-components-toggle-knob);
+  transition: left var(--insight-duration-fast) var(--insight-ease-emphasis);
+}
+.onIcon,
+.offIcon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.offIcon {
+  right: 4px;
+}
+.onIcon {
+  left: 4px;
+  display: none;
+}
+
+.root:not(.disabled):hover .track {
+  background: var(--insight-components-toggle-off-background-hover);
+}
+
+.input:checked + .track {
+  background: var(--switch-on);
+}
+.root:not(.disabled):hover .input:checked + .track {
+  background: var(--switch-on-hover);
+}
+.input:checked + .track .knob {
+  left: 16px;
+}
+.input:checked + .track .onIcon {
+  display: block;
+}
+.input:checked + .track .offIcon {
+  display: none;
+}
+
+/* Focus: 2px ring (36×22 outer) in the current track colour. */
+.input:focus-visible + .track {
+  outline: 2px solid var(--insight-components-toggle-off-background);
+  outline-offset: 0;
+}
+.input:focus-visible:checked + .track {
+  outline-color: var(--switch-on);
+}
+
+/* Disabled */
+.disabled .track,
+.disabled .input:checked + .track {
+  background: var(--insight-components-toggle-disabled-background);
+}
+.disabled .knob {
+  background: var(--insight-components-toggle-disabled-knob);
+}
+.disabled .onIcon,
+.disabled .offIcon {
+  color: var(--insight-components-toggle-disabled-knob);
+}
+
+/* ── Yes / No ─────────────────────────────────────────────────── */
+.yesNo {
+  display: inline-flex;
+  align-items: center;
+}
+.segment {
+  width: 60px;
+  height: 40px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 var(--insight-spacing-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--insight-components-toggle-yes-no-border-default);
+  background: var(--insight-components-toggle-yes-no-background-default);
+  color: var(--insight-components-toggle-yes-no-text-tertiary);
+  font-family: var(--insight-font-family-sans);
+  font-size: var(--insight-component-button-small-size);
+  line-height: var(--insight-component-button-small-line-height);
+  letter-spacing: var(--insight-component-button-small-letter-spacing);
+  font-weight: var(--insight-font-weight-regular);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--insight-duration-fast) var(--insight-ease-emphasis);
+}
+.segment:first-child {
+  border-radius: var(--insight-radius-card) 0 0 var(--insight-radius-card);
+}
+.segment:nth-child(2) {
+  border-left: none;
+  border-radius: 0 var(--insight-radius-card) var(--insight-radius-card) 0;
+}
+.segment:hover:not(:disabled):not(.selected) {
+  background: var(--insight-color-grey-20);
+}
+.segment.selected {
+  background: var(--insight-components-toggle-yes-no-action-primary-default);
+  border-color: var(--insight-components-toggle-yes-no-action-primary-default);
+  color: var(--insight-components-toggle-yes-no-text-primary);
+}
+.segment.selected:hover:not(:disabled) {
+  background: var(--insight-components-toggle-yes-no-action-primary-hover);
+  border-color: var(--insight-components-toggle-yes-no-action-primary-hover);
+}
+.segment:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: 2px solid var(--insight-components-toggle-yes-no-focus-ring);
+  outline-offset: 2px;
+}
+.yesNoDisabled .segment {
+  cursor: not-allowed;
+  color: var(--insight-color-status-disabled-foreground);
+  border-color: var(--insight-color-grey-40);
+  background: var(--insight-color-grey-10);
+}
+.yesNoDisabled .segment.selected {
+  background: var(--insight-color-grey-40);
+  border-color: var(--insight-color-grey-40);
+}
+
+/* Control mark, not a standalone icon: heavier than --insight-icon-stroke so it reads at 9px. */
+.onIcon,
+.offIcon {
+  stroke-width: 3.5;
+}

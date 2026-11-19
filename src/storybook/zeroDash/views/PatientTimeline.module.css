@@ -1,0 +1,469 @@
+/* ZeroDash · Curation › Patient timeline (design: Curation.dc.html, SCREEN 2). */
+.page {
+  --tl-label-w: 200px;
+  --tl-hover: var(--insight-color-grey-20);
+  --tl-menu-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+
+  flex: 1 1 auto;
+  min-height: 0;
+  background: var(--insight-color-grey-10);
+  padding: 24px 32px 32px;
+}
+.page button { font-family: inherit; }
+
+.card {
+  background: var(--insight-color-white);
+  border: 1px solid var(--insight-color-grey-30);
+  border-radius: var(--insight-radius-md);
+  padding: 16px 16px 24px;
+}
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.title {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.3;
+  font-weight: 500;
+}
+.pidLine { margin-top: 4px; font-size: 12px; }
+.pidVal {
+  margin-left: 6px;
+  color: var(--insight-color-green-150);
+  font-weight: 500;
+}
+.headActions { display: flex; align-items: center; gap: 8px; }
+.softBtn {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--insight-radius-md);
+  background: var(--insight-color-grey-30);
+  color: var(--insight-color-foreground-text-primary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+}
+.softBtn:hover { filter: brightness(0.97); }
+.softBtnOn {
+  background: var(--insight-color-green-10);
+  color: var(--insight-color-green-300);
+}
+.zoomGroup {
+  display: flex;
+  height: 32px;
+  border: 1px solid var(--insight-color-grey-50);
+  border-radius: var(--insight-radius-md);
+  overflow: hidden;
+  background: var(--insight-color-white);
+}
+.zoomGroup button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  border: none;
+  background: transparent;
+  color: var(--insight-color-foreground-text-primary);
+  cursor: pointer;
+}
+.zoomGroup button + button { border-left: 1px solid var(--insight-color-grey-50); }
+.zoomGroup button:hover { background: var(--tl-hover); }
+.hint {
+  margin: 12px 0 10px;
+  font-size: 12px;
+  color: var(--insight-color-grey-100);
+}
+
+/* overview */
+.overview {
+  display: flex;
+  height: 46px;
+  border: 1px solid var(--insight-color-grey-30);
+  border-radius: var(--insight-radius-md);
+  overflow: hidden;
+}
+.ovLabel,
+.laneLabel,
+.axisYear {
+  flex: 0 0 var(--tl-label-w);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+.ovLabel {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--insight-color-grey-100);
+}
+.ovTrack {
+  position: relative;
+  flex: 1 1 auto;
+  user-select: none;
+}
+.ovWindow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--insight-color-green-10);
+  border: 1px solid var(--insight-color-green-150);
+  border-radius: 6px;
+  cursor: grab;
+}
+.ovWindow:active { cursor: grabbing; }
+.ovHandle {
+  position: absolute;
+  top: 50%;
+  width: 4px;
+  height: 24px;
+  margin-top: -12px;
+  border-radius: 2px;
+  background: var(--insight-color-green-150);
+  cursor: ew-resize;
+}
+.ovHandleL { left: -1px; }
+.ovHandleR { right: -1px; }
+.ovDot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* lanes */
+.lanes {
+  position: relative;
+  max-height: 560px;
+  overflow-y: auto;
+  margin-top: 4px;
+}
+.lanesInner { position: relative; }
+.gridLines {
+  position: absolute;
+  top: 44px;
+  bottom: 0;
+  left: var(--tl-label-w);
+  right: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.gridLines span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--insight-color-grey-20);
+}
+.axis {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  height: 44px;
+  background: var(--insight-color-white);
+  border-bottom: 1px solid var(--insight-color-grey-30);
+}
+.axisYear {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--insight-color-grey-200);
+}
+.axisTrack {
+  position: relative;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+.tick {
+  position: absolute;
+  bottom: 0;
+  height: 6px;
+  width: 1px;
+  background: var(--insight-color-grey-50);
+}
+.tickLabel {
+  position: absolute;
+  top: 12px;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--insight-color-grey-200);
+  white-space: nowrap;
+}
+.hoverDate {
+  position: absolute;
+  top: 10px;
+  transform: translateX(-50%);
+  z-index: 2;
+  padding: 3px 6px;
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-color-white);
+  box-shadow: 0 4px 14px rgba(2, 32, 52, 0.16);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.section {
+  position: relative;
+  z-index: 1;
+  margin-top: 8px;
+}
+.secHead {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 32px;
+  padding: 0 12px;
+  border: none;
+  background: var(--insight-color-grey-30);
+  border-radius: 4px 4px 0 0;
+  color: var(--insight-color-foreground-text-primary);
+  cursor: pointer;
+  user-select: none;
+}
+.chev { transition: transform 150ms var(--insight-ease-emphasis); }
+.chevClosed { transform: rotate(-90deg); }
+.secTitle { font-size: 14px; font-weight: 500; }
+.secCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-color-grey-40);
+  font-size: 12px;
+  font-weight: 700;
+}
+.lane {
+  display: flex;
+  border-bottom: 1px solid var(--insight-color-grey-20);
+}
+.laneLabel {
+  gap: 6px;
+  background: var(--insight-color-white);
+  font-size: 12px;
+  font-weight: 500;
+}
+.grip { color: var(--insight-color-grey-60); }
+.laneTrack {
+  position: relative;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+.mark {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: -4px;
+  padding: 2px 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.markDots {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.markDots span {
+  display: block;
+  width: 8px;
+  border-radius: 4px;
+}
+.markLabel { font-size: 12px; font-weight: 500; }
+.secEmpty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  background: var(--insight-color-grey-10);
+  font-size: 14px;
+}
+.secError {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 0 24px;
+  background: var(--insight-color-grey-10);
+  font-size: 16px;
+}
+.secLoading {
+  padding: 32px 0;
+  background: var(--insight-color-grey-10);
+}
+.crosshair {
+  position: absolute;
+  top: 44px;
+  bottom: 0;
+  z-index: 3;
+  border-left: 1px dashed var(--insight-color-foreground-text-primary);
+  pointer-events: none;
+}
+
+/* WISP / Clarity */
+.wispCard {
+  margin-top: 24px;
+  padding: 0;
+  overflow: hidden;
+}
+.wispTabs {
+  display: flex;
+  align-items: stretch;
+  height: 48px;
+  border-bottom: 1px solid var(--insight-color-grey-50);
+}
+.wispArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  color: var(--insight-color-grey-60);
+}
+.wispTab {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--insight-color-foreground-text-primary);
+  box-shadow: inset 0 -4px 0 transparent;
+  cursor: pointer;
+}
+.wispTabOn {
+  color: var(--insight-color-green-200);
+  box-shadow: inset 0 -4px 0 var(--insight-color-green-100);
+}
+.wispBody { padding: 16px; }
+.wispTable {
+  border: 1px solid var(--insight-color-grey-50);
+  border-radius: var(--insight-radius-md);
+  overflow-x: auto;
+}
+.wispHead {
+  display: flex;
+  min-width: 1100px;
+  height: 33px;
+  border-bottom: 1px solid var(--insight-color-grey-50);
+}
+.wispHead div {
+  flex: 1 0 140px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.065em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: inset -1px 0 0 var(--insight-color-grey-30);
+}
+.wispEmpty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  font-size: 14px;
+  color: var(--insight-color-grey-100);
+}
+
+/* popover */
+.popover {
+  position: fixed;
+  z-index: 60;
+  width: 260px;
+  background: var(--insight-color-white);
+  border-radius: var(--insight-radius-md);
+  box-shadow: var(--tl-menu-shadow);
+  font-size: 14px;
+  animation: tlFade 120ms var(--insight-ease-emphasis);
+}
+@keyframes tlFade {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: none; }
+}
+.popDate {
+  padding: 10px 16px;
+  color: var(--insight-color-grey-100);
+  border-bottom: 1px solid var(--insight-color-grey-30);
+}
+.popBody {
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+.popSection {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--insight-color-grey-100);
+}
+.popItem { display: flex; flex-direction: column; gap: 6px; }
+.popItemRow { display: flex; align-items: flex-start; gap: 8px; }
+.popDot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  border-radius: 50%;
+}
+.popText { display: flex; flex-direction: column; }
+.popSub { font-size: 12px; color: var(--insight-color-grey-100); }
+.popKid {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding-left: 16px;
+}
+.popKid svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--insight-color-grey-100);
+}
+.popFoot {
+  padding: 10px 16px;
+  border-top: 1px solid var(--insight-color-grey-30);
+}
+.popLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--insight-color-green-150);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.popLink:hover { color: var(--insight-color-green-200); }
+.popMore { padding-left: 38px; font-size: 13px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .popover { animation: none; }
+  .chev { transition: none; }
+}

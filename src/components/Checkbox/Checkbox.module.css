@@ -1,0 +1,205 @@
+/* Figma component tokens (Checkbox 3412:11155 / checkbox row 3412:11204), mapped to core colours. */
+.root,
+.row {
+  --insight-components-checkbox-indicator-neutral-foreground: var(--insight-color-grey-200);
+  --insight-components-checkbox-border-hover: var(--insight-color-off-black-200);
+  --insight-components-checkbox-border-focus: var(--insight-color-off-black-200);
+  --insight-components-checkbox-border-disabled: var(--insight-color-grey-40);
+  --insight-components-checkbox-border-error: var(--insight-color-warm-red-150);
+  --insight-components-checkbox-selected-background: var(--insight-color-green-175);
+  --insight-components-checkbox-selected-background-hover: var(--insight-color-green-200);
+  --insight-components-checkbox-mixed-background: var(--insight-color-grey-100);
+  --insight-components-checkbox-mixed-background-hover: var(--insight-color-grey-200);
+  --insight-components-checkbox-disabled-background: var(--insight-color-grey-40);
+  --insight-components-checkbox-control-focus-ring: var(--insight-color-green-100);
+  --insight-components-checkbox-row-text-inclusive: var(--insight-color-off-black-200);
+  --insight-components-checkbox-row-indicator-neutral-background: var(--insight-color-grey-30);
+  --insight-components-checkbox-row-badge-text: var(--insight-color-off-black-100);
+}
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  font-family: var(--insight-font-family-sans);
+  font-size: var(--insight-component-button-small-size);
+  line-height: var(--insight-component-button-small-line-height);
+  letter-spacing: var(--insight-component-button-small-letter-spacing);
+  font-weight: var(--insight-font-weight-regular);
+  color: var(--insight-components-checkbox-row-text-inclusive);
+  cursor: pointer;
+  user-select: none;
+}
+.root.disabled {
+  cursor: not-allowed;
+  color: var(--insight-color-status-disabled-foreground);
+}
+
+/* 24px hit area, 18px box centred inside (matches the Figma frame). */
+.control {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+.box {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  border: 1.4px solid var(--insight-components-checkbox-indicator-neutral-foreground);
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-color-white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--insight-color-white);
+  transition:
+    background-color var(--insight-duration-fast) var(--insight-ease-emphasis),
+    border-color var(--insight-duration-fast) var(--insight-ease-emphasis);
+}
+.tick,
+.dash {
+  display: none;
+}
+
+/* Hover */
+.root:not(.disabled):hover .box {
+  border-color: var(--insight-components-checkbox-border-hover);
+}
+
+/* Checked */
+.input:checked + .box {
+  background: var(--insight-components-checkbox-selected-background);
+  border-color: var(--insight-components-checkbox-selected-background);
+}
+.input:checked + .box .tick {
+  display: block;
+}
+.root:not(.disabled):hover .input:checked + .box {
+  background: var(--insight-components-checkbox-selected-background-hover);
+  border-color: var(--insight-components-checkbox-selected-background-hover);
+}
+
+/* Indeterminate (Figma "Intermediate") — wins over checked. */
+.input:indeterminate + .box {
+  background: var(--insight-components-checkbox-mixed-background);
+  border-color: var(--insight-components-checkbox-mixed-background);
+}
+.input:indeterminate + .box .tick {
+  display: none;
+}
+.input:indeterminate + .box .dash {
+  display: block;
+}
+.root:not(.disabled):hover .input:indeterminate + .box {
+  background: var(--insight-components-checkbox-mixed-background-hover);
+  border-color: var(--insight-components-checkbox-mixed-background-hover);
+}
+
+/* Focus — 2px green ring hugging the box (22px outer). */
+.input:focus-visible + .box {
+  outline: 2px solid var(--insight-components-checkbox-control-focus-ring);
+  outline-offset: 0;
+}
+.input:focus-visible:not(:checked):not(:indeterminate) + .box {
+  border-color: var(--insight-components-checkbox-border-focus);
+}
+
+/* Error */
+.error .box,
+.root.error:not(.disabled):hover .box {
+  border-color: var(--insight-components-checkbox-border-error);
+}
+
+/* Disabled */
+.disabled .box,
+.disabled .input:checked + .box,
+.disabled .input:indeterminate + .box {
+  border-color: var(--insight-components-checkbox-border-disabled);
+}
+.disabled .input:checked + .box,
+.disabled .input:indeterminate + .box {
+  background: var(--insight-components-checkbox-disabled-background);
+}
+
+/* ── Checkbox row ─────────────────────────────────────────────── */
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--insight-font-family-sans);
+}
+.row-sm {
+  align-items: flex-start;
+}
+.row-md {
+  padding-block: var(--insight-spacing-2xs);
+}
+.row-lg {
+  padding-block: var(--insight-spacing-10);
+}
+.rowItem {
+  flex: 1 1 0;
+  min-width: 0;
+  align-items: flex-start;
+}
+.row-md .rowItem,
+.row-lg .rowItem {
+  align-items: center;
+}
+.rowItem .label {
+  padding-block: var(--insight-spacing-2xs);
+  word-break: break-word;
+}
+.badge {
+  flex-shrink: 0;
+  min-width: 41px;
+  box-sizing: border-box;
+  padding: var(--insight-spacing-2xs) var(--insight-spacing-xs);
+  border-radius: var(--insight-radius-input);
+  background: var(--insight-components-checkbox-row-indicator-neutral-background);
+  color: var(--insight-components-checkbox-row-badge-text);
+  font-size: var(--insight-component-button-small-size);
+  line-height: var(--insight-component-button-small-line-height);
+  letter-spacing: var(--insight-component-button-small-letter-spacing);
+  text-align: center;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.row-sm .icon {
+  width: 24px;
+  height: 24px;
+}
+.icon > svg {
+  max-width: 100%;
+  max-height: 100%;
+}
+.rowDisabled .badge {
+  color: var(--insight-color-status-disabled-foreground);
+}
+
+/* Control mark, not a standalone icon: heavier than --insight-icon-stroke so it reads at 12px. */
+.tick,
+.dash {
+  stroke-width: 3.5;
+}

@@ -1,0 +1,176 @@
+/* Text Editor — toolbar + editing area, styled after the BioNexus LiquidDash editor
+   (Figma GfkNbZrgBYF3quz7YRGo60, 3938:19214). Component tokens are local, mapped to core. */
+.toolbar,
+.editor {
+  --insight-components-text-editor-toolbar-background: var(--insight-color-background-system-primary);
+  --insight-components-text-editor-border: var(--insight-color-support-border-grey);
+  --insight-components-text-editor-divider: var(--insight-color-grey-30);
+  --insight-components-text-editor-icon: var(--insight-color-off-black-100);
+  --insight-components-text-editor-text: var(--insight-color-off-black-200);
+  --insight-components-text-editor-tool-hover: var(--insight-color-grey-30);
+  --insight-components-text-editor-tool-pressed: var(--insight-color-green-10);
+  --insight-components-text-editor-tool-pressed-icon: var(--insight-color-green-300);
+  --insight-components-text-editor-focus-ring: var(--insight-color-green-160);
+}
+
+/* ── Toolbar ── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: var(--insight-spacing-2xs);
+  box-sizing: border-box;
+  min-height: 38px;
+  padding: var(--insight-spacing-xs);
+  background: var(--insight-components-text-editor-toolbar-background);
+  color: var(--insight-components-text-editor-icon);
+}
+.toolbar[aria-disabled="true"] {
+  opacity: 0.5;
+}
+
+.group {
+  display: flex;
+  align-items: center;
+}
+/* 2px rule with 10px either side, closing every group (Figma "Container:margin"). */
+.divider {
+  display: block;
+  width: 2px;
+  height: 24px;
+  margin: 0 var(--insight-spacing-10);
+  border-radius: 1px;
+  background: var(--insight-components-text-editor-divider);
+}
+
+.tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 0 var(--insight-spacing-md);
+  border: none;
+  border-radius: var(--insight-spacing-sm);
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+.tool svg {
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+}
+.tool:hover:not(:disabled) {
+  background: var(--insight-components-text-editor-tool-hover);
+}
+.tool:active:not(:disabled) {
+  background: var(--insight-color-grey-50);
+}
+.tool[aria-pressed="true"] {
+  background: var(--insight-components-text-editor-tool-pressed);
+  color: var(--insight-components-text-editor-tool-pressed-icon);
+}
+.tool:focus-visible {
+  outline: 2px solid var(--insight-components-text-editor-focus-ring);
+  outline-offset: -2px;
+}
+/* Unavailable (e.g. undo with no history): Figma renders these at 50%. */
+.tool:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Editor ── */
+.editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+  font-family: var(--insight-font-family-sans);
+}
+/* Figma "Body/Regular/Medium": 16px medium, 1.5 line height. */
+.label {
+  font-size: var(--insight-type-body-default-size);
+  line-height: var(--insight-type-body-default-line-height);
+  letter-spacing: var(--insight-type-body-default-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-components-text-editor-text);
+}
+.required {
+  color: var(--insight-color-red-150);
+}
+.frame {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--insight-components-text-editor-border);
+  border-radius: var(--insight-radius-card);
+  background: var(--insight-color-white);
+  overflow: hidden;
+  transition: border-color 120ms ease;
+}
+.frame:focus-within {
+  border-color: var(--insight-color-green-175);
+}
+.frame .toolbar {
+  border-bottom: 1px solid var(--insight-components-text-editor-border);
+}
+.areaWrap {
+  position: relative;
+}
+/* Figma "Body/Small/Default": 14px, 1.4 line height, 8/12px padding. */
+.area {
+  box-sizing: border-box;
+  padding: var(--insight-spacing-md) var(--insight-spacing-lg);
+  font-size: var(--insight-type-body-small-size);
+  line-height: 1.4;
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+  color: var(--insight-components-text-editor-text);
+  outline: none;
+  overflow-wrap: anywhere;
+}
+.area p {
+  margin: 0;
+}
+.area ul,
+.area ol {
+  margin: 0;
+  padding-left: var(--insight-spacing-xl);
+}
+.area li + li {
+  margin-top: var(--insight-spacing-md);
+}
+.area blockquote {
+  margin: var(--insight-spacing-xs) 0;
+  padding-left: var(--insight-spacing-lg);
+  border-left: 3px solid var(--insight-color-grey-50);
+  color: var(--insight-color-foreground-text-tertiary);
+}
+.area a {
+  color: var(--insight-color-foreground-link);
+}
+.placeholder {
+  position: absolute;
+  top: var(--insight-spacing-md);
+  left: var(--insight-spacing-lg);
+  font-size: var(--insight-type-body-small-size);
+  line-height: 1.4;
+  color: var(--insight-color-foreground-text-tertiary);
+  pointer-events: none;
+}
+.disabled .area {
+  background: var(--insight-color-grey-10);
+  cursor: not-allowed;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* The whole toolbar already dims when disabled — don't dim each tool a second time. */
+.toolbar[aria-disabled="true"] .tool:disabled {
+  opacity: 1;
+}

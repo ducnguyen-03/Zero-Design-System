@@ -1,0 +1,21 @@
+/* Divider — Figma "Divider" (3412:11305): a 1px grey-75 line. */
+
+.divider {
+  --insight-components-divider-color: var(--insight-color-grey-75);
+
+  flex-shrink: 0;
+  margin: 0;
+  border: 0;
+  background: var(--insight-components-divider-color);
+}
+
+.horizontal {
+  width: 100%;
+  height: 1px;
+}
+
+.vertical {
+  width: 1px;
+  align-self: stretch;
+  min-height: 1em;
+}

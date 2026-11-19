@@ -1,0 +1,324 @@
+/* Sidebar — Figma 3622:5402 (Default / Default Hover / Compressed / Compressed Hover). */
+/* Component tokens also live on the parts other sidebars reuse (`SidebarHeader`, `SidebarAccount`). */
+.sidebar,
+.header,
+.account {
+  --insight-components-sidebar-background: var(--insight-color-white);
+  --insight-components-sidebar-border: var(--insight-color-support-border-grey);
+  --insight-components-sidebar-icon: var(--insight-color-foreground-text-primary);
+  --insight-components-sidebar-hover: var(--insight-color-grey-30);
+  --insight-components-sidebar-focus-ring: var(--insight-color-green-160);
+  --insight-components-sidebar-avatar-background: var(--insight-color-violet-100);
+}
+.sidebar {
+  --insight-components-sidebar-width: 250px;
+  --insight-components-sidebar-width-compressed: 60px;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: var(--insight-components-sidebar-width);
+  height: 100%;
+  min-height: 0;
+  background: var(--insight-components-sidebar-background);
+  border-right: 1px solid var(--insight-components-sidebar-border);
+  font-family: var(--insight-font-family-sans);
+  color: var(--insight-color-foreground-text-primary);
+  transition: width var(--insight-duration-medium) var(--insight-ease-emphasis);
+}
+.sidebar.collapsed {
+  width: var(--insight-components-sidebar-width-compressed);
+}
+@media (prefers-reduced-motion: reduce) {
+  .sidebar {
+    transition: none;
+  }
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  height: 48px;
+  padding: 0 var(--insight-spacing-lg);
+  margin-bottom: var(--insight-spacing-md);
+}
+.headerCollapsed {
+  justify-content: center;
+  padding: 0;
+}
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-sm);
+  min-width: 0;
+}
+/* A lone wordmark image sits at 21px; composed logos (mark + wordmark) keep their own sizes. */
+.logo > img:only-child {
+  display: block;
+  height: 21px;
+  width: auto;
+}
+
+.toggle,
+.railToggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--insight-components-sidebar-icon);
+  border-radius: var(--insight-radius-sm);
+  cursor: pointer;
+}
+.toggle {
+  width: 24px;
+  height: 24px;
+}
+.toggle svg,
+.railPanelIcon {
+  width: var(--insight-icon-size-md);
+  height: var(--insight-icon-size-md);
+}
+.toggle:hover,
+.railToggle:hover {
+  background: var(--insight-components-sidebar-hover);
+}
+.toggle:focus-visible,
+.railToggle:focus-visible,
+.accountTrigger:focus-visible {
+  outline: 2px solid var(--insight-components-sidebar-focus-ring);
+  outline-offset: -2px;
+}
+
+.railToggle {
+  width: 32px;
+  height: 32px;
+}
+.railMark {
+  display: inline-flex;
+}
+.railMark > img {
+  display: block;
+  width: 34px;
+  height: auto;
+}
+.railPanelIcon {
+  display: none;
+}
+/* Compressed Hover: the mark swaps to the "Open sidebar" affordance — hovering anywhere on the rail. */
+:global([data-collapsed]):hover .railMark,
+.railToggle:focus-visible .railMark {
+  display: none;
+}
+:global([data-collapsed]):hover .railPanelIcon,
+.railToggle:focus-visible .railPanelIcon {
+  display: block;
+}
+.toggleTip {
+  position: absolute;
+  left: calc(100% + var(--insight-spacing-md));
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  padding: var(--insight-spacing-xs) var(--insight-spacing-md);
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-color-white);
+  box-shadow: var(--insight-shadow-dropdown);
+  color: var(--insight-color-foreground-text-primary);
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: var(--insight-type-body-tiny-line-height);
+  font-weight: var(--insight-font-weight-medium);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+.railToggle:hover .toggleTip,
+.railToggle:focus-visible .toggleTip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ── Nav + sections ─────────────────────────────────────── */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xs);
+  padding: 0 var(--insight-spacing-md);
+}
+.collapsed .nav {
+  align-items: center;
+  padding: 0;
+}
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-2xl);
+  margin-top: var(--insight-spacing-xl);
+  padding: 0 var(--insight-spacing-md);
+  min-height: 0;
+  overflow-y: auto;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+}
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--insight-spacing-md);
+  min-height: 16px;
+  color: var(--insight-color-foreground-text-tertiary);
+}
+.sectionHeader svg {
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+}
+.sectionTitle {
+  margin: 0;
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: var(--insight-type-body-tiny-line-height);
+  font-weight: var(--insight-font-weight-regular);
+  color: var(--insight-color-foreground-text-tertiary);
+}
+.sectionBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xs);
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-lg);
+  border-top: 1px solid var(--insight-components-sidebar-border);
+}
+.collapsed .footer {
+  align-items: center;
+  border-top: none;
+}
+.footerLinks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+}
+
+.account {
+  position: relative;
+}
+.accountTrigger {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 45px;
+  padding: var(--insight-spacing-lg);
+  border: 1px solid var(--insight-components-sidebar-border);
+  border-radius: var(--insight-radius-card);
+  background: var(--insight-components-sidebar-background);
+  font-family: inherit;
+  font-size: var(--insight-type-body-small-size);
+  line-height: 21px;
+  font-weight: var(--insight-font-weight-medium);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.accountTrigger:hover {
+  background: var(--insight-color-grey-10);
+}
+.accountTriggerCollapsed {
+  width: 36px;
+  min-height: 36px;
+  height: 36px;
+  padding: var(--insight-spacing-md);
+  border: none;
+  border-radius: var(--insight-radius-sm);
+  justify-content: center;
+}
+.accountTriggerCollapsed:hover {
+  background: var(--insight-components-sidebar-hover);
+}
+.accountName {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.accountChevron {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.avatar {
+  display: inline-flex;
+  flex-shrink: 0;
+  border-radius: var(--insight-radius-chip);
+  object-fit: cover;
+}
+.initials {
+  align-items: center;
+  justify-content: center;
+  background: var(--insight-components-sidebar-avatar-background);
+  color: var(--insight-color-white);
+  font-weight: var(--insight-font-weight-bold);
+  line-height: 1;
+}
+
+.accountPopover {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + var(--insight-spacing-md));
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--insight-spacing-lg);
+  box-sizing: border-box;
+  min-width: 170px;
+  padding: var(--insight-spacing-lg);
+  background: var(--insight-color-white);
+  border: 1px solid var(--insight-components-sidebar-border);
+  border-radius: var(--insight-radius-card);
+  box-shadow: var(--insight-shadow-dropdown);
+}
+.accountPopoverSide {
+  left: calc(100% + var(--insight-spacing-lg));
+  bottom: 0;
+}
+.accountIdentity {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+}
+.accountText {
+  display: flex;
+  flex-direction: column;
+}
+.accountPopName {
+  font-size: var(--insight-type-body-default-size);
+  line-height: var(--insight-type-body-default-line-height);
+  font-weight: var(--insight-font-weight-medium);
+}
+.accountEmail {
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: var(--insight-type-body-tiny-line-height);
+  color: var(--insight-color-foreground-text-tertiary);
+}

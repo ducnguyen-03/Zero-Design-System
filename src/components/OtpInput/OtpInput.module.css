@@ -1,0 +1,146 @@
+/* Figma OTP Input 3538:20224. Slot tokens follow the Input set (3412:10815) so the
+   two fields read as one family: same fill, border, focus, error and disabled. */
+.field {
+  --insight-components-otp-input-slot-default-background: var(--insight-color-white);
+  --insight-components-otp-input-slot-default-border: var(--insight-color-grey-75);
+  --insight-components-otp-input-slot-default-text: var(--insight-color-off-black-100);
+  --insight-components-otp-input-slot-focus-border: var(--insight-color-green-160);
+  --insight-components-otp-input-slot-error-border: var(--insight-color-red-150);
+  --insight-components-otp-input-slot-disabled-background: var(--insight-color-grey-30);
+  --insight-components-otp-input-slot-disabled-border: var(--insight-color-grey-50);
+  --insight-components-otp-input-slot-disabled-text: var(--insight-color-grey-100);
+  --insight-components-otp-input-separator: var(--insight-color-grey-75);
+  --insight-components-otp-input-text-help: var(--insight-color-grey-100);
+  --insight-components-otp-input-text-error: var(--insight-color-red-300);
+
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xs);
+  font-family: var(--insight-font-family-sans);
+  min-width: 0;
+}
+
+/* ---- Label / helper / error: identical to Input ------------------------- */
+.label {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: 0.25px;
+  color: var(--insight-components-otp-input-slot-default-text);
+}
+.required {
+  color: var(--insight-components-otp-input-text-error);
+}
+.help,
+.errorText {
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: var(--insight-type-body-tiny-line-height);
+  font-weight: var(--insight-font-weight-regular);
+  letter-spacing: 0.25px;
+  color: var(--insight-components-otp-input-text-help);
+}
+.errorText {
+  color: var(--insight-components-otp-input-text-error);
+}
+
+/* ---- Slots -------------------------------------------------------------- */
+.root {
+  /* lg defaults */
+  --otp-slot: 60px;
+  --otp-radius: var(--insight-radius-xl);
+  --otp-font-size: var(--insight-type-headline-h3-size);
+  --otp-line-height: var(--insight-type-headline-h3-line-height);
+  --otp-gap: var(--insight-spacing-md);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--otp-gap);
+}
+.md {
+  --otp-slot: 40px;
+  --otp-radius: var(--insight-radius-lg);
+  --otp-font-size: 16px;
+  --otp-line-height: 24px;
+}
+.sm {
+  --otp-slot: 32px;
+  --otp-radius: var(--insight-radius-md);
+  --otp-font-size: 14px;
+  --otp-line-height: 20px;
+  --otp-gap: var(--insight-spacing-sm);
+}
+.square {
+  --otp-radius: var(--insight-radius-input);
+}
+.pill {
+  --otp-radius: var(--insight-radius-chip);
+}
+
+.slot {
+  width: var(--otp-slot);
+  height: var(--otp-slot);
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+  border: 1px solid var(--insight-components-otp-input-slot-default-border);
+  border-radius: var(--otp-radius);
+  background: var(--insight-components-otp-input-slot-default-background);
+  color: var(--insight-components-otp-input-slot-default-text);
+  font-family: inherit;
+  font-size: var(--otp-font-size);
+  line-height: var(--otp-line-height);
+  font-weight: var(--insight-font-weight-medium);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  caret-color: var(--insight-components-otp-input-slot-focus-border);
+  outline: none;
+  transition:
+    border-color var(--insight-duration-fast) ease,
+    box-shadow var(--insight-duration-fast) ease;
+}
+.slot::selection {
+  background: color-mix(in srgb, var(--insight-color-green-100) 40%, transparent);
+}
+.underline .slot {
+  border-width: 0 0 1px;
+  border-radius: 0;
+}
+
+/* Input "Active": 2px green border drawn as 1px border + 1px inset ring (no reflow). */
+.slot:focus {
+  border-color: var(--insight-components-otp-input-slot-focus-border);
+  box-shadow: inset 0 0 0 1px var(--insight-components-otp-input-slot-focus-border);
+}
+.underline .slot:focus {
+  box-shadow: inset 0 -1px 0 0 var(--insight-components-otp-input-slot-focus-border);
+}
+
+.error .slot {
+  border-color: var(--insight-components-otp-input-slot-error-border);
+}
+.error .slot:focus {
+  box-shadow: inset 0 0 0 1px var(--insight-components-otp-input-slot-error-border);
+}
+.error.underline .slot:focus {
+  box-shadow: inset 0 -1px 0 0 var(--insight-components-otp-input-slot-error-border);
+}
+
+.disabled .slot {
+  cursor: not-allowed;
+  background: var(--insight-components-otp-input-slot-disabled-background);
+  border-color: var(--insight-components-otp-input-slot-disabled-border);
+  color: var(--insight-components-otp-input-slot-disabled-text);
+  box-shadow: none;
+}
+.disabled .separator {
+  color: var(--insight-components-otp-input-slot-disabled-border);
+}
+
+.separator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--insight-components-otp-input-separator);
+  flex-shrink: 0;
+}

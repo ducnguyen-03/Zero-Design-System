@@ -1,0 +1,191 @@
+/* ------------------------------------------------------------------
+ * Modal — Figma "modal" / "modal header" / "modal footer" / "modal templates"
+ * (section Modal 3412:8643). Component tokens are mapped locally to core
+ * --insight-color-* variables because tokens.css does not define them.
+ * ------------------------------------------------------------------ */
+.backdrop {
+  --insight-components-modal-surface: var(--insight-color-white);
+  --insight-components-modal-background-system-secondary: var(--insight-color-background-system-secondary);
+  --insight-components-modal-text-primary: var(--insight-color-foreground-text-primary);
+  --insight-components-modal-footer-border-subtle: var(--insight-color-grey-75);
+  --insight-components-modal-scrim: color-mix(in srgb, var(--insight-color-off-black-100) 48%, transparent);
+  --insight-component-modal-title-size: var(--insight-type-headline-h3-size);
+  --insight-component-modal-title-line-height: var(--insight-type-headline-h3-line-height);
+  --insight-component-modal-body-size: var(--insight-type-body-default-size);
+  --insight-component-modal-body-line-height: var(--insight-type-body-default-line-height);
+  --insight-component-modal-body-letter-spacing: 0.5px;
+
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--insight-spacing-3xl);
+  background: var(--insight-components-modal-scrim);
+  animation: fadeIn var(--insight-duration-fast, 150ms) ease-out;
+}
+
+/* Inline (non-portal) rendering, used by docs to show every size statically. */
+.inline {
+  position: relative;
+  inset: auto;
+  z-index: auto;
+  padding: 0;
+  background: transparent;
+  animation: none;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: calc(100vh - 2 * var(--insight-spacing-3xl));
+  background: var(--insight-components-modal-surface);
+  border-radius: var(--insight-radius-xl);
+  box-shadow: var(--insight-shadow-modal); /* Elevation / Level 4 */
+  overflow: hidden;
+  font-family: var(--insight-font-family-sans);
+  color: var(--insight-components-modal-text-primary);
+  outline: none;
+  animation: popIn var(--insight-duration-medium, 200ms) var(--insight-ease-emphasis, ease-out);
+}
+.inline .modal {
+  animation: none;
+  max-height: none;
+}
+
+.xs { max-width: 428px; }
+.sm { max-width: 800px; }
+.md { max-width: 1000px; max-height: min(720px, calc(100vh - 2 * var(--insight-spacing-3xl))); }
+.lg { max-width: 1200px; max-height: min(900px, calc(100vh - 2 * var(--insight-spacing-3xl))); }
+
+/* Header ------------------------------------------------------------ */
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-lg);
+  padding: var(--insight-spacing-2xl) var(--insight-spacing-2xl) var(--insight-spacing-xl) var(--insight-spacing-3xl);
+  background: var(--insight-components-modal-background-system-secondary);
+  flex-shrink: 0;
+}
+.title {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  font-size: var(--insight-component-modal-title-size);
+  line-height: var(--insight-component-modal-title-line-height);
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+.close {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--insight-radius-chip);
+  background: transparent;
+  color: var(--insight-components-modal-text-primary);
+  cursor: pointer;
+  transition: background-color var(--insight-duration-fast, 150ms);
+}
+.close:hover {
+  background: var(--insight-color-grey-30);
+}
+.close:active {
+  background: var(--insight-color-grey-50);
+}
+.close:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: 2px;
+}
+.close svg {
+  width: var(--insight-icon-size-lg);
+  height: var(--insight-icon-size-lg);
+}
+
+/* Body -------------------------------------------------------------- */
+.body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--insight-spacing-xl) var(--insight-spacing-3xl) var(--insight-spacing-2xl);
+  font-size: var(--insight-component-modal-body-size);
+  line-height: var(--insight-component-modal-body-line-height);
+  letter-spacing: var(--insight-component-modal-body-letter-spacing);
+}
+
+/* Footer ------------------------------------------------------------ */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-2xl);
+  padding: var(--insight-spacing-xl) var(--insight-spacing-3xl) var(--insight-spacing-2xl);
+  background: var(--insight-components-modal-surface);
+  flex-shrink: 0;
+}
+.footerEnd {
+  justify-content: flex-end;
+}
+.divider {
+  border-top: 1px solid var(--insight-components-modal-footer-border-subtle);
+}
+.accessories {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--insight-spacing-xl);
+  margin-left: auto;
+}
+
+/* ConfirmModal templates --------------------------------------------- */
+.confirmBody {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--insight-spacing-2xl);
+}
+.confirmBody p {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+}
+.illustration {
+  flex-shrink: 0;
+  display: block;
+}
+.grow {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.discardAccessories {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* Docs placeholder matching Figma "_x / Content Placeholder" */
+.placeholder {
+  background: var(--insight-color-background-subtle);
+  padding: var(--insight-spacing-xl) var(--insight-spacing-lg);
+  min-height: 126px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .modal {
+    animation: none;
+  }
+}

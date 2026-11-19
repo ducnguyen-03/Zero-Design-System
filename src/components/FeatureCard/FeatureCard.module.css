@@ -1,0 +1,87 @@
+/* CardWithImage — 24px corner. The illustration sits in an 8px inset frame so its
+   16px corner is concentric with the card's (24 − 8); the copy lines up 32px in
+   (8 frame + 24 text inset). The image stays in flow, so long copy pushes it down
+   instead of running underneath it. */
+
+.card {
+  --feature-card-radius: 24px;
+  --feature-card-frame: var(--insight-spacing-md);
+  --feature-card-border: var(--insight-color-grey-50);
+  --feature-card-border-hover: var(--insight-color-green-100);
+  --feature-card-glow: 0 0 20px rgba(14, 201, 113, 0.2);
+
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 480px;
+  padding: var(--feature-card-frame);
+  overflow: hidden;
+  background: var(--insight-color-background-system-secondary);
+  border: 1.5px solid var(--feature-card-border);
+  border-radius: var(--feature-card-radius);
+  font-family: var(--insight-font-family-sans);
+  transition:
+    border-color var(--insight-duration-fast) var(--insight-ease-emphasis),
+    box-shadow var(--insight-duration-fast) var(--insight-ease-emphasis);
+}
+/* Hover thickens the stroke to 3px with an inset ring, so nothing inside moves. */
+.card:hover {
+  border-color: var(--feature-card-border-hover);
+  box-shadow: inset 0 0 0 1.5px var(--feature-card-border-hover), var(--feature-card-glow);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+  padding: var(--insight-spacing-2xl) var(--insight-spacing-2xl) var(--insight-spacing-3xl);
+}
+
+.eyebrow {
+  font-size: var(--insight-type-label-status-size);
+  line-height: 16px;
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--insight-color-green-200);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--insight-type-headline-h3-size);
+  line-height: var(--insight-type-headline-h3-line-height);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-foreground-text-primary);
+  text-wrap: balance;
+}
+
+.desc {
+  margin: 0;
+  max-width: 60ch;
+  font-size: var(--insight-type-body-small-size);
+  line-height: var(--insight-type-body-small-line-height);
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+  color: var(--insight-color-grey-100);
+  text-wrap: pretty;
+}
+
+.imgArea {
+  flex: 1 0 240px;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: calc(var(--feature-card-radius) - var(--feature-card-frame));
+  background-color: var(--insight-color-background-subtle);
+  background-size: cover;
+  background-position: center;
+  color: var(--insight-color-grey-100);
+  font-size: var(--insight-type-label-status-size);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}

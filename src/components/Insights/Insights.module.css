@@ -1,0 +1,526 @@
+/* Insights — access, tiers and account (Claude Design "Insights Onboarding"). Core tokens only. */
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+/* "Label/Regular": 11.2 / 1.4, 7% tracking, uppercase. */
+.eyebrow {
+  margin: 0;
+  font-size: 11.2px;
+  line-height: 1.4;
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--insight-color-grey-100);
+}
+
+/* ── Dataset access card ── */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-10);
+  min-width: 0;
+  padding: var(--insight-spacing-lg);
+  border: 1px solid var(--insight-color-grey-30);
+  border-radius: var(--insight-radius-lg);
+  background: var(--insight-color-white);
+  font-family: var(--insight-font-family-sans);
+}
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--insight-spacing-md);
+}
+.cardTitles {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.cardValue {
+  font-size: 26px;
+  line-height: 34px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+  font-variant-numeric: tabular-nums;
+}
+.cardSelect {
+  flex-shrink: 0;
+  width: auto;
+  min-width: 112px;
+}
+.cardBy {
+  font-size: 12px;
+  color: var(--insight-color-grey-100);
+}
+.breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-sm);
+  margin: var(--insight-spacing-xs) 0 0;
+  padding: var(--insight-spacing-md) var(--insight-spacing-10);
+  border: 1px solid var(--insight-color-grey-30);
+  border-radius: var(--insight-radius-card);
+  list-style: none;
+}
+.breakdownRow {
+  display: grid;
+  grid-template-columns: minmax(64px, 1fr) minmax(48px, 1.4fr) auto;
+  align-items: center;
+  gap: var(--insight-spacing-lg);
+  font-size: 12px;
+  line-height: 18px;
+}
+.breakdownLabel {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--insight-color-grey-200);
+}
+.breakdownTrack {
+  height: 4px;
+  overflow: hidden;
+  border-radius: var(--insight-radius-chip);
+  background: var(--insight-color-grey-30);
+}
+.breakdownTrack > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--insight-color-purple-100);
+}
+.breakdownValue {
+  min-width: 3ch;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--insight-color-off-black-100);
+}
+
+/* ── Grants (✓ / ✕ rows) ── */
+.grant {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--insight-spacing-md);
+  font-size: 13.5px;
+  line-height: 19px;
+  color: var(--insight-color-off-black-100);
+}
+.grantIcon {
+  display: inline-flex;
+  flex-shrink: 0;
+  padding-top: 2px;
+  color: var(--insight-color-green-150);
+}
+.grantOff .grantIcon {
+  color: var(--insight-color-red-150);
+}
+.grantIcon svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 2.25;
+}
+.grantLabel {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px var(--insight-spacing-sm);
+}
+.grantNote {
+  display: inline-flex;
+  align-items: center;
+  height: 18px;
+  padding: 0 6px;
+  border: 1px solid var(--insight-color-grey-50);
+  border-radius: var(--insight-radius-chip);
+  font-size: 10.5px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-grey-200);
+  white-space: nowrap;
+}
+
+/* ── Tier comparison ── */
+.tiers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xl);
+  font-family: var(--insight-font-family-sans);
+}
+.tierGrid {
+  display: grid;
+  gap: var(--insight-spacing-lg);
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  list-style: none;
+  scrollbar-width: thin;
+  /* Narrow screens swipe between tiers, one column at a time. */
+  scroll-snap-type: x proximity;
+}
+.tierGrid > li {
+  scroll-snap-align: center;
+}
+/* A tinted column: band label on top, white card inside. Current = green, next step = yellow. */
+.tier {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--insight-spacing-xs) var(--insight-spacing-xs);
+  border: 1px solid transparent;
+  border-radius: var(--insight-radius-lg);
+  background: var(--insight-color-grey-20);
+}
+.tier-current {
+  border-color: var(--insight-color-green-50);
+  background: var(--insight-color-green-10);
+}
+.tier-next {
+  border-color: var(--insight-color-yellow-100);
+  background: var(--insight-color-yellow-10);
+}
+.tierBand {
+  padding: var(--insight-spacing-sm) 0;
+  font-size: 11.5px;
+  line-height: 16px;
+  font-weight: var(--insight-font-weight-medium);
+  text-align: center;
+  color: var(--insight-color-grey-200);
+}
+.tier-current .tierBand {
+  color: var(--insight-color-green-250);
+}
+.tier-next .tierBand {
+  color: var(--insight-color-yellow-300);
+}
+.tierCard {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+  padding: var(--insight-spacing-xl);
+  border-radius: var(--insight-radius-card);
+  background: var(--insight-color-white);
+  box-shadow: 0 1px 2px rgba(39, 57, 87, 0.06);
+}
+.tierName {
+  margin: 0;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.tierCodeRow {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  margin: calc(-1 * var(--insight-spacing-sm)) 0 0;
+}
+.tierCode {
+  font-size: 36px;
+  line-height: 40px;
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: -0.02em;
+  color: var(--insight-color-off-black-100);
+}
+.tierQualifier {
+  font-size: 11px;
+  line-height: 14px;
+  color: var(--insight-color-grey-100);
+}
+.tierAudience {
+  /* Three lines, so the action buttons and grant lists line up across columns. */
+  min-height: 60px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--insight-color-off-black-100);
+  text-wrap: pretty;
+}
+.tierAction {
+  width: 100%;
+  height: 40px;
+  border-radius: var(--insight-radius-chip);
+}
+.tierStatic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-radius: var(--insight-radius-chip);
+  background: var(--insight-color-grey-30);
+  font-size: 14px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-grey-200);
+}
+.tier-current .tierStatic {
+  background: var(--insight-color-green-10);
+  color: var(--insight-color-green-250);
+}
+.grants {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-10);
+  margin: 0;
+  padding: var(--insight-spacing-lg) 0;
+  border-top: 1px solid var(--insight-color-grey-30);
+  border-bottom: 1px dashed var(--insight-color-grey-50);
+  list-style: none;
+}
+.facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  margin: 0;
+}
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.fact dt {
+  font-size: 11.5px;
+  line-height: 16px;
+  color: var(--insight-color-grey-100);
+}
+.fact dd {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 19px;
+  color: var(--insight-color-off-black-100);
+}
+.tierNotes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--insight-spacing-md) var(--insight-spacing-2xl);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tierNotes .grant {
+  font-size: 12.5px;
+  color: var(--insight-color-grey-200);
+}
+.tierModal {
+  --tier-modal-gap: var(--insight-spacing-xl);
+}
+.tierLead {
+  max-width: 60ch;
+  margin: 0 0 var(--insight-spacing-xl);
+  font-family: var(--insight-font-family-sans);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--insight-color-grey-200);
+}
+
+/* ── Account summary ── */
+.account {
+  overflow: hidden;
+  border: 1px solid var(--insight-color-grey-30);
+  border-radius: var(--insight-radius-lg);
+  background: var(--insight-color-white);
+  font-family: var(--insight-font-family-sans);
+}
+.accountHead {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-xl);
+}
+.accountAvatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--insight-color-violet-100);
+  font-size: 16px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-white);
+}
+.accountText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.accountNameRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+}
+.accountName {
+  font-size: 14px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.accountEmail {
+  font-size: 12px;
+  color: var(--insight-color-grey-100);
+  overflow-wrap: anywhere;
+}
+.tierChip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 6px;
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-color-grey-30);
+  font-size: 11.5px;
+  line-height: 14px;
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--insight-color-grey-200);
+  white-space: nowrap;
+}
+.chevron {
+  transition: transform var(--insight-duration-fast) var(--insight-ease-emphasis);
+}
+.chevronOpen {
+  transform: rotate(180deg);
+}
+.accountDetails {
+  border-top: 1px solid var(--insight-color-grey-30);
+}
+
+/* ── Access details ── */
+.details {
+  container-type: inline-size;
+  font-family: var(--insight-font-family-sans);
+}
+.detailsBody {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+}
+.detailsMain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+  padding: var(--insight-spacing-xl);
+}
+.detailGrants {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.grantIconRing svg {
+  width: 16px;
+  height: 16px;
+}
+.detailText {
+  display: flex;
+  flex-direction: column;
+}
+.detailLabel {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px var(--insight-spacing-sm);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: var(--insight-font-weight-medium);
+}
+.detailDesc {
+  font-size: 12px;
+  line-height: 17px;
+  color: var(--insight-color-grey-100);
+}
+.detailFacts {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: var(--insight-spacing-xl);
+  border-left: 1px solid var(--insight-color-grey-30);
+}
+.detailFacts .fact {
+  gap: var(--insight-spacing-xs);
+  padding: var(--insight-spacing-lg) 0;
+}
+.detailFacts .fact:first-child {
+  padding-top: 0;
+}
+.detailFacts .fact + .fact {
+  border-top: 1px solid var(--insight-color-grey-30);
+}
+.detailFacts .fact dt {
+  font-size: 11.2px;
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.detailFacts .fact dd {
+  font-size: 14px;
+}
+.detailsFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-md) var(--insight-spacing-xl);
+  padding: var(--insight-spacing-lg) var(--insight-spacing-xl);
+  border-top: 1px solid var(--insight-color-grey-30);
+  background: var(--insight-color-grey-10);
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--insight-color-grey-200);
+}
+@container (max-width: 560px) {
+  .detailsBody {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .detailFacts {
+    border-left: 0;
+    border-top: 1px solid var(--insight-color-grey-30);
+  }
+}
+
+/* ── Request history ── */
+.history {
+  min-width: 0;
+}
+.requestId,
+.requestIdText {
+  font-family: var(--insight-font-family-mono);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.requestId {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--insight-color-green-200);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.requestId:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.purpose {
+  min-width: 240px;
+  max-width: 420px;
+}
+.date {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron {
+    transition: none;
+  }
+}

@@ -1,0 +1,320 @@
+/* Conversations — Figma 3412:13857 (Full / Collapsed Reply / Edit Comment / Reply To Comment).
+   Component tokens are mapped locally to core colours (not present in tokens.css). */
+.conversation {
+  --insight-components-conversations-text-primary: var(--insight-color-foreground-text-primary);
+  --insight-components-conversations-text-secondary: var(--insight-color-foreground-text-secondary);
+  --insight-components-conversations-text-tertiary: var(--insight-color-foreground-text-tertiary);
+  --insight-components-conversations-background-canvas: var(--insight-color-white);
+  --insight-components-conversations-background-subtle: var(--insight-color-background-subtle);
+  --insight-components-conversations-indicator-disabled-foreground: var(--insight-color-grey-100);
+  --insight-components-conversations-rail: var(--insight-color-grey-50);
+  --insight-components-conversations-avatar-background: var(--insight-color-violet-100);
+  --insight-components-conversations-focus-ring: var(--insight-color-green-160);
+
+  --insight-component-conversation-author-size: var(--insight-type-body-small-size);
+  --insight-component-conversation-author-line-height: 20px;
+  --insight-component-conversation-author-font-weight: var(--insight-font-weight-bold);
+  --insight-component-conversation-body-size: var(--insight-type-body-small-size);
+  --insight-component-conversation-body-line-height: 20px;
+  --insight-component-conversation-timestamp-size: var(--insight-type-body-tiny-size);
+  --insight-component-conversation-timestamp-line-height: var(--insight-type-body-tiny-line-height);
+  --insight-component-conversation-letter-spacing: 0.25px;
+
+  /* Geometry: root padding + avatar + gap = reply indent; rail sits at avatar centre. */
+  --conv-pad: var(--insight-spacing-lg);
+  --conv-avatar: 32px;
+  --conv-indent: calc(var(--conv-pad) + var(--conv-avatar) + var(--insight-spacing-md));
+  --conv-rail-x: calc(var(--conv-pad) + var(--conv-avatar) / 2);
+
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 400px;
+  padding-bottom: var(--insight-spacing-2xl);
+  background: var(--insight-components-conversations-background-canvas);
+  font-family: var(--insight-font-family-sans);
+  color: var(--insight-components-conversations-text-primary);
+  letter-spacing: var(--insight-component-conversation-letter-spacing);
+}
+
+/* ── Comment ── */
+.comment {
+  display: flex;
+  align-items: stretch;
+  gap: var(--insight-spacing-lg);
+}
+.root {
+  gap: var(--insight-spacing-md);
+}
+.rootWrap {
+  padding: 0 var(--conv-pad);
+}
+.avatarCol {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--conv-avatar);
+}
+.hasThread .avatarCol::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--conv-avatar) / 2 - 0.5px);
+  top: calc(var(--conv-avatar) + var(--insight-spacing-xs));
+  bottom: 0;
+  width: 1px;
+  background: var(--insight-components-conversations-rail);
+}
+.avatar {
+  display: inline-flex;
+  width: var(--conv-avatar);
+  height: var(--conv-avatar);
+  border-radius: var(--insight-radius-chip);
+  object-fit: cover;
+}
+.initials {
+  align-items: center;
+  justify-content: center;
+  background: var(--insight-components-conversations-avatar-background);
+  color: var(--insight-color-white);
+  font-size: var(--insight-type-body-small-size);
+  font-weight: var(--insight-font-weight-bold);
+  line-height: 1;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xs);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.root .content {
+  gap: var(--insight-spacing-md);
+}
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  min-height: 24px;
+}
+.author {
+  font-size: var(--insight-component-conversation-author-size);
+  line-height: var(--insight-component-conversation-author-line-height);
+  font-weight: var(--insight-component-conversation-author-font-weight);
+  color: var(--insight-components-conversations-text-primary);
+}
+.time {
+  font-size: var(--insight-component-conversation-timestamp-size);
+  line-height: var(--insight-component-conversation-timestamp-line-height);
+  color: var(--insight-components-conversations-text-tertiary);
+  white-space: nowrap;
+}
+.metaSpacer {
+  flex: 1 1 auto;
+}
+
+.body {
+  font-size: var(--insight-component-conversation-body-size);
+  line-height: var(--insight-component-conversation-body-line-height);
+  color: var(--insight-components-conversations-text-secondary);
+  overflow-wrap: anywhere;
+}
+.body p {
+  margin: 0;
+}
+.list {
+  margin: 0;
+  padding-left: 21px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-xs) 0 var(--insight-spacing-lg);
+}
+.replyAction,
+.toggleReplies {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  padding: var(--insight-spacing-2xs) var(--insight-spacing-xs);
+  margin-left: calc(var(--insight-spacing-xs) * -1);
+  border: none;
+  border-radius: var(--insight-radius-input);
+  background: none;
+  font-family: inherit;
+  font-size: var(--insight-type-body-small-size);
+  line-height: 20px;
+  letter-spacing: inherit;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-components-conversations-text-tertiary);
+  cursor: pointer;
+}
+.toggleReplies {
+  font-weight: var(--insight-font-weight-regular);
+}
+.replyAction svg {
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+}
+.toggleReplies svg {
+  width: var(--insight-icon-size-md);
+  height: var(--insight-icon-size-md);
+}
+.replyAction:hover,
+.toggleReplies:hover {
+  color: var(--insight-components-conversations-text-primary);
+  background: var(--insight-color-grey-20);
+}
+
+/* ── Overflow menu ── */
+.menuRoot {
+  position: relative;
+}
+.menuTrigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--insight-spacing-2xs);
+  border: none;
+  border-radius: var(--insight-radius-input);
+  background: none;
+  color: var(--insight-components-conversations-text-primary);
+  cursor: pointer;
+}
+.menuTrigger svg {
+  width: var(--insight-icon-size-md);
+  height: var(--insight-icon-size-md);
+}
+.menuTrigger:hover {
+  background: var(--insight-components-conversations-background-subtle);
+}
+.menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + var(--insight-spacing-xs));
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  min-width: 120px;
+  padding: var(--insight-spacing-xs);
+  background: var(--insight-color-white);
+  border: 1px solid var(--insight-color-support-border-grey);
+  border-radius: var(--insight-radius-card);
+  box-shadow: var(--insight-shadow-dropdown);
+}
+.menuItem {
+  padding: var(--insight-spacing-sm) var(--insight-spacing-md);
+  border: none;
+  border-radius: var(--insight-radius-input);
+  background: none;
+  font-family: inherit;
+  font-size: var(--insight-type-body-small-size);
+  color: var(--insight-components-conversations-text-primary);
+  text-align: left;
+  cursor: pointer;
+}
+.menuItem:hover {
+  background: var(--insight-components-conversations-background-subtle);
+}
+.menuDanger {
+  color: var(--insight-color-status-error-foreground);
+}
+.menuTrigger:focus-visible,
+.menuItem:focus-visible,
+.replyAction:focus-visible,
+.toggleReplies:focus-visible {
+  outline: 2px solid var(--insight-components-conversations-focus-ring);
+  outline-offset: -2px;
+}
+
+/* ── Composer (edit / reply) ── */
+.composer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  padding-bottom: var(--insight-spacing-md);
+}
+.textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100px;
+  padding: var(--insight-spacing-md);
+  border: 1px solid var(--insight-components-conversations-indicator-disabled-foreground);
+  border-radius: var(--insight-radius-card);
+  background: var(--insight-components-conversations-background-canvas);
+  font-family: inherit;
+  font-size: var(--insight-component-conversation-body-size);
+  line-height: var(--insight-component-conversation-body-line-height);
+  letter-spacing: inherit;
+  color: var(--insight-components-conversations-text-primary);
+  resize: vertical;
+}
+.textarea::placeholder {
+  color: var(--insight-components-conversations-text-primary);
+}
+.textarea:focus-visible {
+  outline: none;
+  border-color: var(--insight-color-green-175);
+  box-shadow: 0 0 0 1px var(--insight-color-green-175);
+}
+.composerActions {
+  display: flex;
+  gap: var(--insight-spacing-md);
+}
+
+/* ── Thread (replies) ── */
+.thread {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0 var(--conv-pad) 0 var(--conv-indent);
+  list-style: none;
+}
+.threadItem {
+  --conv-connector-y: calc(var(--conv-avatar) / 2);
+  position: relative;
+  padding-bottom: var(--insight-spacing-lg);
+}
+.threadItem:last-child {
+  padding-bottom: 0;
+}
+/* Curved elbow into each reply's avatar. */
+.threadItem::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--conv-rail-x) - var(--conv-indent) - 0.5px);
+  top: 0;
+  width: calc(var(--conv-indent) - var(--conv-rail-x) - var(--insight-spacing-xs));
+  height: var(--conv-connector-y);
+  border-left: 1px solid var(--insight-components-conversations-rail);
+  border-bottom: 1px solid var(--insight-components-conversations-rail);
+  border-bottom-left-radius: var(--insight-radius-card);
+  box-sizing: border-box;
+}
+/* Rail continues past items that are not last. */
+.threadItem:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--conv-rail-x) - var(--conv-indent) - 0.5px);
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--insight-components-conversations-rail);
+}
+.threadItem:has(> .toggleReplies) {
+  --conv-connector-y: 12px;
+}
+.threadItem > .toggleReplies {
+  margin-left: 0;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

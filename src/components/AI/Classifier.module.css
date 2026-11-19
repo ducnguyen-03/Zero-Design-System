@@ -1,0 +1,634 @@
+/* Classifier result pieces for the AI canvas (ZAK "Individual case" / "Patient set").
+   Tokens are local and mapped to core colours; grey-100 (#596983) is the quietest text that passes 4.5:1. */
+
+.eyebrow {
+  font-size: 11.2px;
+  line-height: 1.4;
+  letter-spacing: 0.784px;
+  font-weight: var(--insight-font-weight-medium);
+  text-transform: uppercase;
+  color: var(--insight-color-grey-100);
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ── Question ── */
+.question {
+  display: flex;
+  gap: var(--insight-spacing-lg);
+  padding: var(--insight-spacing-lg) var(--insight-spacing-xl);
+  border: 1px solid var(--insight-color-grey-30);
+  border-radius: var(--insight-radius-xl);
+  background: var(--insight-color-white);
+  font-family: var(--insight-font-family-sans);
+}
+.questionIcon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  color: var(--insight-color-grey-100);
+}
+.questionBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xs);
+  min-width: 0;
+  flex: 1;
+}
+.questionRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--insight-spacing-xs) var(--insight-spacing-lg);
+}
+.questionMeta {
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 1.4;
+  color: var(--insight-color-grey-100);
+}
+.questionText {
+  margin: 0;
+  max-width: 80ch;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+  text-wrap: pretty;
+}
+.questionText::before {
+  content: "\201C";
+}
+.questionText::after {
+  content: "\201D";
+}
+.questionContext {
+  margin: 0;
+  font-size: 13px;
+  line-height: 19.5px;
+  color: var(--insight-color-grey-100);
+}
+
+/* ── Verdict ── */
+.verdict {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--insight-spacing-xl);
+  padding: var(--insight-spacing-xs) 0;
+  font-family: var(--insight-font-family-sans);
+}
+.verdictMain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  min-width: 0;
+  flex: 1 1 420px;
+}
+.statusLine {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  margin: 0;
+}
+.statusNote {
+  font-size: 13px;
+  color: var(--insight-color-grey-100);
+}
+.verdictTitle {
+  margin: 0;
+  font-size: 26px;
+  line-height: 34px;
+  letter-spacing: -0.26px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+  text-wrap: balance;
+}
+.path {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--insight-color-grey-100);
+}
+.path li + li::before {
+  content: "›";
+  margin: 0 8px;
+  color: var(--insight-color-grey-75);
+}
+.path li[aria-current] {
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--insight-spacing-sm);
+  padding-top: var(--insight-spacing-2xs);
+}
+/* The identifier inside the DS chip stays mono. */
+.idTag code {
+  margin-left: 4px;
+  font-family: var(--insight-font-family-mono);
+  font-size: 11.5px;
+}
+.verdictActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--insight-spacing-md);
+}
+
+/* ── Agreement ── */
+.agreement {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--insight-color-off-black-100);
+}
+.agreementIcon {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.agreementIcon svg {
+  width: 16px;
+  height: 16px;
+}
+.agree-same .agreementIcon,
+.agree-mapped .agreementIcon {
+  color: var(--insight-color-green-200);
+}
+.agree-disagrees .agreementIcon {
+  color: var(--insight-color-orange-200);
+}
+.agree-blocked .agreementIcon {
+  color: var(--insight-color-red-150);
+}
+.agree-unavailable {
+  color: var(--insight-color-grey-100);
+}
+
+/* ── Probability bar ── */
+.prob {
+  --prob-fill: var(--insight-color-green-175);
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  min-width: 0;
+}
+.prob-neutral {
+  --prob-fill: var(--insight-color-grey-75);
+}
+.prob-muted {
+  --prob-fill: var(--insight-color-grey-50);
+}
+.probLow {
+  --prob-fill: var(--insight-color-orange-150);
+}
+.probTrack {
+  position: relative;
+  flex: 1;
+  min-width: 48px;
+  height: 6px;
+  border-radius: var(--insight-radius-chip);
+  background: var(--insight-color-grey-30);
+}
+/* Clip, not width, so the fill animates without layout. */
+.probFill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--prob-fill);
+  clip-path: inset(0 calc(100% - var(--prob)) 0 0 round 999px);
+  transition: clip-path 480ms var(--insight-ease-emphasis);
+}
+.probThreshold {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  left: var(--threshold);
+  width: 1.5px;
+  background: var(--insight-color-off-black-100);
+  opacity: 0.55;
+}
+.probValue {
+  min-width: 34px;
+  font-family: var(--insight-font-family-mono);
+  font-size: 12px;
+  line-height: 16px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--insight-color-off-black-100);
+}
+.probLow .probValue {
+  color: var(--insight-color-orange-200);
+}
+
+/* ── Levels table ── */
+.levelsWrap {
+  container-type: inline-size;
+  min-width: 0;
+}
+.levels {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--insight-font-family-sans);
+}
+.levels th,
+.levels td {
+  padding: 12px 12px 12px 0;
+  border-bottom: 1px solid var(--insight-color-grey-30);
+  text-align: left;
+  vertical-align: top;
+}
+.levels tr > :last-child {
+  padding-right: 0;
+}
+.levels thead th {
+  padding-top: 0;
+  padding-bottom: 8px;
+  font-size: 12px;
+  font-weight: var(--insight-font-weight-regular);
+  color: var(--insight-color-grey-100);
+}
+.levels tbody tr:last-child > * {
+  border-bottom: 0;
+}
+.levels tbody th {
+  width: 22%;
+  font-weight: var(--insight-font-weight-regular);
+}
+.levelName {
+  display: block;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.levelClassifier {
+  display: block;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--insight-color-grey-100);
+}
+.call {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.callLabel {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.callNone {
+  font-size: 13px;
+  color: var(--insight-color-grey-100);
+}
+@container (max-width: 520px) {
+  .levels thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .levels tr {
+    display: grid;
+    gap: 8px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--insight-color-grey-30);
+  }
+  .levels tbody tr:last-child {
+    border-bottom: 0;
+  }
+  .levels th,
+  .levels td {
+    width: auto !important;
+    padding: 0;
+    border: 0;
+  }
+  .levels td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 2px;
+    font-size: 11.2px;
+    letter-spacing: 0.784px;
+    text-transform: uppercase;
+    color: var(--insight-color-grey-100);
+  }
+}
+
+/* ── Ranked bars ── */
+.ranked {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+}
+.rankedList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.rankedItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.rankedLabel {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--insight-color-off-black-100);
+}
+.footnote {
+  margin: 0;
+  padding-top: var(--insight-spacing-md);
+  border-top: 1px solid var(--insight-color-grey-30);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--insight-color-grey-100);
+}
+
+/* ── Level bars (chart view of the levels) ── */
+.levelBars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+  container-type: inline-size;
+}
+.seriesKey {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--insight-spacing-xs) var(--insight-spacing-lg);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--insight-color-off-black-100);
+}
+.seriesKey li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.seriesSwatch {
+  width: 14px;
+  height: 6px;
+  border-radius: var(--insight-radius-chip);
+}
+.levelBarRows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.levelBarRow {
+  display: grid;
+  grid-template-columns: minmax(140px, 38%) minmax(0, 1fr);
+  gap: var(--insight-spacing-lg);
+  align-items: center;
+}
+.levelBarHead {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.levelBarLabel {
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--insight-color-grey-100);
+}
+.levelBarStack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+@container (max-width: 420px) {
+  .levelBarRow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+}
+
+/* ── Reconcile ── */
+.reconcile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+  container-type: inline-size;
+}
+.sources {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--insight-spacing-xl);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.source {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--insight-color-support-border-grey);
+  border-radius: var(--insight-radius-lg);
+  background: var(--insight-color-white);
+}
+.sourceArrow {
+  position: absolute;
+  top: 50%;
+  left: calc(-1 * var(--insight-spacing-xl) / 2 - 8px);
+  width: 16px;
+  height: 16px;
+  margin-top: -8px;
+  color: var(--insight-color-grey-75);
+}
+.sourceValue {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.sourceProv {
+  font-family: var(--insight-font-family-mono);
+  font-size: 11.5px;
+  line-height: 16px;
+  color: var(--insight-color-grey-100);
+}
+.sourceNote {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--insight-color-grey-100);
+}
+@container (max-width: 600px) {
+  .sourceArrow {
+    display: none;
+  }
+}
+
+/* ── Case marker ── */
+.caseMarker {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 4px;
+  box-sizing: border-box;
+  border-radius: var(--insight-radius-chip);
+  background: var(--insight-color-off-black-100);
+  color: var(--insight-color-white);
+  font-family: var(--insight-font-family-mono);
+  font-size: 11px;
+  font-weight: var(--insight-font-weight-medium);
+  line-height: 1;
+}
+
+.caseMarker {
+  transition: box-shadow var(--insight-duration-fast) ease;
+}
+.caseMarkerActive {
+  box-shadow:
+    0 0 0 2px var(--insight-color-white),
+    0 0 0 4px var(--insight-color-green-160);
+}
+
+/* ── Constraints ── */
+.constraints {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--insight-font-family-sans);
+}
+.constraint {
+  display: grid;
+  grid-template-columns: 96px 80px minmax(0, 1fr) auto;
+  gap: var(--insight-spacing-lg);
+  align-items: start;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--insight-color-grey-30);
+  font-size: 14px;
+  line-height: 20px;
+}
+.constraint:last-child {
+  border-bottom: 0;
+}
+.constraintKind {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.constraintIcon {
+  display: inline-flex;
+}
+.constraintIcon svg {
+  width: 16px;
+  height: 16px;
+}
+.c-block .constraintIcon {
+  color: var(--insight-color-red-150);
+}
+.c-warning .constraintIcon {
+  color: var(--insight-color-orange-200);
+}
+.c-critic .constraintIcon {
+  color: var(--insight-color-grey-100);
+}
+.constraintId {
+  font-family: var(--insight-font-family-mono);
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--insight-color-grey-100);
+}
+.constraintText {
+  color: var(--insight-color-off-black-100);
+  text-wrap: pretty;
+}
+.constraintCases {
+  display: inline-flex;
+  gap: 4px;
+}
+@media (max-width: 640px) {
+  .constraint {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+  .constraintText {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+/* ── Provenance footer ── */
+.sourcesFoot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  padding-top: var(--insight-spacing-lg);
+  border-top: 1px solid var(--insight-color-grey-30);
+  font-family: var(--insight-font-family-sans);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--insight-color-grey-100);
+}
+.provenance {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+}
+.provenance > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 6px;
+}
+.provenance dt {
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.provenance dt::after {
+  content: " ·";
+  color: var(--insight-color-grey-75);
+}
+.provenance dd {
+  margin: 0;
+}
+.provenance code,
+.sourcesFoot code {
+  font-family: var(--insight-font-family-mono);
+  font-size: 11.5px;
+}
+.disclaimer {
+  margin: 0;
+  max-width: 90ch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .probFill {
+    transition: none;
+  }
+}

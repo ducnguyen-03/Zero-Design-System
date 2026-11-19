@@ -1,0 +1,172 @@
+/* UMAP scatter — reference cohort for a classifier level. */
+.umap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+  min-width: 0;
+  margin: 0;
+  font-family: var(--insight-font-family-sans);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--insight-spacing-xs) var(--insight-spacing-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 26px;
+  padding: 0 8px 0 6px;
+  border-radius: var(--insight-radius-sm);
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--insight-color-off-black-100);
+}
+.legendButton {
+  margin: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    background-color var(--insight-duration-fast) ease,
+    color var(--insight-duration-fast) ease;
+}
+.legendButton:hover {
+  background: var(--insight-color-grey-30);
+}
+.legendButton:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: 1px;
+}
+.legendOff {
+  color: var(--insight-color-grey-75);
+}
+.legendOff .swatch {
+  background: transparent !important;
+  box-shadow: inset 0 0 0 1.5px var(--insight-color-grey-75);
+}
+.swatch {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+.legendCount {
+  color: var(--insight-color-grey-100);
+  font-variant-numeric: tabular-nums;
+}
+.legendOff .legendCount {
+  color: inherit;
+}
+.caseKey {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--insight-color-off-black-100);
+  box-shadow:
+    inset 0 0 0 2px var(--insight-color-white),
+    0 0 0 1.5px var(--insight-color-off-black-100);
+}
+
+.plot {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--insight-color-grey-30);
+  border-radius: var(--insight-radius-lg);
+  background: var(--insight-color-grey-10);
+}
+.svg {
+  display: block;
+}
+.dot {
+  stroke: var(--insight-color-grey-10);
+  stroke-width: 0.6;
+  transition:
+    fill var(--insight-duration-fast) ease,
+    opacity var(--insight-duration-fast) ease;
+}
+.clusterLabel {
+  font-family: var(--insight-font-family-sans);
+  font-size: 12px;
+  font-weight: var(--insight-font-weight-medium);
+  fill: var(--insight-color-off-black-100);
+  stroke: var(--insight-color-grey-10);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+}
+.markerHalo {
+  fill: var(--insight-color-white);
+}
+.markerRing {
+  fill: var(--insight-color-white);
+  stroke: var(--insight-color-off-black-100);
+  stroke-width: 2;
+}
+.markerDisc {
+  fill: var(--insight-color-off-black-100);
+}
+.markerText {
+  font-family: var(--insight-font-family-mono);
+  font-size: 11px;
+  font-weight: var(--insight-font-weight-medium);
+  fill: var(--insight-color-white);
+}
+.marker {
+  cursor: default;
+  outline: none;
+  transition:
+    opacity var(--insight-duration-fast) ease,
+    transform 240ms var(--insight-ease-emphasis);
+}
+.markerActive {
+  transform: scale(1.25);
+}
+.markerActive .markerHalo {
+  stroke: var(--insight-color-green-160);
+  stroke-width: 2;
+}
+.markerDim {
+  opacity: 0.3;
+}
+.marker:focus-visible .markerHalo {
+  stroke: var(--insight-color-green-160);
+  stroke-width: 2.5;
+}
+
+.axis {
+  position: absolute;
+  font-size: 11px;
+  color: var(--insight-color-grey-100);
+  pointer-events: none;
+}
+.axisY {
+  top: 8px;
+  left: 10px;
+}
+.axisX {
+  bottom: 8px;
+  left: 10px;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot {
+    transition: none;
+  }
+}

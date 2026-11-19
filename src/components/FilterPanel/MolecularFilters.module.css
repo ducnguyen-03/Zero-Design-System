@@ -1,0 +1,558 @@
+/* Figma Insights UI › Molecular filters (12641:53880): Gene filter, Custom gene list,
+ * range (Z-Score / Copy Number) with operator menu, Variant search. */
+.block,
+.dialog,
+.selectMenu {
+  --mf-surface: var(--insight-color-white);
+  --mf-border: var(--insight-color-support-border-grey); /* Figma grey-50 #ced8e2 */
+  --mf-chip: var(--insight-color-grey-30);
+  --mf-chip-text: var(--insight-color-grey-200);
+  --mf-chip-red: #fee0e9; /* Figma color/chip/red/bg */
+  --mf-chip-red-text: #b00047; /* Figma color/chip/red/text */
+  --mf-text: var(--insight-color-off-black-100);
+  --mf-text-inclusive: var(--insight-color-off-black-200);
+  --mf-text-secondary: var(--insight-color-grey-200);
+  --mf-text-tertiary: var(--insight-color-grey-100);
+  --mf-brand: var(--insight-color-green-175); /* Figma green-150 #19a55f */
+  --mf-selected: #e8fff2; /* Figma green/0 */
+  --mf-selected-strong: var(--insight-color-green-10);
+  --mf-hover: var(--insight-color-grey-20);
+  --mf-focus: var(--insight-color-green-160);
+  --mf-error: var(--insight-color-red-150);
+  --mf-shadow-dropdown: 0 10px 24px rgba(18, 47, 92, 0.12); /* Figma "Dropdown" */
+
+  font-family: var(--insight-font-family-sans);
+}
+
+/* Section must not clip the gene menu / operator menu. */
+.overflowVisible {
+  position: relative;
+}
+
+.block {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xs);
+  padding: var(--insight-spacing-md) var(--insight-spacing-xl);
+}
+
+/* ── Label row ("SEARCH BY GENE" + info) ───────────────────────── */
+.labelRow {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+}
+.label {
+  font-size: 11.2px;
+  line-height: 16px;
+  letter-spacing: 0.784px;
+  font-weight: var(--insight-font-weight-medium);
+  text-transform: uppercase;
+  color: var(--mf-text);
+}
+.infoBtn {
+  display: inline-flex;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--mf-text-tertiary);
+  cursor: help;
+}
+.infoBtn:focus-visible {
+  outline: 2px solid var(--mf-focus);
+}
+
+/* ── Field (Figma "field": 40px, 1px grey-50, 4px radius, Body/Regular) ── */
+.field {
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  box-sizing: border-box;
+  padding: var(--insight-spacing-md) var(--insight-spacing-md) var(--insight-spacing-md) var(--insight-spacing-lg);
+  border: 1px solid var(--mf-border);
+  border-radius: var(--insight-radius-input);
+  background: var(--mf-surface);
+  font-family: inherit;
+  font-size: var(--insight-type-body-default-size, 16px);
+  line-height: 24px;
+  letter-spacing: 0.32px;
+  color: var(--mf-text);
+  caret-color: var(--mf-focus);
+  outline: none;
+  transition: border-color var(--insight-duration-fast) ease, box-shadow var(--insight-duration-fast) ease;
+}
+.field::placeholder {
+  color: var(--mf-text-tertiary);
+}
+.field:hover {
+  border-color: var(--insight-color-grey-75);
+}
+.field:focus,
+.field:focus-within,
+.field[aria-expanded="true"] {
+  border-color: var(--mf-focus);
+  box-shadow: inset 0 0 0 1px var(--mf-focus);
+}
+
+/* Chips + input inside one field. */
+.chipField {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs) var(--insight-spacing-md);
+  flex-wrap: wrap;
+  height: auto;
+  min-height: 40px;
+  padding-block: 7px;
+  cursor: text;
+}
+.chipInput {
+  flex: 1;
+  min-width: 80px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font: inherit;
+  letter-spacing: inherit;
+  color: var(--mf-text-secondary);
+}
+.chipInput::placeholder {
+  color: var(--mf-text-tertiary);
+}
+
+/* Figma "Badge v1.1 / Small" */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-2xs);
+  padding: var(--insight-spacing-2xs) var(--insight-spacing-2xs) var(--insight-spacing-2xs) var(--insight-spacing-xs);
+  border-radius: var(--insight-radius-input);
+  background: var(--mf-chip);
+  font-size: 11.2px;
+  line-height: 16px;
+  letter-spacing: 0.784px;
+  font-weight: var(--insight-font-weight-medium);
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--mf-chip-text);
+}
+.chipRed {
+  background: var(--mf-chip-red);
+  color: var(--mf-chip-red-text);
+}
+.chipRemove {
+  display: inline-flex;
+  padding: 1px;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.chipRemove:hover {
+  background: rgba(2, 32, 52, 0.08);
+}
+.chipRemove:focus-visible {
+  outline: 2px solid var(--mf-focus);
+}
+
+/* ── Gene menu ("Gene menu" / "gene not found") ────────────────── */
+.fieldWrap {
+  position: relative;
+}
+.menu {
+  --mf-surface: var(--insight-color-white);
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: var(--insight-spacing-md) 0;
+  list-style: none;
+  overflow-y: auto;
+  border-radius: var(--insight-radius-card);
+  background: var(--mf-surface);
+  box-shadow: var(--mf-shadow-dropdown);
+}
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  flex-shrink: 0;
+  height: 40px;
+  padding: 0 var(--insight-spacing-xl);
+  cursor: pointer;
+}
+.menuItemActive {
+  background: var(--mf-hover);
+}
+.menuItemOn {
+  background: var(--mf-selected);
+}
+.menuItemOn.menuItemActive {
+  background: var(--mf-selected-strong);
+}
+.menuCheck {
+  pointer-events: none;
+}
+.menuLabel {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--insight-type-body-small-size, 14px);
+  line-height: 20px;
+  letter-spacing: 0.14px;
+  color: var(--mf-text-inclusive);
+}
+.menuEmpty {
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-2xl) var(--insight-spacing-xl);
+  text-align: center;
+}
+.emptyIcon {
+  display: inline-flex;
+  padding: var(--insight-spacing-lg);
+  border-radius: var(--insight-radius-chip);
+  background: var(--mf-chip);
+  color: var(--mf-text-tertiary);
+}
+.emptyTitle {
+  font-size: var(--insight-type-title-small-size, 16px);
+  line-height: 24px;
+  letter-spacing: 0.32px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--mf-text);
+}
+.emptyText {
+  margin-top: -4px;
+  font-size: var(--insight-type-body-small-size, 14px);
+  line-height: 20px;
+  letter-spacing: 0.14px;
+  color: var(--mf-text-tertiary);
+}
+
+/* ── "+ Choose gene list" / "+ Add custom list" ───────────────── */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--insight-spacing-md);
+}
+.linkAction {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--insight-type-body-small-size, 14px);
+  line-height: 20px;
+  letter-spacing: 0.14px;
+  font-weight: var(--insight-font-weight-bold);
+  color: var(--mf-brand);
+  cursor: pointer;
+}
+.linkAction:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.linkAction:focus-visible {
+  outline: 2px solid var(--mf-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ── Custom gene list dialog — opens beside the panel ─────────── */
+.dialog {
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  right: calc(100% + 24px);
+  width: 386px;
+  display: flex;
+  flex-direction: column;
+  background: var(--mf-surface);
+  box-shadow: var(--mf-shadow-dropdown);
+}
+.dialogHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-lg);
+}
+.dialogTitle {
+  flex: 1;
+  margin: 0;
+  font-size: var(--insight-type-title-small-size, 16px);
+  line-height: 24px;
+  letter-spacing: 0.32px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--mf-text-inclusive);
+}
+.dialogClose {
+  display: inline-flex;
+  padding: 2px;
+  border: 0;
+  border-radius: var(--insight-radius-input);
+  background: transparent;
+  color: var(--mf-text-inclusive);
+  cursor: pointer;
+}
+.dialogClose:hover {
+  background: var(--mf-chip);
+}
+.dialogClose:focus-visible {
+  outline: 2px solid var(--mf-focus);
+}
+.dialogBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-md) var(--insight-spacing-xl) var(--insight-spacing-xl);
+  border-bottom: 1px solid var(--mf-border);
+}
+.dialogHelp {
+  margin: 0;
+  font-size: var(--insight-type-body-tiny-size, 12px);
+  line-height: 1.3;
+  color: var(--mf-text-secondary);
+}
+.textarea {
+  min-height: 100px;
+  box-sizing: border-box;
+  padding: var(--insight-spacing-md) var(--insight-spacing-lg) var(--insight-spacing-md) var(--insight-spacing-xl);
+  border: 1px solid var(--mf-border);
+  border-radius: var(--insight-radius-input);
+  background: var(--mf-surface);
+  font-family: inherit;
+  font-size: var(--insight-type-body-small-size, 14px);
+  line-height: 20px;
+  letter-spacing: 0.14px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--mf-text-inclusive);
+  resize: vertical;
+  outline: none;
+}
+.textarea::placeholder {
+  font-weight: var(--insight-font-weight-regular);
+  color: var(--mf-text-tertiary);
+}
+.textarea:focus {
+  border-color: var(--mf-focus);
+  box-shadow: inset 0 0 0 1px var(--mf-focus);
+}
+.summary {
+  overflow: hidden;
+  border: 1px solid var(--mf-border);
+  border-radius: var(--insight-radius-input);
+}
+.summaryHead {
+  padding: var(--insight-spacing-md) var(--insight-spacing-xl);
+  background: var(--mf-chip);
+  font-size: 11.2px;
+  line-height: 16px;
+  letter-spacing: 0.784px;
+  font-weight: var(--insight-font-weight-medium);
+  text-transform: uppercase;
+  color: var(--mf-text-inclusive);
+}
+.summaryBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-md) var(--insight-spacing-xl);
+}
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--insight-type-body-small-size, 14px);
+  line-height: 20px;
+  letter-spacing: 0.14px;
+  color: var(--mf-text-inclusive);
+}
+.summaryRowError {
+  color: var(--mf-error);
+}
+.summaryRule {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--mf-border);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--insight-spacing-xs);
+}
+.dialogFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-md) var(--insight-spacing-xl);
+}
+.pillGrey,
+.pillYellow {
+  height: 32px;
+  padding: 0 var(--insight-spacing-xl);
+  border: 0;
+  border-radius: var(--insight-radius-chip);
+  font-family: inherit;
+  font-size: var(--insight-type-body-small-size, 14px);
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--mf-text);
+  cursor: pointer;
+  transition: filter var(--insight-duration-fast) ease, opacity var(--insight-duration-fast) ease;
+}
+.pillGrey {
+  background: var(--mf-chip);
+}
+.pillYellow {
+  background: var(--insight-color-yellow-100, #fad74b);
+}
+.pillGrey:hover:not(:disabled),
+.pillYellow:hover:not(:disabled) {
+  filter: brightness(0.96);
+}
+.pillGrey:focus-visible,
+.pillYellow:focus-visible {
+  outline: 2px solid var(--mf-focus);
+  outline-offset: 2px;
+}
+.pillGrey:disabled,
+.pillYellow:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* ── Range ──────────────────────────────────────────────────────── */
+.rangeBlock {
+  gap: var(--insight-spacing-md);
+}
+.rangeRow {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+}
+.rangeTo {
+  flex-shrink: 0;
+  font-size: var(--insight-type-body-default-size, 16px);
+  line-height: 24px;
+  letter-spacing: 0.32px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--mf-text);
+}
+
+.select {
+  position: relative;
+}
+.selectBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-xs) var(--insight-spacing-md) var(--insight-spacing-xs) var(--insight-spacing-xl);
+  border-color: var(--insight-color-grey-50);
+  text-align: left;
+  cursor: pointer;
+}
+.selectValue {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.selectIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--mf-text-inclusive);
+}
+.flip {
+  transform: rotate(180deg);
+}
+/* Figma "Dropdawn Shadow" (three-layer) */
+.selectMenu {
+  position: absolute;
+  z-index: 6;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: var(--insight-spacing-md) 0;
+  list-style: none;
+  border-radius: var(--insight-radius-card);
+  background: var(--mf-surface);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.12),
+    0 6px 12px rgba(0, 0, 0, 0.12),
+    0 1px 16px rgba(0, 0, 0, 0.12);
+}
+.selectOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 var(--insight-spacing-xl);
+  font-size: var(--insight-type-body-small-size, 14px);
+  line-height: 20px;
+  letter-spacing: 0.14px;
+  color: var(--mf-text-inclusive);
+  cursor: pointer;
+}
+.selectOptionActive {
+  background: var(--mf-hover);
+}
+.selectOptionOn,
+.selectOptionOn.selectOptionActive {
+  background: var(--mf-selected-strong);
+  color: var(--mf-text-inclusive);
+}
+.selectOptionOn svg {
+  color: var(--insight-color-green-200);
+}
+
+/* ── Variant search helper ("Searching variants in CNV only") ── */
+.helper {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--insight-spacing-xs);
+  margin: 0;
+  font-size: var(--insight-type-body-small-size, 14px);
+  line-height: 20px;
+  letter-spacing: 0.14px;
+  color: var(--mf-text-tertiary);
+}
+.helperBadge {
+  padding: var(--insight-spacing-2xs) var(--insight-spacing-xs);
+  border-radius: var(--insight-radius-input);
+  background: var(--mf-chip);
+  font-size: 11.2px;
+  line-height: 16px;
+  letter-spacing: 0.784px;
+  font-weight: var(--insight-font-weight-medium);
+  text-transform: uppercase;
+  color: var(--mf-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field,
+  .pillGrey,
+  .pillYellow {
+    transition: none;
+  }
+}

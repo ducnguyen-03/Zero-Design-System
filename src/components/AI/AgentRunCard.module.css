@@ -1,0 +1,117 @@
+/* Agent run card — ZAK prototype "Agent states" (13:149). Component tokens are local, mapped to core. */
+.card {
+  --insight-components-agent-run-warning-bg: var(--insight-color-orange-10);
+  --insight-components-agent-run-warning-text: var(--insight-color-orange-200);
+  --insight-components-agent-run-danger-text: var(--insight-color-red-300);
+}
+
+/* ── Status badge — Figma "Label/Status Bold" 12 / 1.3, uppercase, 4/8px, 4px radius ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--insight-spacing-xs) var(--insight-spacing-md);
+  border-radius: var(--insight-radius-sm);
+  font-family: var(--insight-font-family-sans);
+  font-size: var(--insight-type-label-status-size);
+  line-height: 1.3;
+  letter-spacing: var(--insight-type-label-status-letter-spacing);
+  font-weight: var(--insight-font-weight-bold);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.tone-info {
+  background: var(--insight-color-blue-30);
+  color: var(--insight-color-blue-300);
+}
+.tone-neutral {
+  background: var(--insight-color-grey-50);
+  color: var(--insight-color-grey-200);
+}
+.tone-warning {
+  background: var(--insight-color-orange-10);
+  color: var(--insight-color-orange-200);
+}
+.tone-danger {
+  background: var(--insight-color-red-10);
+  color: var(--insight-color-red-300);
+}
+/* Figma "Needs input" is yellow-300 on yellow-10 (3.3:1); off-black on yellow-30 keeps the hue and passes. */
+.tone-attention {
+  background: var(--insight-color-yellow-30);
+  color: var(--insight-color-off-black-100);
+}
+.tone-success {
+  background: var(--insight-color-green-10);
+  color: var(--insight-color-green-300);
+}
+
+/* ── Body ── */
+.title {
+  margin: 0;
+  font-size: var(--insight-type-body-small-size);
+  line-height: 1.4;
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--insight-spacing-xs);
+  margin: 0;
+  font-size: var(--insight-type-body-small-size);
+  line-height: 1.4;
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-components-agent-run-warning-text);
+}
+.alert svg {
+  flex-shrink: 0;
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+  margin-top: 2px;
+}
+.alertDanger {
+  color: var(--insight-components-agent-run-danger-text);
+}
+
+/* Detail well — 8px padding, 8px radius, 12 / 1.3. */
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xs);
+  padding: var(--insight-spacing-md);
+  border-radius: var(--insight-radius-md);
+  background: var(--insight-color-grey-30);
+  font-family: var(--insight-font-family-sans);
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 1.3;
+  color: var(--insight-color-off-black-100);
+}
+.detailWarning {
+  background: var(--insight-components-agent-run-warning-bg, var(--insight-color-orange-10));
+}
+.reference {
+  align-self: flex-start;
+  font-weight: var(--insight-font-weight-medium);
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--insight-spacing-sm);
+  font-size: var(--insight-type-body-small-size);
+  line-height: 1.4;
+  color: var(--insight-color-grey-100);
+}
+
+.progress {
+  padding: 0 var(--insight-spacing-xl);
+  font-size: var(--insight-type-body-small-size);
+  line-height: 1.4;
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+  color: var(--insight-color-grey-100);
+}

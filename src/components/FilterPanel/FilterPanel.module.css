@@ -1,0 +1,685 @@
+/* ------------------------------------------------------------------
+ * Filters — Figma "Insights dev-ready file" › Hand off section 4291:6515
+ * (Study 4291:19106, Participant 4291:19705, Sample 4291:20499,
+ * Filter Tabs 4291:19651). Component tokens mapped to core colours.
+ * ------------------------------------------------------------------ */
+.rail,
+.panel,
+.section,
+.viewSwitch,
+.noMatches,
+.groupLabel {
+  --insight-components-filters-surface: var(--insight-color-white);
+  --insight-components-filters-surface-muted: var(--insight-color-grey-10);
+  /* Figma base-colours/neutrals/grey-50 = #ced8e2 → our support-border-grey. */
+  --insight-components-filters-border: var(--insight-color-support-border-grey);
+  --insight-components-filters-divider: var(--insight-color-grey-30);
+  --insight-components-filters-text-inclusive: var(--insight-color-off-black-200);
+  --insight-components-filters-text-primary: var(--insight-color-off-black-100);
+  --insight-components-filters-text-tertiary: var(--insight-color-grey-100);
+  --insight-components-filters-indicator-neutral: var(--insight-color-grey-30);
+  --insight-components-filters-indicator-brand: var(--insight-color-green-10);
+  --insight-components-filters-brand-text: var(--insight-color-green-200);
+  /* Figma base-colours/green/green-150 = #19a55f → our green-175. */
+  --insight-components-filters-action-brand: var(--insight-color-green-175);
+  --insight-components-filters-action-destructive: var(--insight-color-red-150);
+  --insight-components-filters-hover: var(--insight-color-grey-20);
+  --insight-components-filters-focus: var(--insight-color-green-160);
+  --insight-components-filters-field-focus: var(--insight-color-green-100);
+
+  box-sizing: border-box;
+  font-family: var(--insight-font-family-sans);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Figma type roles (Roboto) */
+.panelTitle,
+.sectionTitle {
+  /* Title/Small/Medium — 16 / 1.5 / 2 % */
+  font-size: var(--insight-type-title-small-size, 16px);
+  line-height: 24px;
+  letter-spacing: 0.32px;
+  font-weight: var(--insight-font-weight-medium);
+}
+.textAction,
+.appliedPill {
+  /* Body/Small/Bold — 14 / 1.4 / 1 % */
+  font-size: var(--insight-type-body-small-size, 14px);
+  line-height: 20px;
+  letter-spacing: 0.14px;
+  font-weight: var(--insight-font-weight-bold);
+}
+.count {
+  /* Label/Regular — 11.2 / 1.4 / 7 %, uppercase */
+  font-size: 11.2px;
+  line-height: 16px;
+  letter-spacing: 0.784px;
+  font-weight: var(--insight-font-weight-medium);
+  text-transform: uppercase;
+}
+.railTitle,
+.railLabel {
+  /* Body/Tiny/Medium — 12 / 1.3 */
+  font-size: var(--insight-type-body-tiny-size, 12px);
+  line-height: 16px;
+  font-weight: var(--insight-font-weight-medium);
+}
+
+/* ── Rail ("Filter Tabs") ───────────────────────────────────────── */
+.rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  width: 83px;
+  flex-shrink: 0;
+  height: 100%;
+  padding: var(--insight-spacing-md);
+  background: var(--insight-components-filters-surface);
+  border-left: 1px solid var(--insight-components-filters-border);
+}
+.railTitle {
+  color: var(--insight-components-filters-text-inclusive);
+  text-align: center;
+}
+.railTab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--insight-spacing-xs);
+  width: 100%;
+  padding: var(--insight-spacing-lg) var(--insight-spacing-xs);
+  border: 0;
+  border-radius: var(--insight-radius-input);
+  background: transparent;
+  color: var(--insight-components-filters-text-primary);
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    background-color var(--insight-duration-fast) ease,
+    color var(--insight-duration-fast) ease;
+}
+.railTab:hover:not(:disabled):not(.railTabOpen) {
+  background: var(--insight-components-filters-hover);
+}
+.railTab:focus-visible {
+  outline: 2px solid var(--insight-components-filters-focus);
+  outline-offset: -2px;
+}
+.railTabOpen {
+  background: var(--insight-components-filters-indicator-brand);
+  color: var(--insight-components-filters-brand-text);
+}
+.railIcon {
+  position: relative;
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+}
+/* "Active filter will have a green badge" */
+.appliedBadge {
+  position: absolute;
+  top: -3px;
+  right: -4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--insight-components-filters-action-brand);
+  box-shadow: 0 0 0 1.5px var(--insight-components-filters-surface);
+}
+.railTabOpen .appliedBadge {
+  box-shadow: 0 0 0 1.5px var(--insight-components-filters-indicator-brand);
+}
+.railLabel {
+  text-align: center;
+  overflow-wrap: normal;
+}
+.railDivider {
+  display: block;
+  flex-shrink: 0;
+  width: 100%;
+  height: 24px;
+  background: linear-gradient(var(--insight-components-filters-divider), var(--insight-components-filters-divider))
+    center / calc(100% - 8px) 1px no-repeat;
+}
+.clearAll {
+  color: var(--insight-components-filters-action-destructive);
+}
+.clearAll:disabled {
+  cursor: not-allowed;
+  color: var(--insight-color-grey-75);
+}
+
+/* ── Side panel ─────────────────────────────────────────────────── */
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  flex: 0 1 auto;
+  max-width: 100%;
+  background: var(--insight-components-filters-surface);
+  border-left: 1px solid var(--insight-components-filters-border);
+  filter: drop-shadow(-20px 10px 12px rgba(0, 0, 0, 0.06));
+}
+.panelHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  min-height: 56px;
+  padding: var(--insight-spacing-lg);
+  border-bottom: 1px solid var(--insight-components-filters-border);
+}
+.hasAccessory {
+  gap: var(--insight-spacing-xl);
+}
+.panelTitleRow {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  min-width: 0;
+}
+.panelTitle {
+  margin: 0;
+  color: var(--insight-components-filters-text-inclusive);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.panelActions {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  flex-shrink: 0;
+}
+.closeBtn,
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--insight-components-filters-text-inclusive);
+  cursor: pointer;
+  transition: background-color var(--insight-duration-fast) ease;
+}
+.closeBtn {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--insight-radius-input);
+}
+.iconBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--insight-radius-chip);
+}
+.closeBtn:hover,
+.iconBtn:hover,
+.iconBtnOn {
+  background: var(--insight-components-filters-indicator-neutral);
+}
+.closeBtn:focus-visible,
+.iconBtn:focus-visible {
+  outline: 2px solid var(--insight-components-filters-focus);
+  outline-offset: 0;
+}
+.panelBody {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* Text actions (Figma `buttons`): 32px pill, 12px padding. */
+.textAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--insight-spacing-xs);
+  height: 32px;
+  padding: 0 var(--insight-spacing-lg);
+  border: 0;
+  border-radius: var(--insight-radius-chip);
+  background: transparent;
+  font-family: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--insight-duration-fast) ease,
+    opacity var(--insight-duration-fast) ease;
+}
+.textAction:hover:not(:disabled) {
+  background: var(--insight-components-filters-hover);
+}
+.textAction:focus-visible {
+  outline: 2px solid var(--insight-components-filters-focus);
+  outline-offset: 0;
+}
+.textAction:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.neutral {
+  color: var(--insight-components-filters-text-tertiary);
+}
+.brand {
+  color: var(--insight-components-filters-action-brand);
+}
+.textActionIcon {
+  display: inline-flex;
+}
+
+/* ── Section ("Sub-Filter V3") ──────────────────────────────────── */
+.section {
+  padding-block: var(--insight-spacing-md);
+  background: var(--insight-components-filters-surface);
+  border-bottom: 1px solid var(--insight-components-filters-border);
+}
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  padding: 0 var(--insight-spacing-xl) 0 var(--insight-spacing-md);
+}
+.sectionToggle {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--insight-radius-chip);
+  background: transparent;
+  font-family: inherit;
+  text-align: left;
+  color: var(--insight-components-filters-text-inclusive);
+  cursor: pointer;
+}
+.sectionToggle:focus-visible {
+  outline: 2px solid var(--insight-components-filters-focus);
+  outline-offset: 0;
+}
+.iconBtnBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--insight-radius-chip);
+  transition: background-color var(--insight-duration-fast) ease;
+}
+.sectionToggle:hover .iconBtnBox {
+  background: var(--insight-components-filters-indicator-neutral);
+}
+/* Figma flips keyboard_arrow_up (−scale-y) for the collapsed state. */
+.chevron {
+  transform: rotate(180deg);
+  transition: transform 240ms var(--insight-ease-emphasis, ease);
+}
+.sectionOpen .chevron {
+  transform: none;
+}
+.sectionTitle {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.appliedPill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 var(--insight-spacing-sm);
+  box-sizing: border-box;
+  border-radius: var(--insight-radius-chip);
+  background: var(--insight-components-filters-indicator-brand);
+  color: var(--insight-components-filters-action-brand);
+  font-variant-numeric: tabular-nums;
+}
+/* With a "Match:" control, the title hugs its text and the control follows it. */
+.hasExtra .sectionToggle {
+  flex: 0 1 auto;
+}
+.sectionExtra {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+}
+.match {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  font-size: var(--insight-type-body-small-size);
+  line-height: var(--insight-type-body-small-line-height);
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: 0.14px;
+}
+.matchDivider {
+  align-self: stretch;
+  width: 1px;
+  margin-right: var(--insight-spacing-xs);
+  background: var(--insight-components-filters-border);
+}
+.matchLabel {
+  color: var(--insight-components-filters-text-tertiary);
+}
+.matchControl {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.matchSelect {
+  appearance: none;
+  padding: 2px 24px 2px 6px;
+  border: 0;
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-components-filters-indicator-neutral);
+  font: inherit;
+  color: var(--insight-components-filters-text-inclusive);
+  cursor: pointer;
+}
+.matchSelect:focus-visible {
+  outline: 2px solid var(--insight-components-filters-focus);
+  outline-offset: 1px;
+}
+.matchChevron {
+  position: absolute;
+  right: 6px;
+  pointer-events: none;
+  color: var(--insight-components-filters-text-inclusive);
+}
+.sectionActions {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  flex-shrink: 0;
+}
+.sectionBody[hidden] {
+  display: none;
+}
+/* Figma "disable": title drops to grey-100. */
+.sectionDisabled .sectionTitle,
+.sectionDisabled .iconBtnBox {
+  color: var(--insight-components-filters-text-tertiary);
+}
+
+/* Group band — e.g. "VARIANT CLASSIFICATION" (grey-10, Label/Regular). */
+.groupLabel {
+  padding: var(--insight-spacing-md) var(--insight-spacing-md);
+  background: var(--insight-components-filters-surface-muted);
+  border-bottom: 1px solid var(--insight-components-filters-border);
+  font-family: var(--insight-font-family-sans);
+  font-size: 11.2px;
+  line-height: 16px;
+  letter-spacing: 0.784px;
+  font-weight: var(--insight-font-weight-medium);
+  text-transform: uppercase;
+  color: var(--insight-components-filters-text-tertiary);
+}
+
+/* Figma "notification": grey-30 box, 10px radius, info glyph + Body/Tiny. */
+.notice {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  margin: var(--insight-spacing-md) var(--insight-spacing-xl);
+  padding: var(--insight-spacing-md);
+  border: 1px solid var(--insight-components-filters-border);
+  border-radius: 10px;
+  background: var(--insight-components-filters-indicator-neutral);
+}
+.noticeIcon {
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: var(--insight-spacing-xs);
+  color: var(--insight-components-filters-text-tertiary);
+}
+.noticeText {
+  margin: 0;
+  font-size: var(--insight-type-body-tiny-size, 12px);
+  line-height: 1.3;
+  color: var(--insight-components-filters-text-tertiary);
+}
+
+/* Inline search — Figma "search": 40px field (Body/Regular) + 40px close button. */
+.searchRow {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-md) var(--insight-spacing-xl) 0;
+}
+.searchClose {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--insight-radius-chip);
+  background: transparent;
+  color: var(--insight-components-filters-text-inclusive);
+  cursor: pointer;
+}
+.searchClose:hover {
+  background: var(--insight-components-filters-indicator-neutral);
+}
+.searchClose:focus-visible {
+  outline: 2px solid var(--insight-components-filters-focus);
+}
+
+/* Shared text field — Figma "field": 1px #ced8e2, 4px radius, Body/Regular 16 / 1.5. */
+.field {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  padding: var(--insight-spacing-md) var(--insight-spacing-md) var(--insight-spacing-md) var(--insight-spacing-lg);
+  border: 1px solid var(--insight-components-filters-border);
+  border-radius: var(--insight-radius-input);
+  background: var(--insight-components-filters-surface);
+  font-family: inherit;
+  font-size: var(--insight-type-body-default-size, 16px);
+  line-height: 24px;
+  letter-spacing: 0.32px;
+  color: var(--insight-components-filters-text-primary);
+  caret-color: var(--insight-components-filters-focus);
+  outline: none;
+  transition: border-color var(--insight-duration-fast) ease, box-shadow var(--insight-duration-fast) ease;
+}
+.field::placeholder {
+  color: var(--insight-components-filters-text-tertiary);
+}
+.field:hover:not(:disabled) {
+  border-color: var(--insight-color-grey-75);
+}
+.field:focus,
+.field:focus-within {
+  border-color: var(--insight-components-filters-focus);
+  box-shadow: inset 0 0 0 1px var(--insight-components-filters-focus);
+}
+
+/* Checklist ("Sub-Filters / Input Type / Checklist") reuses CheckboxRow;
+ * the filter context sets Body/Small/Default (14 / 1.4) and the 41px count badge. */
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-md) var(--insight-spacing-xl);
+}
+.checklist label {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--insight-type-body-small-size, 14px);
+  line-height: 20px;
+  letter-spacing: 0.14px;
+  color: var(--insight-components-filters-text-inclusive);
+}
+/* Label sits in a 2px-padded text container beside the 24px control. */
+.checklist label > :last-child {
+  padding-block: var(--insight-spacing-2xs);
+}
+/* Figma checkbox: 18px box, 1.4px grey-200 stroke, 3px radius. */
+.checklist input + span {
+  border-radius: 3px;
+}
+/* Badge container: 41px wide, 2px vertical inset. */
+.checklist > * > :last-child:not(label) {
+  width: 41px;
+  min-width: 41px;
+  margin-top: 2px;
+  padding-inline: var(--insight-spacing-xs);
+}
+.checklist.statList > * > :last-child:not(label) {
+  width: auto;
+  min-width: 0;
+  margin-top: 2px;
+  padding: 0;
+  background: none;
+}
+.stats {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+}
+/* Figma "Stat item": 16px glyph, 2px gap, 30px chip. */
+.stat {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-2xs);
+}
+.statIcon {
+  display: inline-flex;
+  color: var(--insight-components-filters-text-tertiary);
+}
+.statIcon svg {
+  width: 16px;
+  height: 16px;
+}
+.statChip {
+  min-width: 30px;
+  box-sizing: border-box;
+  padding: var(--insight-spacing-2xs) var(--insight-spacing-xs);
+  border-radius: var(--insight-radius-input);
+  background: var(--insight-components-filters-indicator-neutral);
+  font-size: 11.2px;
+  line-height: 16px;
+  letter-spacing: 0.784px;
+  font-weight: var(--insight-font-weight-medium);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  color: var(--insight-components-filters-text-primary);
+}
+.statMuted {
+  opacity: 0.5;
+}
+/* In checklists, fixed chip width keeps each stat column aligned across rows. */
+.statList .statChip {
+  min-width: 42px;
+}
+.count {
+  display: block;
+  color: var(--insight-components-filters-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+.more {
+  padding: 0 var(--insight-spacing-xl);
+}
+.moreBtn {
+  padding-inline: 0;
+}
+.moreBtn:hover:not(:disabled) {
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.noMatches {
+  margin: 0;
+  padding: var(--insight-spacing-xl);
+  font-size: var(--insight-type-body-tiny-size, 12px);
+  line-height: 16px;
+  text-align: center;
+  color: var(--insight-components-filters-text-tertiary);
+}
+
+/* ── View switch ("mode switcher tabs") ─────────────────────────── */
+.viewSwitch {
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: var(--insight-spacing-xs);
+  border: 1px solid var(--insight-components-filters-indicator-neutral);
+  border-radius: 6px;
+  background: var(--insight-components-filters-indicator-neutral);
+}
+.viewSwitchStretch {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.viewSwitchStretch .viewOptionOn {
+  flex: 1;
+}
+.viewOption {
+  padding: var(--insight-spacing-xs) var(--insight-spacing-md);
+  border: 0;
+  border-radius: var(--insight-radius-input);
+  background: transparent;
+  font-family: inherit;
+  /* Body/Small/Medium — 14 / 1.4 / 1 % */
+  font-size: var(--insight-type-body-small-size, 14px);
+  line-height: 20px;
+  letter-spacing: 0.14px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-components-filters-text-tertiary);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--insight-duration-fast) ease,
+    color var(--insight-duration-fast) ease;
+}
+.viewOption:hover:not(.viewOptionOn) {
+  color: var(--insight-components-filters-text-primary);
+}
+.viewOption:focus-visible {
+  outline: 2px solid var(--insight-components-filters-focus);
+  outline-offset: 0;
+}
+.viewOptionOn {
+  background: var(--insight-components-filters-surface);
+  color: var(--insight-components-filters-text-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .railTab,
+  .chevron,
+  .iconBtnBox,
+  .textAction,
+  .viewOption {
+    transition: none;
+  }
+}

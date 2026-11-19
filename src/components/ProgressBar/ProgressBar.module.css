@@ -1,0 +1,143 @@
+/* Figma Progress Bar "Container" 3546:7096 — component tokens mapped locally.
+   Figma's card surface (#062238) and secondary text (#8292a6) have no exact core
+   colour; they map to the nearest tokens (off-black-100, grey-75). */
+.root {
+  --progress-bar-surface-subtle: var(--insight-color-off-black-100);
+  --progress-bar-border-default: var(--insight-color-neutral-transparent);
+  --progress-bar-text-secondary: var(--insight-color-grey-75);
+  --progress-bar-text-strong: var(--insight-color-off-black-100); /* value on light surfaces */
+  --progress-bar-track: var(--insight-color-grey-30);
+  --progress-bar-fill-from: var(--insight-color-green-150);
+  --progress-bar-fill-to: var(--insight-color-green-175);
+  --progress-bar-value: var(--insight-color-green-175);
+  --progress-bar-ring-text: var(--progress-bar-text-strong);
+
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--insight-spacing-lg);
+  width: 100%;
+  font-family: var(--insight-font-family-sans);
+}
+.card {
+  --progress-bar-ring-text: var(--insight-color-white);
+  padding: 20px;
+  border: 1px solid var(--progress-bar-border-default);
+  border-radius: var(--insight-radius-md);
+  background: var(--progress-bar-surface-subtle);
+}
+.info {
+  --progress-bar-fill-from: var(--insight-color-blue-100);
+  --progress-bar-fill-to: var(--insight-color-blue-50);
+  --progress-bar-value: var(--insight-color-blue-100);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-md);
+}
+.labelRow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-sm);
+  min-width: 0;
+}
+.label {
+  font-size: 11px;
+  line-height: 16.5px;
+  font-weight: 600; /* Roboto SemiBold */
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--progress-bar-text-secondary);
+}
+.dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-color-green-175);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--insight-color-blue-100) 60%, transparent);
+}
+.value {
+  flex-shrink: 0;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: var(--insight-font-weight-bold);
+  color: var(--progress-bar-value);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Linear ---------- */
+.track {
+  position: relative;
+  height: 8px;
+  overflow: hidden;
+  border-radius: var(--insight-radius-sm);
+  background: var(--progress-bar-track);
+}
+.fill {
+  height: 100%;
+  border-radius: var(--insight-radius-sm);
+  background: linear-gradient(to right, var(--progress-bar-fill-from), var(--progress-bar-fill-to));
+  transition: width var(--insight-duration-medium) var(--insight-ease-emphasis);
+}
+.indeterminate .fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 40%;
+  animation: slide 1.4s var(--insight-ease-emphasis) infinite;
+}
+@keyframes slide {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(250%); }
+}
+
+/* ---------- Circular ---------- */
+.circularRoot { align-items: center; }
+.circularLabel { align-self: stretch; }
+.ring {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.ring svg {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+.ringTrack {
+  fill: none;
+  stroke: var(--progress-bar-track);
+}
+.ringBar {
+  fill: none;
+  stroke: var(--insight-color-green-175);
+  stroke-linecap: butt;
+  transition: stroke-dasharray var(--insight-duration-medium) var(--insight-ease-emphasis);
+}
+.spinning svg { animation: spin 1s linear infinite; }
+@keyframes spin {
+  from { transform: rotate(-90deg); }
+  to { transform: rotate(270deg); }
+}
+.ringValue {
+  position: relative;
+  font-size: var(--insight-type-body-small-size);
+  line-height: var(--insight-type-body-small-line-height);
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+  font-weight: var(--insight-font-weight-regular);
+  color: var(--progress-bar-ring-text);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill,
+  .ringBar { transition: none; }
+  .indeterminate .fill { animation-duration: 3s; }
+  .spinning svg { animation-duration: 3s; }
+}

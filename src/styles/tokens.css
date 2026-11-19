@@ -1,0 +1,417 @@
+/* Insights (Zero Childhood Cancer) — Design tokens
+   Source of truth: Figma "Design-System" (file FqEYopO3Pe4JOc9DaOKFMu) → Foundation page variables.
+   Names mirror the Figma variables (`--insight-*`). The short `--c-*` / `--fg-*` / `--r-*` names
+   at the bottom are legacy aliases kept so older components keep working — prefer `--insight-*`
+   in new code. Colours marked (repo) are not exposed as Figma variables and were kept from the
+   previous tokens file. */
+
+:root {
+  /* ═══ Colour · core palette ═════════════════════════════════════ */
+  --insight-color-neutral-transparent: #00000000;
+  --insight-color-white: #ffffff;
+
+  --insight-color-off-black-200: #030d13;
+  --insight-color-off-black-100: #022034;
+
+  --insight-color-grey-200: #273957;
+  --insight-color-grey-100: #596983;
+  --insight-color-grey-75: #7c95ae;   /* used by disabled borders */
+  --insight-color-grey-60: #aeb9c5;   /* subtle button active */
+  --insight-color-grey-50: #d0d9e2;
+  --insight-color-grey-40: #ced8e2;   /* support border grey */
+  --insight-color-grey-30: #ecf0f3;
+  --insight-color-grey-20: #f3f5f7;   /* text button hover */
+  --insight-color-grey-10: #fafbfc;
+
+  --insight-color-green-300: #015831; /* (repo) */
+  --insight-color-green-250: #014627; /* outline/text button active */
+  --insight-color-green-200: #00723f; /* (repo) */
+  --insight-color-green-175: #19a55f; /* outline button border */
+  --insight-color-green-160: #0b9d58; /* text button focus ring */
+  --insight-color-green-150: #00ab59;
+  --insight-color-green-100: #0ec971;
+  --insight-color-green-50: #40e58d;
+  --insight-color-green-30: #84ffbe;
+  --insight-color-green-10: #d1fce6;
+
+  --insight-color-yellow-300: #a4821e;
+  --insight-color-yellow-200: #ddb418;
+  --insight-color-yellow-150: #f8ca19;
+  --insight-color-yellow-100: #fad74b;
+  --insight-color-yellow-50: #ffe974;
+  --insight-color-yellow-30: #fff6b2;
+  --insight-color-yellow-10: #fffae8;
+
+  --insight-color-magenta-300: #871578;
+  --insight-color-magenta-200: #ad239d;
+  --insight-color-magenta-150: #ca44bc;
+  --insight-color-magenta-100: #e06ad3;
+  --insight-color-magenta-50: #ef91e5;
+  --insight-color-magenta-30: #f9c1f2;
+  --insight-color-magenta-10: #fadef6;
+
+  --insight-color-turquoise-300: #053835;
+  --insight-color-turquoise-200: #075c57;
+  --insight-color-turquoise-150: #08827a;
+  --insight-color-turquoise-100: #27b8af;
+  --insight-color-turquoise-50: #43ded3;
+  --insight-color-turquoise-30: #7ef2eb;
+  --insight-color-turquoise-10: #d7faf8;
+
+  --insight-color-blue-300: #082f7e;
+  --insight-color-blue-200: #004eb4; /* (repo) */
+  --insight-color-blue-150: #016ee9;
+  --insight-color-blue-100: #1e86fc;
+  --insight-color-blue-50: #75b6ff;  /* (repo) */
+  --insight-color-blue-30: #bbdeff;
+  --insight-color-blue-10: #edf6ff;
+
+  --insight-color-red-300: #b00047;
+  --insight-color-red-200: #dd0951;
+  --insight-color-red-150: #ee1a59;
+  --insight-color-red-100: #ff2969;
+  --insight-color-red-50: #ff5e8e;
+  --insight-color-red-30: #ffaac4;
+  --insight-color-red-10: #fee0e9;
+
+  --insight-color-warm-red-300: #8a0116;
+  --insight-color-warm-red-200: #b00047;
+  --insight-color-warm-red-150: #dd0951;
+  --insight-color-warm-red-100: #ff2969;
+  --insight-color-warm-red-50: #fc7489;
+  --insight-color-warm-red-30: #fcc8d0;
+  --insight-color-warm-red-10: #ffe8eb;
+
+  --insight-color-violet-300: #271c7a;
+  --insight-color-violet-200: #362a93;
+  --insight-color-violet-150: #5a4acf;
+  --insight-color-violet-100: #6f60e4;
+  --insight-color-violet-50: #9a8dff;
+  --insight-color-violet-30: #d2ccff;
+  --insight-color-violet-10: #eceafc;
+
+  --insight-color-purple-300: #45107a;
+  --insight-color-purple-200: #6116a9;
+  --insight-color-purple-150: #7e2dc9;
+  --insight-color-purple-100: #9b51e0;
+  --insight-color-purple-50: #b97df1;
+  --insight-color-purple-30: #d8b2fc;
+  --insight-color-purple-10: #e9d5fd;
+
+  --insight-color-orange-300: #9c3d07;
+  --insight-color-orange-200: #bc4a09;
+  --insight-color-orange-150: #e97307;
+  --insight-color-orange-100: #f39d41;
+  --insight-color-orange-50: #fcb874;
+  --insight-color-orange-30: #fcd7b1;
+  --insight-color-orange-10: #fff2e6;
+
+  --insight-color-brand-logo-magenta: #dc67ce;
+  --insight-color-brand-logo-yellow: #f9d51a;
+
+  /* ZeroCloud umbrella mark (Figma Website › Logo exploration › "Zcloud logo") */
+  --insight-color-brand-zerocloud-turquoise: #23c6bc;
+  --insight-color-brand-zerocloud-magenta: #f76de8;
+  --insight-color-brand-zerocloud-yellow: #fbd53e;
+  --insight-color-brand-zerocloud-ink: #030313;
+
+  /* ═══ Colour · semantic ═════════════════════════════════════════ */
+  --insight-color-foreground-text-primary: var(--insight-color-off-black-100);
+  --insight-color-foreground-text-secondary: var(--insight-color-grey-200);
+  --insight-color-foreground-text-tertiary: var(--insight-color-grey-100);
+  --insight-color-foreground-text-inclusive: var(--insight-color-off-black-200);
+  --insight-color-foreground-text-on-dark: var(--insight-color-white);
+  --insight-color-foreground-link: var(--insight-color-green-200);
+  --insight-color-foreground-link-hover: var(--insight-color-green-300);
+
+  --insight-color-background-system-primary: var(--insight-color-grey-10);
+  --insight-color-background-system-secondary: var(--insight-color-white);
+  --insight-color-background-subtle: var(--insight-color-grey-30);
+
+  --insight-color-support-border-grey: var(--insight-color-grey-40);
+
+  --insight-color-status-success-background: var(--insight-color-green-10);
+  --insight-color-status-success-foreground: var(--insight-color-green-300);
+  --insight-color-status-error-background: var(--insight-color-red-10);
+  --insight-color-status-error-foreground: var(--insight-color-red-300);
+  --insight-color-status-primary-background: var(--insight-color-blue-30);
+  --insight-color-status-info-foreground: var(--insight-color-blue-300);
+  --insight-color-status-warning-foreground-strong: var(--insight-color-orange-200);
+  --insight-color-status-neutral-background-subtle: var(--insight-color-grey-30);
+  --insight-color-status-neutral-foreground-muted-strong: var(--insight-color-grey-200);
+  --insight-color-status-disabled-foreground: var(--insight-color-grey-100);
+  --insight-color-status-secondary-foreground-secondary: var(--insight-color-purple-200);
+  --insight-color-status-magenta-foreground-strong: var(--insight-color-magenta-200);
+
+  --insight-color-significance-red-bg: #fff2f6;
+  --insight-color-significance-green-bg: #abffd2;
+
+  /* ═══ Component · Button (Figma --insight-components-button-*) ═════ */
+  --insight-components-button-bold-background-default: var(--insight-color-yellow-100);
+  --insight-components-button-bold-background-hover: var(--insight-color-yellow-150);
+  --insight-components-button-bold-background-active: var(--insight-color-yellow-150);
+  --insight-components-button-bold-background-focus: var(--insight-color-yellow-150);
+  --insight-components-button-bold-border-focus: var(--insight-color-yellow-50);
+  --insight-components-button-bold-background-disabled: var(--insight-color-yellow-50);
+  --insight-components-button-bold-label-disabled: var(--insight-color-grey-200);
+  --insight-components-button-label-primary: var(--insight-color-off-black-100);
+
+  --insight-components-button-outline-border-default: var(--insight-color-green-175);
+  --insight-components-button-outline-label-default: var(--insight-color-green-200);
+  --insight-components-button-outline-border-hover: var(--insight-color-green-200);
+  --insight-components-button-outline-label-hover: var(--insight-color-green-300);
+  --insight-components-button-outline-label-active: var(--insight-color-green-250);
+  --insight-components-button-outline-label-disabled: var(--insight-color-grey-40);
+  --insight-components-button-outline-border-disabled: var(--insight-color-grey-75);
+
+  --insight-components-button-subtle-background-default: var(--insight-color-grey-30);
+  --insight-components-button-subtle-background-hover: var(--insight-color-grey-50);
+  --insight-components-button-subtle-background-active: var(--insight-color-grey-60);
+  --insight-components-button-subtle-border-focus: var(--insight-color-grey-60);
+  --insight-components-button-subtle-label-disabled: var(--insight-color-grey-100);
+
+  --insight-components-button-text-label-default: var(--insight-color-green-200);
+  --insight-components-button-text-label-hover: var(--insight-color-green-300);
+  --insight-components-button-text-background-hover: var(--insight-color-grey-20);
+  --insight-components-button-text-label-active: var(--insight-color-green-250);
+  --insight-components-button-text-background-active: var(--insight-color-green-10);
+  --insight-components-button-text-border-focus: var(--insight-color-green-160);
+  --insight-components-button-text-label-disabled: var(--insight-color-grey-40);
+
+  --insight-components-button-destructive-outline-default: var(--insight-color-red-200);
+  --insight-components-button-destructive-outline-hover: var(--insight-color-red-300);
+  --insight-components-button-label-on-dark: var(--insight-color-white);
+
+  /* ═══ Spacing ═══════════════════════════════════════════════════ */
+  --insight-spacing-3xs: 1px;
+  --insight-spacing-2xs: 2px;
+  --insight-spacing-xs: 4px;
+  --insight-spacing-sm: 6px;
+  --insight-spacing-md: 8px;
+  --insight-spacing-10: 10px;
+  --insight-spacing-lg: 12px;
+  --insight-spacing-xl: 16px;
+  --insight-spacing-2xl: 24px;
+  --insight-spacing-3xl: 32px;
+  --insight-spacing-4xl: 40px;
+  --insight-spacing-5xl: 48px;
+  --insight-spacing-6xl: 56px;
+  --insight-spacing-7xl: 64px;
+
+  --insight-control-height-xs: 24px;
+  --insight-control-height-sm: 32px;
+  --insight-control-height-md: 40px;
+  --insight-control-height-lg: 48px;
+
+  /* ═══ Icons (Lucide — https://lucide.dev) ═══════════════════════ */
+  --insight-icon-size-xs: 12px;  /* badges, dense table meta */
+  --insight-icon-size-sm: 16px;  /* chips, small buttons, inline text */
+  --insight-icon-size-md: 20px;  /* default — buttons, inputs, nav rows */
+  --insight-icon-size-lg: 24px;  /* icon buttons (lg), headers */
+  --insight-icon-size-xl: 32px;  /* empty states, stat tiles */
+  --insight-icon-size-2xl: 40px; /* feature / audience cards */
+  --insight-icon-stroke: 2;      /* Lucide default; keep one weight across the product */
+
+  /* ═══ Radius ════════════════════════════════════════════════════ */
+  --insight-radius-2xs: 1px;
+  --insight-radius-xs: 2px;
+  --insight-radius-sm: 4px;
+  --insight-radius-md: 8px;
+  --insight-radius-lg: 12px;
+  --insight-radius-xl: 16px;
+  --insight-radius-4xl: 48px;
+
+  --insight-radius-input: 4px;
+  --insight-radius-card: 8px;
+  --insight-radius-tip: 12px;
+  --insight-radius-button: 9999px;  /* pill — avatars, badges, nav items (no longer buttons) */
+  --insight-radius-button-soft: 4px; /* legacy "Soft" */
+  --insight-radius-button-sm: 8px;   /* Button size Small (32px) */
+  --insight-radius-button-lg: 12px;  /* Button size Medium / Large (48px) */
+  --insight-radius-chip: 9999px;
+
+  /* ═══ Elevation (Figma effect styles) ═══════════════════════════ */
+  --insight-shadow-footer: 0 0 8px rgba(39, 57, 87, 0.08), 0 1px 2px rgba(39, 57, 87, 0.08),
+    0 1px 4px rgba(39, 57, 87, 0.12);
+  --insight-shadow-dropdown: 0 10px 24px rgba(18, 47, 92, 0.12);
+  --insight-shadow-modal: 0 16px 32px rgba(39, 57, 87, 0.16), 0 0 16px rgba(39, 57, 87, 0.08);
+
+  /* ═══ Typography ════════════════════════════════════════════════ */
+  --insight-font-family-sans: "Roboto", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --insight-font-family-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --insight-font-weight-light: 300;
+  --insight-font-weight-regular: 400;
+  --insight-font-weight-medium: 500;
+  --insight-font-weight-bold: 700;
+
+  --insight-type-display-medium-size: 56px;
+  --insight-type-display-medium-line-height: 64px;
+  --insight-type-headline-h1-size: 48px;
+  --insight-type-headline-h1-line-height: 56px;
+  --insight-type-headline-h2-size: 34px;
+  --insight-type-headline-h2-line-height: 48px;
+  --insight-type-headline-h3-size: 24px;
+  --insight-type-headline-h3-line-height: 32px;
+  --insight-type-title-default-size: 20px;
+  --insight-type-title-default-line-height: 28px;
+  --insight-type-title-default-letter-spacing: 0.2px;
+  --insight-type-title-small-size: 16px;
+  --insight-type-title-small-line-height: 24px;
+  --insight-type-title-small-letter-spacing: 0.16px;
+  --insight-type-body-default-size: 16px;
+  --insight-type-body-default-line-height: 24px;
+  --insight-type-body-default-letter-spacing: 0.32px;
+  --insight-type-body-small-size: 14px;
+  --insight-type-body-small-line-height: 20px;
+  --insight-type-body-small-letter-spacing: 0.14px;
+  --insight-type-body-tiny-size: 12px;
+  --insight-type-body-tiny-line-height: 16px;
+  --insight-type-label-status-size: 12px;
+  --insight-type-label-status-letter-spacing: 0.24px;
+
+  --insight-component-button-medium-size: 16px;
+  --insight-component-button-medium-line-height: 24px;
+  --insight-component-button-medium-letter-spacing: 0.5px;
+  --insight-component-button-small-size: 14px;
+  --insight-component-button-small-line-height: 20px;
+  --insight-component-button-small-letter-spacing: 0.25px;
+
+  /* ═══ Motion (repo — not in Figma) ══════════════════════════════ */
+  --insight-ease-emphasis: cubic-bezier(0.19, 1, 0.22, 1);
+  --insight-duration-fast: 0.3s;
+  --insight-duration-medium: 0.7s;
+  --insight-duration-slow: 1s;
+
+  /* ═══ Legacy aliases (pre-Figma names) ══════════════════════════ */
+  --c-blank: var(--insight-color-neutral-transparent);
+  --c-white: var(--insight-color-white);
+  --c-offBlack-200: var(--insight-color-off-black-200);
+  --c-offBlack-100: var(--insight-color-off-black-100);
+  --c-grey-200: var(--insight-color-grey-200);
+  --c-grey-100: var(--insight-color-grey-100);
+  --c-grey-50: var(--insight-color-grey-50);
+  --c-grey-30: var(--insight-color-grey-30);
+  --c-grey-10: var(--insight-color-grey-10);
+
+  --c-green-300: var(--insight-color-green-300);
+  --c-green-200: var(--insight-color-green-200);
+  --c-green-150: var(--insight-color-green-150);
+  --c-green-100: var(--insight-color-green-100);
+  --c-green-50: var(--insight-color-green-50);
+  --c-green-30: var(--insight-color-green-30);
+  --c-green-10: var(--insight-color-green-10);
+
+  --c-yellow-300: var(--insight-color-yellow-300);
+  --c-yellow-200: var(--insight-color-yellow-200);
+  --c-yellow-150: var(--insight-color-yellow-150);
+  --c-yellow-100: var(--insight-color-yellow-100);
+  --c-yellow-50: var(--insight-color-yellow-50);
+  --c-yellow-30: var(--insight-color-yellow-30);
+  --c-yellow-10: var(--insight-color-yellow-10);
+
+  --c-magenta-300: var(--insight-color-magenta-300);
+  --c-magenta-200: var(--insight-color-magenta-200);
+  --c-magenta-150: var(--insight-color-magenta-150);
+  --c-magenta-100: var(--insight-color-magenta-100);
+  --c-magenta-50: var(--insight-color-magenta-50);
+  --c-magenta-30: var(--insight-color-magenta-30);
+  --c-magenta-10: var(--insight-color-magenta-10);
+
+  --c-turquoise-300: var(--insight-color-turquoise-300);
+  --c-turquoise-200: var(--insight-color-turquoise-200);
+  --c-turquoise-150: var(--insight-color-turquoise-150);
+  --c-turquoise-100: var(--insight-color-turquoise-100);
+  --c-turquoise-50: var(--insight-color-turquoise-50);
+  --c-turquoise-30: var(--insight-color-turquoise-30);
+  --c-turquoise-10: var(--insight-color-turquoise-10);
+
+  --c-blue-300: var(--insight-color-blue-300); --c-blue-200: var(--insight-color-blue-200);
+  --c-blue-150: var(--insight-color-blue-150); --c-blue-100: var(--insight-color-blue-100);
+  --c-blue-50: var(--insight-color-blue-50);   --c-blue-30: var(--insight-color-blue-30);
+  --c-blue-10: var(--insight-color-blue-10);
+
+  --c-red-300: var(--insight-color-red-300); --c-red-200: var(--insight-color-red-200);
+  --c-red-150: var(--insight-color-red-150); --c-red-100: var(--insight-color-red-100);
+  --c-red-50: var(--insight-color-red-50);   --c-red-30: var(--insight-color-red-30);
+  --c-red-10: var(--insight-color-red-10);
+
+  --c-violet-300: var(--insight-color-violet-300); --c-violet-200: var(--insight-color-violet-200);
+  --c-violet-150: var(--insight-color-violet-150); --c-violet-100: var(--insight-color-violet-100);
+  --c-violet-50: var(--insight-color-violet-50);   --c-violet-30: var(--insight-color-violet-30);
+  --c-violet-10: var(--insight-color-violet-10);
+
+  --c-purple-300: var(--insight-color-purple-300); --c-purple-200: var(--insight-color-purple-200);
+  --c-purple-150: var(--insight-color-purple-150); --c-purple-100: var(--insight-color-purple-100);
+  --c-purple-50: var(--insight-color-purple-50);   --c-purple-30: var(--insight-color-purple-30);
+  --c-purple-10: var(--insight-color-purple-10);
+
+  --c-orange-300: var(--insight-color-orange-300); --c-orange-200: var(--insight-color-orange-200);
+  --c-orange-150: var(--insight-color-orange-150); --c-orange-100: var(--insight-color-orange-100);
+  --c-orange-50: var(--insight-color-orange-50);   --c-orange-30: var(--insight-color-orange-30);
+  --c-orange-10: var(--insight-color-orange-10);
+
+  --c-warmRed-100: var(--insight-color-warm-red-100);
+  --c-warmRed-150: var(--insight-color-warm-red-150);
+  --c-warmRed-200: var(--insight-color-warm-red-200);
+
+  --fg-1: var(--insight-color-foreground-text-primary);
+  --fg-2: var(--insight-color-foreground-text-tertiary);
+  --fg-3: var(--insight-color-foreground-text-secondary);
+  --fg-on-dark: var(--insight-color-grey-10);
+  --bg-page: var(--insight-color-background-system-primary);
+  --bg-surface: var(--insight-color-background-system-secondary);
+  --bg-subtle: var(--insight-color-background-subtle);
+  --bg-hero: var(--insight-color-green-200);
+  --bg-footer: var(--insight-color-green-100);
+  --border-hairline: var(--insight-color-grey-50);
+  --border-subtle: var(--insight-color-grey-30);
+  --action-primary: var(--insight-color-green-150);
+  --action-primary-hover: var(--insight-color-green-200);
+  --action-bold: var(--insight-color-yellow-100);
+  --action-bold-hover: var(--insight-color-yellow-150);
+  --selected-bg: var(--insight-color-green-10);
+  --selected-fg: var(--insight-color-green-300);
+  --danger: var(--insight-color-red-150);
+
+  --chip-blue-bg: var(--c-blue-30);      --chip-blue-fg: var(--c-blue-300);
+  --chip-green-bg: var(--c-green-10);    --chip-green-fg: var(--c-green-300);
+  --chip-grey-bg: var(--c-grey-30);      --chip-grey-fg: var(--c-grey-200);
+  --chip-violet-bg: var(--c-violet-30);  --chip-violet-fg: var(--c-violet-200);
+  --chip-purple-bg: var(--c-purple-10);  --chip-purple-fg: var(--c-purple-200);
+  --chip-magenta-bg: var(--c-magenta-10);--chip-magenta-fg: var(--c-magenta-200);
+  --chip-red-bg: var(--c-red-10);        --chip-red-fg: var(--c-red-300);
+  --chip-orange-bg: var(--c-orange-10);  --chip-orange-fg: var(--c-orange-200);
+
+  --font-sans: var(--insight-font-family-sans);
+  --font-mono: var(--insight-font-family-mono);
+  --fw-light: var(--insight-font-weight-light);
+  --fw-regular: var(--insight-font-weight-regular);
+  --fw-medium: var(--insight-font-weight-medium);
+  --fw-bold: var(--insight-font-weight-bold);
+
+  --t-h1: 3rem;
+  --t-h2: 2.125rem;
+  --t-h3: 1.5rem;
+  --t-title: 1.25rem;
+  --t-title-sm: 1rem;
+  --t-body: 1rem;
+  --t-body-sm: 0.875rem;
+  --t-label: 0.75rem;
+
+  --r-2: 4px;
+  --r-3: 6px;
+  --r-4: 8px;
+  --r-5: 12px;
+  --r-6: 16px;
+  --r-7: 24px;
+  --r-pill: 50px;
+
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-pop: 0 4px 16px rgba(3, 3, 19, 0.13);
+  --shadow-hover-green: 0 0 20px 0 rgba(14, 201, 113, 0.2);
+
+  --ease-emphasis: var(--insight-ease-emphasis);
+  --dur-fast: var(--insight-duration-fast);
+  --dur-med: var(--insight-duration-medium);
+  --dur-slow: var(--insight-duration-slow);
+}

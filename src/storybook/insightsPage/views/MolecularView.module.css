@@ -1,0 +1,413 @@
+/* Molecular tab — overview (Figma 15230:17293) + shared gene-detail styles (15230:18886).
+   Untokenised Figma colours are local custom properties mapped to the nearest core token. */
+.page,
+.detail {
+  /* Variant impact badges (Figma L #6733ff, M #3987cd, N/F orange/red). */
+  --molecular-impact-l: var(--insight-color-violet-100);
+  --molecular-impact-m: var(--insight-color-blue-150);
+  --molecular-impact-n: var(--insight-color-orange-150);
+  --molecular-impact-f: var(--insight-color-red-150);
+  /* Stacked bar series (Figma uses the d3 "category10" set). */
+  --molecular-somatic-sv: var(--insight-color-blue-150);
+  --molecular-germline-sv: var(--insight-color-orange-150);
+  --molecular-somatic-snv: var(--insight-color-green-160);
+  --molecular-germline-snv: var(--insight-color-red-200);
+  --molecular-cnv: var(--insight-color-purple-100);
+  --molecular-rnaexp: var(--insight-color-orange-300);
+  /* Network focus node (Figma #10c86f). */
+  --molecular-node-focus: var(--insight-color-green-100);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-2xl);
+  box-sizing: border-box;
+  min-width: 0;
+  padding: var(--insight-spacing-xl);
+  font-family: var(--insight-font-family-sans);
+  color: var(--insight-color-foreground-text-primary);
+  background: var(--insight-color-background-system-primary);
+}
+
+.tourBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xl);
+  min-width: 0;
+}
+
+/* ── Search ── */
+.search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+}
+.searchTitle {
+  margin: 0 0 var(--insight-spacing-md);
+  font-size: var(--insight-type-body-default-size);
+  line-height: var(--insight-type-body-default-line-height);
+  font-weight: var(--insight-font-weight-bold);
+  color: var(--insight-color-foreground-text-primary);
+}
+.accent {
+  color: var(--insight-color-green-150);
+}
+.searchField {
+  width: min(568px, 100%);
+}
+.eyebrow {
+  margin: 0;
+  font-size: 11.2px;
+  line-height: 15.68px;
+  letter-spacing: 0.784px;
+  font-weight: var(--insight-font-weight-medium);
+  text-transform: uppercase;
+  color: var(--insight-color-foreground-text-tertiary);
+}
+.frequent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--insight-spacing-md);
+  max-width: 568px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.chipButton {
+  display: inline-flex;
+  padding: 0;
+  border: none;
+  border-radius: var(--insight-radius-md);
+  background: var(--insight-color-white);
+  font: inherit;
+  cursor: pointer;
+}
+.chipButton > span {
+  border-color: var(--insight-color-support-border-grey);
+  color: var(--insight-color-foreground-text-secondary);
+  font-weight: var(--insight-font-weight-medium);
+  transition: background-color var(--insight-duration-fast) ease;
+}
+.chipButton:hover > span {
+  background: var(--insight-color-grey-20);
+}
+.chipButton:focus-visible {
+  outline: 2px solid var(--insight-color-green-175);
+  outline-offset: 2px;
+}
+
+/* ── Cards ── */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+  min-width: 0;
+  padding: var(--insight-spacing-lg);
+  border: 1px solid var(--insight-color-support-border-grey);
+  border-radius: var(--insight-radius-card);
+  background: var(--insight-color-white);
+}
+.cardTitle,
+.cardTitleLg {
+  margin: 0;
+  font-size: var(--insight-type-body-default-size);
+  line-height: var(--insight-type-body-default-line-height);
+  letter-spacing: var(--insight-type-body-default-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-foreground-text-primary);
+}
+.cardTitle {
+  padding-bottom: var(--insight-spacing-lg);
+  border-bottom: 1px solid var(--insight-color-grey-30);
+}
+
+/* ── Frequency mini tables ── */
+.freqGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--insight-spacing-xl);
+}
+@media (max-width: 1100px) {
+  .freqGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.mini {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  min-width: 0;
+}
+.miniHead {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  height: 24px;
+}
+.miniTitle {
+  font-size: var(--insight-type-body-small-size);
+  line-height: var(--insight-type-body-small-line-height);
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-foreground-text-inclusive);
+}
+.countTag {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  box-sizing: border-box;
+  padding: var(--insight-spacing-xs);
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-color-background-subtle);
+  font-size: 11.2px;
+  line-height: 15.68px;
+  letter-spacing: 0.784px;
+  font-weight: var(--insight-font-weight-medium);
+  text-transform: uppercase;
+  color: var(--insight-color-foreground-text-primary);
+}
+.miniScroll {
+  height: 340px;
+  overflow-y: auto;
+  border: 1px solid var(--insight-color-support-border-grey);
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-color-white);
+  scrollbar-width: thin;
+}
+.miniScroll:focus-visible {
+  outline: 2px solid var(--insight-color-green-175);
+  outline-offset: 2px;
+}
+.miniTable {
+  table-layout: fixed;
+}
+.miniTable thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--insight-color-white);
+}
+.miniTh:first-child {
+  width: 56%;
+  padding-left: var(--insight-spacing-xl);
+}
+.miniTd {
+  height: 44px;
+  box-sizing: border-box;
+  padding-top: var(--insight-spacing-lg);
+  padding-bottom: var(--insight-spacing-lg);
+}
+.miniTd:first-child {
+  padding-left: var(--insight-spacing-xl);
+}
+.geneLink,
+.geneText {
+  font: inherit;
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+  color: var(--insight-color-green-150);
+}
+.geneLink {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: var(--insight-radius-xs);
+}
+.geneLink:hover {
+  color: var(--insight-color-foreground-link);
+  text-decoration: underline;
+}
+.geneLink:focus-visible {
+  outline: 2px solid var(--insight-color-green-175);
+  outline-offset: 2px;
+}
+
+/* ── Top alterations ── */
+.altTabs {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  border-bottom: 1px solid var(--insight-color-support-border-grey);
+}
+.altTab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--insight-spacing-xs);
+  min-width: 140px;
+  height: 48px;
+  padding: var(--insight-spacing-lg) var(--insight-spacing-xl);
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: var(--insight-type-body-default-size);
+  line-height: 24px;
+  letter-spacing: var(--insight-type-body-default-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-foreground-text-tertiary);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.altTab:hover {
+  color: var(--insight-color-foreground-text-secondary);
+}
+.altTab:focus-visible {
+  outline: 2px solid var(--insight-color-green-175);
+  outline-offset: -2px;
+}
+.altTabOn,
+.altTabOn:hover {
+  color: var(--insight-color-green-200);
+}
+.altTabOn::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  background: var(--insight-color-green-175);
+}
+.altCount {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 20px;
+  min-width: 24px;
+  padding: 0 var(--insight-spacing-md);
+  border: 1px solid transparent;
+  border-radius: var(--insight-radius-chip);
+  background: var(--insight-color-background-subtle);
+  font-size: 11.2px;
+  letter-spacing: 0.784px;
+  color: var(--insight-color-foreground-text-tertiary);
+}
+.altTabOn .altCount {
+  border-color: var(--insight-color-green-175);
+  background: var(--insight-color-status-success-background);
+  color: var(--insight-color-green-300);
+}
+.altPanel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  min-width: 0;
+}
+.altToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-lg);
+}
+.altSummary {
+  font-size: var(--insight-type-body-small-size);
+  line-height: 21px;
+  font-weight: var(--insight-font-weight-medium);
+}
+.altTableCard {
+  min-width: 0;
+  border: 1px solid var(--insight-color-support-border-grey);
+  border-radius: var(--insight-radius-sm);
+  overflow: hidden;
+}
+.altScroll {
+  overflow-x: auto;
+}
+.altTable {
+  min-width: 1500px;
+}
+.altTable th:first-child,
+.altTd:first-child {
+  padding-left: 10px;
+}
+.altTd {
+  height: 56px;
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+.colId {
+  max-width: 146px;
+}
+.colVariant {
+  width: 280px;
+}
+.nowrap {
+  white-space: nowrap;
+}
+.variant {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-md);
+  width: 280px;
+}
+.variantText {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.impact {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 31px;
+  height: 20px;
+  border-radius: var(--insight-radius-sm);
+  font-size: var(--insight-type-label-status-size);
+  line-height: 12px;
+  letter-spacing: var(--insight-type-label-status-letter-spacing);
+  font-weight: var(--insight-font-weight-bold);
+  color: var(--insight-color-white);
+}
+.impactL {
+  background: var(--molecular-impact-l);
+}
+.impactM {
+  background: var(--molecular-impact-m);
+}
+.impactN {
+  background: var(--molecular-impact-n);
+}
+.impactF {
+  background: var(--molecular-impact-f);
+}
+.crumbs {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+}
+.crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+}
+.crumbSep {
+  width: 16px;
+  height: 16px;
+  color: var(--insight-color-grey-60);
+}
+.square {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--insight-radius-sm);
+}
+.altFooter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--insight-spacing-md);
+  min-height: 52px;
+  padding: 0 var(--insight-spacing-md) 0 var(--insight-spacing-2xl);
+  border-top: 1px solid var(--insight-color-support-border-grey);
+  font-size: var(--insight-type-body-small-size);
+  color: var(--insight-color-foreground-text-primary);
+}
+.altFooter > span {
+  margin-right: var(--insight-spacing-xl);
+}

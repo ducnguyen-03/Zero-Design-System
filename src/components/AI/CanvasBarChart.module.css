@@ -1,0 +1,116 @@
+/* Canvas bar chart — Figma 1:6044: 4px gaps, 4px top corners, 10px Roboto Mono labels in grey-100. */
+.chart {
+  --chart-height: 200px;
+  margin: 0;
+  min-width: 0;
+  font-family: var(--insight-font-family-sans);
+}
+.plot {
+  display: flex;
+  align-items: stretch;
+  gap: var(--insight-spacing-xs);
+  height: var(--chart-height);
+  padding: var(--insight-spacing-md) 0;
+  box-sizing: border-box;
+}
+.col {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+}
+.interactive .col {
+  cursor: pointer;
+}
+.track {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+}
+.bar {
+  display: block;
+  width: 100%;
+  height: var(--bar-h);
+  min-height: 2px;
+  border-radius: var(--insight-radius-sm) var(--insight-radius-sm) 0 0;
+  background: var(--bar-color);
+  transition: filter var(--insight-duration-fast) ease, opacity var(--insight-duration-fast) ease;
+}
+.tick {
+  padding-top: 6px;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+  text-align: center;
+  font-family: var(--insight-font-family-mono);
+  font-size: 10px;
+  line-height: 15px;
+  color: var(--insight-color-grey-100);
+}
+/* Value — hidden until hover / focus (Figma keeps it at opacity 0). */
+.value {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--bar-h) + var(--insight-spacing-xs));
+  transform: translateX(-50%);
+  z-index: 1;
+  padding: 1px var(--insight-spacing-xs);
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-color-off-black-100);
+  color: var(--insight-color-white);
+  font-size: 10px;
+  line-height: 15px;
+  font-weight: var(--insight-font-weight-medium);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+}
+.col:hover .value,
+.col:focus-visible .value {
+  opacity: 1;
+}
+.col:hover .bar,
+.col:focus-visible .bar {
+  filter: brightness(0.9);
+}
+.interactive .plot:hover .col:not(:hover) .bar {
+  opacity: 0.55;
+}
+.col:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: 2px;
+  border-radius: var(--insight-radius-sm);
+}
+.selected .bar {
+  box-shadow: 0 0 0 2px var(--insight-color-white), 0 0 0 4px var(--insight-color-off-black-100);
+}
+.selected .tick {
+  color: var(--insight-color-off-black-100);
+  font-weight: var(--insight-font-weight-medium);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    transition: none;
+  }
+}

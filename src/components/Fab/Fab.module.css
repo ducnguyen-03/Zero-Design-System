@@ -1,0 +1,248 @@
+/* FAB — Figma "FAB Button" set (3538:15765).
+   Component tokens referenced by Figma (component/fab/*) are not in tokens.css,
+   so they are mapped locally onto core variables here. */
+
+.fab {
+  /* White at rest; the trigger turns solid grey while the menu is open. */
+  --insight-components-fab-main-surface-default: var(--insight-color-white);
+  --insight-components-fab-main-surface-hover: var(--insight-color-grey-20);
+  --insight-components-fab-main-surface-active: var(--insight-color-grey-30);
+  --insight-components-fab-main-surface-open: var(--insight-color-grey-30);
+  --insight-components-fab-main-surface-open-hover: var(--insight-color-grey-50);
+  --insight-components-fab-main-text: var(--insight-color-off-black-100);
+  --insight-components-fab-border-focus: var(--insight-color-green-160);
+  --insight-components-fab-edge: rgba(39, 57, 87, 0.08);
+  /* Two-layer shadows tinted from grey-200, matching the system's dropdown/modal depth. */
+  --insight-components-fab-shadow-main: 0 1px 2px rgba(39, 57, 87, 0.12), 0 8px 20px rgba(39, 57, 87, 0.16);
+  --insight-components-fab-shadow-main-hover: 0 2px 4px rgba(39, 57, 87, 0.12), 0 12px 28px rgba(39, 57, 87, 0.2);
+  --insight-components-fab-shadow-item: 0 1px 2px rgba(39, 57, 87, 0.1), 0 6px 16px rgba(39, 57, 87, 0.12);
+
+  --fab-size: 64px;
+  --fab-mini: 40px;
+
+  position: relative;
+  display: inline-flex;
+  width: var(--fab-size);
+  height: var(--fab-size);
+  font-family: var(--insight-font-family-sans);
+}
+
+.fixedRight,
+.fixedLeft {
+  position: fixed;
+  bottom: var(--insight-spacing-2xl);
+  z-index: 1000;
+}
+.fixedRight {
+  right: var(--insight-spacing-2xl);
+}
+.fixedLeft {
+  left: var(--insight-spacing-2xl);
+}
+
+/* ─── Main trigger ─── */
+.main {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--fab-size);
+  height: var(--fab-size);
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--insight-components-fab-main-surface-default);
+  color: var(--insight-components-fab-main-text);
+  box-shadow: inset 0 0 0 1px var(--insight-components-fab-edge), var(--insight-components-fab-shadow-main);
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color var(--insight-duration-fast) var(--insight-ease-emphasis),
+    box-shadow var(--insight-duration-fast) var(--insight-ease-emphasis),
+    transform var(--insight-duration-fast) var(--insight-ease-emphasis);
+}
+.main:hover {
+  background: var(--insight-components-fab-main-surface-hover);
+  box-shadow: inset 0 0 0 1px var(--insight-components-fab-edge), var(--insight-components-fab-shadow-main-hover);
+}
+.main:active {
+  background: var(--insight-components-fab-main-surface-active);
+  transform: scale(0.96);
+}
+.open .main {
+  background: var(--insight-components-fab-main-surface-open);
+}
+.open .main:hover {
+  background: var(--insight-components-fab-main-surface-open-hover);
+}
+.main:focus-visible,
+.pill:focus-visible,
+.mini:focus-visible {
+  outline: 3px solid var(--insight-components-fab-border-focus);
+  outline-offset: 2px;
+}
+.mainIcon {
+  display: inline-flex;
+  width: var(--insight-icon-size-lg);
+  height: var(--insight-icon-size-lg);
+  transition: transform var(--insight-duration-fast) var(--insight-ease-emphasis);
+}
+.mainIcon svg {
+  width: 100%;
+  height: 100%;
+  stroke-width: var(--insight-icon-stroke, 2);
+}
+/* The default plus turns a quarter-and-a-half into an ×; a custom closeIcon swaps instead. */
+.open .mainIcon[data-morph] {
+  transform: rotate(135deg);
+}
+
+/* ─── Menu ─── */
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0s linear var(--insight-duration-fast);
+}
+.open .menu {
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+.item {
+  transition:
+    transform var(--insight-duration-fast) var(--insight-ease-emphasis),
+    opacity var(--insight-duration-fast) var(--insight-ease-emphasis);
+  transition-delay: calc(var(--fab-i, 0) * 30ms);
+  opacity: 0;
+}
+.open .item {
+  opacity: 1;
+}
+
+/* Vertical: labelled pills stacked above, right-aligned, 12px above the trigger. */
+.vertical .menu {
+  right: 0;
+  bottom: calc(100% + var(--insight-spacing-lg));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--insight-spacing-md);
+}
+.vertical .item {
+  transform: translateY(8px);
+}
+.vertical.open .item {
+  transform: none;
+}
+
+/* Arc / radial: minis orbit the trigger's centre. */
+.arcRight .menu,
+.arcLeft .menu,
+.radial .menu {
+  inset: 0;
+}
+.arcRight .item,
+.arcLeft .item,
+.radial .item {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--fab-mini);
+  height: var(--fab-mini);
+  margin: calc(var(--fab-mini) / -2) 0 0 calc(var(--fab-mini) / -2);
+  transform: scale(0.4);
+}
+.arcRight.open .item,
+.arcLeft.open .item,
+.radial.open .item {
+  transform: translate(var(--fab-x), var(--fab-y));
+}
+
+/* ─── Action buttons ─── */
+.pill,
+.mini {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  border: none;
+  background: var(--insight-components-fab-main-surface-default);
+  color: var(--insight-components-fab-main-text);
+  box-shadow: inset 0 0 0 1px var(--insight-components-fab-edge), var(--insight-components-fab-shadow-item);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--insight-duration-fast) var(--insight-ease-emphasis);
+}
+.pill:hover:not(:disabled),
+.mini:hover:not(:disabled) {
+  background: var(--insight-components-fab-main-surface-hover);
+}
+.pill:active:not(:disabled),
+.mini:active:not(:disabled) {
+  background: var(--insight-components-fab-main-surface-active);
+}
+.pill:disabled,
+.mini:disabled {
+  color: var(--insight-color-status-disabled-foreground);
+  cursor: not-allowed;
+}
+
+.pill {
+  gap: var(--insight-spacing-sm);
+  min-height: 40px;
+  padding: var(--insight-spacing-sm) var(--insight-spacing-lg) var(--insight-spacing-sm) var(--insight-spacing-md);
+  border-radius: var(--insight-radius-lg);
+  white-space: nowrap;
+}
+.pill .itemIcon {
+  width: var(--insight-icon-size-md);
+  height: var(--insight-icon-size-md);
+}
+.pillLabel {
+  font-family: var(--insight-font-family-sans);
+  font-weight: var(--insight-font-weight-medium);
+  font-size: var(--insight-component-button-small-size);
+  line-height: var(--insight-component-button-small-line-height);
+  letter-spacing: var(--insight-component-button-small-letter-spacing);
+}
+
+.mini {
+  width: var(--fab-mini);
+  height: var(--fab-mini);
+  padding: 0;
+  border-radius: 50%;
+}
+.mini .itemIcon {
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+}
+
+.itemIcon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.itemIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item,
+  .main,
+  .pill,
+  .mini,
+  .mainIcon {
+    transition: none;
+  }
+  .menu {
+    transition: none;
+  }
+}

@@ -1,0 +1,107 @@
+/* Prompt suggestion — ZAK prototype "Suggested next" (13:1170). */
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xs);
+  min-width: 0;
+  font-family: var(--insight-font-family-sans);
+}
+/* Figma "Body/Tiny/Medium" grey-100. */
+.label {
+  margin: 0;
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 1.3;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-grey-100);
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.listPill {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--insight-spacing-md);
+}
+.list > li {
+  display: flex;
+  min-width: 0;
+}
+
+.suggestion {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--insight-spacing-sm);
+  min-width: 0;
+  margin: 0;
+  border: 1px solid transparent;
+  font-family: var(--insight-font-family-sans);
+  color: var(--insight-color-off-black-100);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--insight-duration-fast) ease, border-color var(--insight-duration-fast) ease;
+}
+.suggestion:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: 2px;
+}
+.suggestion:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--insight-color-grey-100);
+}
+.icon > svg {
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+}
+.text {
+  min-width: 0;
+}
+
+/* Card — 1px support-grey border, 8px radius, 13 / 19.5 text. */
+.card {
+  width: 100%;
+  padding: var(--insight-spacing-md);
+  border-color: var(--insight-color-support-border-grey);
+  border-radius: var(--insight-radius-md);
+  background: var(--insight-color-white);
+  font-size: 13px;
+  line-height: 19.5px;
+}
+.card .icon {
+  padding-top: 2px;
+}
+.card:hover:not(:disabled) {
+  border-color: var(--insight-color-grey-75);
+  background: var(--insight-color-grey-10);
+}
+
+/* Pill — grey-30 fill, like the composer chips, 14px text. */
+.pill {
+  align-items: center;
+  min-height: 32px;
+  padding: var(--insight-spacing-sm) var(--insight-spacing-lg);
+  border-radius: var(--insight-radius-chip);
+  background: var(--insight-color-grey-30);
+  font-size: var(--insight-type-body-small-size);
+  line-height: 1.4;
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+}
+.pill:hover:not(:disabled) {
+  background: var(--insight-color-grey-50);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .suggestion {
+    transition: none;
+  }
+}

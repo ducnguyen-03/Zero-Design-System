@@ -1,0 +1,193 @@
+/* Prompt input — ZAK prototype "chat box" (35:237). Component tokens are local, mapped to core. */
+.root {
+  --insight-components-prompt-border: var(--insight-color-grey-50);
+  --insight-components-prompt-border-focus: var(--insight-color-green-160);
+  --insight-components-prompt-surface: var(--insight-color-white);
+  --insight-components-prompt-tab: var(--insight-color-grey-30);
+  --insight-components-prompt-control: var(--insight-color-grey-30);
+  --insight-components-prompt-control-hover: var(--insight-color-grey-50);
+  --insight-components-prompt-radius: 18px; /* Figma radius/18 — no core token */
+
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-family: var(--insight-font-family-sans);
+}
+
+/* ── Status tab: tucks 16px under the form ── */
+.banner {
+  margin-bottom: -16px;
+  padding: var(--insight-spacing-10) var(--insight-spacing-xl) var(--insight-spacing-2xl);
+  border-radius: var(--insight-components-prompt-radius) var(--insight-components-prompt-radius) 0 0;
+  background: var(--insight-components-prompt-tab);
+  color: var(--insight-color-grey-100);
+  font-size: var(--insight-type-body-small-size);
+  line-height: 20px;
+}
+.bannerRow {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-sm);
+  min-height: 20px;
+}
+.bannerIcon {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  flex-shrink: 0;
+}
+.bannerIcon > svg {
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+}
+.bannerText {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bannerAction {
+  flex-shrink: 0;
+}
+
+/* ── Form ── */
+.form {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--insight-spacing-md);
+  min-height: 120px;
+  margin: 0;
+  padding: 13px;
+  border: 1px solid var(--insight-components-prompt-border);
+  border-radius: var(--insight-components-prompt-radius);
+  background: var(--insight-components-prompt-surface);
+  box-shadow: 0 2px 3px rgba(2, 32, 52, 0.03);
+  transition: border-color var(--insight-duration-fast) ease, box-shadow var(--insight-duration-fast) ease;
+}
+.form:focus-within {
+  border-color: var(--insight-components-prompt-border-focus);
+  box-shadow: 0 0 0 1px var(--insight-components-prompt-border-focus), 0 2px 3px rgba(2, 32, 52, 0.03);
+}
+
+.attachments {
+  min-width: 0;
+}
+
+/* Figma "Body/Small/Default": 14 / 1.4, 0.14px. */
+.area {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 24px;
+  margin: 0;
+  padding: 2px;
+  border: 0;
+  outline: none;
+  resize: none;
+  overflow-y: auto;
+  background: transparent;
+  color: var(--insight-color-off-black-100);
+  font-family: inherit;
+  font-size: var(--insight-type-body-small-size);
+  line-height: 1.4;
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+}
+.area::placeholder {
+  color: var(--insight-color-grey-100);
+  opacity: 1;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-md);
+}
+.left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--insight-spacing-md);
+  min-width: 0;
+}
+
+/* Round 32px controls — DS IconButton (md) on a grey-30 fill, 16px glyph. */
+.form .round {
+  --icon-btn-glyph: var(--insight-icon-size-sm);
+  background: var(--insight-components-prompt-control);
+  color: var(--insight-color-off-black-100);
+}
+.form .round:hover:not(:disabled) {
+  background: var(--insight-components-prompt-control-hover);
+}
+/* Figma: empty prompt = send greyed (grey-50 at 70%, white arrow). */
+.form .send:disabled {
+  background: var(--insight-color-grey-50);
+  color: var(--insight-color-white);
+  opacity: 0.7;
+}
+.form .stop svg {
+  fill: currentColor;
+  width: var(--insight-icon-size-xs);
+  height: var(--insight-icon-size-xs);
+}
+
+/* ── Source chip ── */
+.chip {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 32px;
+  margin: 0;
+  padding: var(--insight-spacing-xs) var(--insight-spacing-md);
+  border: 0;
+  border-radius: var(--insight-radius-chip);
+  background: var(--insight-components-prompt-control, var(--insight-color-grey-30));
+  color: var(--insight-color-grey-200);
+  font-family: var(--insight-font-family-sans);
+  cursor: pointer;
+}
+.chip:hover:not(:disabled) {
+  background: var(--insight-color-grey-50);
+}
+.chip:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: 2px;
+}
+.chip:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.chipIcon {
+  display: inline-flex;
+}
+.chipIcon > svg {
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+}
+/* Figma "Body/Tiny/Medium": 12 / 1.3. */
+.chipLabel {
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 1.3;
+  font-weight: var(--insight-font-weight-medium);
+  white-space: nowrap;
+}
+.chipChevron {
+  width: var(--insight-icon-size-xs);
+  height: var(--insight-icon-size-xs);
+}
+
+.disabled .form {
+  background: var(--insight-color-grey-10);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form {
+    transition: none;
+  }
+}

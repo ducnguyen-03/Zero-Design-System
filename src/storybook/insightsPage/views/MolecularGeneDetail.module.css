@@ -1,0 +1,554 @@
+/* Molecular tab — gene detail (Figma 15230:18886). Root tokens/padding come from MolecularView.module.css `.detail`.
+   Untokenised Figma colours: the variant consequence pill is #3987cd → blue-150. */
+/* ── Breadcrumb ── */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  line-height: 16px;
+}
+.crumbLink {
+  padding: var(--insight-spacing-xs) 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: var(--insight-color-foreground-text-tertiary);
+  cursor: pointer;
+  border-radius: var(--insight-radius-xs);
+}
+.crumbLink:hover {
+  color: var(--insight-color-foreground-link);
+  text-decoration: underline;
+}
+.crumbLink:focus-visible {
+  outline: 2px solid var(--insight-color-green-175);
+  outline-offset: 2px;
+}
+.crumbSep {
+  display: inline-flex;
+  color: var(--insight-color-grey-75);
+}
+.crumbSep svg {
+  width: 16px;
+  height: 16px;
+}
+.crumbCurrent {
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-foreground-text-primary);
+}
+
+/* ── Header card ── */
+.header {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: var(--insight-spacing-xl);
+  padding: var(--insight-spacing-xl);
+  border: 1px solid var(--insight-color-support-border-grey);
+  border-radius: var(--insight-radius-card);
+  background: var(--insight-color-white);
+}
+@media (max-width: 1200px) {
+  .header {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.identity {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xl);
+  min-width: 0;
+  padding-right: var(--insight-spacing-xl);
+  border-right: 1px solid var(--insight-color-grey-30);
+}
+@media (max-width: 1200px) {
+  .identity {
+    padding-right: 0;
+    border-right: none;
+  }
+}
+.idCard {
+  padding: var(--insight-spacing-lg);
+  border: 1px solid var(--insight-color-grey-30);
+  border-radius: var(--insight-radius-card);
+  background: var(--insight-color-grey-10);
+}
+.idTitle {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--insight-spacing-md);
+}
+.symbol {
+  margin: 0;
+  font-size: var(--insight-type-headline-h2-size);
+  line-height: 34px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-foreground-text-primary);
+}
+.fullName {
+  padding-right: var(--insight-spacing-md);
+  border-right: 1px solid var(--insight-color-grey-30);
+  font-size: var(--insight-type-body-small-size);
+  line-height: 21px;
+}
+.rule,
+.ruleWide {
+  width: 100%;
+  height: 0;
+  margin: var(--insight-spacing-xs) 0;
+  border: none;
+  border-top: 2px solid var(--insight-color-grey-30);
+}
+.ruleWide {
+  margin: var(--insight-spacing-xl) 0;
+  border-top-width: 1px;
+}
+.meta {
+  margin: 0;
+  padding: var(--insight-spacing-xs) 0;
+  font-size: var(--insight-type-body-small-size);
+  line-height: 21px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-foreground-text-secondary);
+}
+.meta:first-of-type {
+  padding-top: var(--insight-spacing-md);
+}
+.metaKey {
+  font-size: 11.2px;
+  letter-spacing: 0.784px;
+  text-transform: uppercase;
+  color: var(--insight-color-foreground-text-tertiary);
+}
+.description {
+  margin: 0;
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 18px;
+  color: var(--insight-color-foreground-text-tertiary);
+}
+
+/* ── Impact overview ── */
+.impact {
+  --molecular-consequence: var(--insight-color-blue-150);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding: var(--insight-spacing-lg);
+  border: 1px solid var(--insight-color-grey-30);
+  border-radius: var(--insight-radius-card);
+  background: var(--insight-color-grey-10);
+}
+.impactTitle {
+  margin: 0 0 var(--insight-spacing-md);
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 18px;
+  font-weight: var(--insight-font-weight-bold);
+  text-transform: uppercase;
+  color: var(--insight-color-foreground-text-tertiary);
+}
+.ticket {
+  display: inline-flex;
+  align-items: stretch;
+  margin-bottom: var(--insight-spacing-lg);
+}
+.ticketPart {
+  padding: var(--insight-spacing-md);
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-color-background-subtle);
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 18px;
+  font-weight: var(--insight-font-weight-bold);
+  text-transform: uppercase;
+  color: var(--insight-color-foreground-text-secondary);
+}
+/* The perforation between the two halves of the "ticket". */
+.ticketNotch {
+  width: 10px;
+  background:
+    radial-gradient(circle at 50% 0, var(--insight-color-grey-10) 5px, transparent 5.5px),
+    radial-gradient(circle at 50% 100%, var(--insight-color-grey-10) 5px, transparent 5.5px),
+    var(--insight-color-background-subtle);
+}
+.statRow2,
+.statRow3 {
+  display: grid;
+  gap: var(--insight-spacing-2xl);
+  width: 100%;
+}
+.statRow2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.statRow3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--insight-spacing-md);
+  min-width: 0;
+  padding-right: var(--insight-spacing-2xl);
+  border-right: 1px solid var(--insight-color-grey-30);
+}
+.statRow2 > .stat:last-child,
+.statRow3 > .stat:nth-child(4) {
+  padding-right: 0;
+  border-right: none;
+}
+.statLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  font-size: 11.2px;
+  line-height: 16.8px;
+  letter-spacing: 0.784px;
+  font-weight: var(--insight-font-weight-medium);
+  text-transform: uppercase;
+  color: var(--insight-color-foreground-text-tertiary);
+}
+.statInfo {
+  width: 14px;
+  height: 14px;
+}
+.statValueRow,
+.statValueRowSpread {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--insight-spacing-xs) var(--insight-spacing-md);
+  width: 100%;
+}
+.statValueRowSpread {
+  justify-content: space-between;
+}
+.statValue,
+.statGene {
+  font-size: var(--insight-type-body-default-size);
+  line-height: 24px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-foreground-text-primary);
+}
+.statGene {
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: var(--insight-radius-xs);
+}
+.statGene:hover {
+  color: var(--insight-color-foreground-link);
+  text-decoration: underline;
+}
+.statGene:focus-visible {
+  outline: 2px solid var(--insight-color-green-175);
+  outline-offset: 2px;
+}
+.tag {
+  padding: var(--insight-spacing-xs) var(--insight-spacing-md);
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-color-background-subtle);
+  font-size: 11.2px;
+  line-height: 15.68px;
+  letter-spacing: 0.784px;
+  font-weight: var(--insight-font-weight-medium);
+  text-transform: uppercase;
+}
+.statLink {
+  margin-left: calc(-1 * var(--insight-spacing-md));
+}
+.classCount {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 var(--insight-spacing-10);
+  border-radius: var(--insight-radius-xl);
+  background: var(--molecular-consequence);
+  font-size: var(--insight-type-body-tiny-size);
+  font-weight: var(--insight-font-weight-bold);
+  color: var(--insight-color-white);
+}
+.classLabel {
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 18px;
+  letter-spacing: 0.84px;
+  font-weight: var(--insight-font-weight-bold);
+  text-transform: uppercase;
+  color: var(--molecular-consequence);
+}
+.consequence,
+.significance {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  height: 24px;
+  padding: 0 var(--insight-spacing-sm);
+  border-radius: var(--insight-radius-sm);
+  font-size: 10px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-white);
+}
+.consequence {
+  background: var(--molecular-consequence);
+  text-transform: uppercase;
+}
+.significance {
+  background: var(--insight-color-red-150);
+}
+.significance svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* ── Stacked bar ── */
+.mutationCard {
+  border-color: var(--insight-color-support-border-grey);
+  border-radius: var(--insight-radius-card);
+}
+.mutationCard h3 {
+  text-align: center;
+  font-size: 18px;
+  font-weight: var(--insight-font-weight-regular);
+  color: var(--insight-color-foreground-text-tertiary);
+  width: 100%;
+}
+.mutationChart {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+/* Let the DS chart's axis and legend join this column so the disease grouping can sit between them. */
+.mutationChart > [role="figure"] {
+  display: contents;
+}
+.mutationChart > [role="figure"] > :last-child {
+  order: 3;
+  justify-content: center;
+  margin-top: var(--insight-spacing-lg);
+}
+.mutationChart > .axisTitle {
+  order: 2;
+}
+/* Mirrors the DS stacked chart's bar track (y-axis gutter + clamp padding) so groups sit under their bars. */
+.groups {
+  display: flex;
+  gap: clamp(4px, 3%, 24px);
+  margin-left: 53px;
+  padding: var(--insight-spacing-md) clamp(4px, 2%, 16px) 0;
+  font-size: 11px;
+  color: var(--insight-color-foreground-text-tertiary);
+}
+.group {
+  flex-basis: 0;
+  min-width: 0;
+  padding-top: var(--insight-spacing-xs);
+  border-top: 1px solid var(--insight-color-grey-50);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.axisTitle {
+  margin: var(--insight-spacing-xs) 0 0;
+  text-align: center;
+  font-size: var(--insight-type-body-tiny-size);
+  color: var(--insight-color-foreground-text-tertiary);
+}
+
+/* ── Sections ── */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  min-width: 0;
+}
+.sectionTitle {
+  margin: 0;
+  font-size: var(--insight-type-title-default-size);
+  line-height: var(--insight-type-title-default-line-height);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-foreground-text-inclusive);
+}
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+  min-width: 0;
+  padding: var(--insight-spacing-xl);
+  border: 1px solid var(--insight-color-support-border-grey);
+  border-radius: var(--insight-radius-card);
+  background: var(--insight-color-white);
+}
+
+/* ── Heatmap ── */
+.heatNote {
+  margin: 0;
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 16px;
+  color: var(--insight-color-foreground-text-tertiary);
+}
+.heatmap table {
+  width: calc(100% + 12px);
+  table-layout: fixed;
+}
+.heatmap thead th {
+  white-space: normal;
+}
+.heatmap thead th:first-child {
+  width: 120px;
+}
+.heatmap tbody th {
+  font-style: normal;
+}
+.heatmap td > span {
+  height: 72px;
+}
+.heatmap td b {
+  font-size: 20px;
+}
+.heatActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--insight-spacing-md);
+}
+.heatSearch {
+  width: min(348px, 100%);
+}
+
+/* ── Network ── */
+.networkIntro {
+  font-size: var(--insight-type-body-small-size);
+  line-height: 20px;
+  color: var(--insight-color-foreground-text-secondary);
+}
+.networkIntro p {
+  margin: 0 0 var(--insight-spacing-xs);
+}
+.networkIntro ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xs);
+  margin: 0;
+  padding-left: var(--insight-spacing-xl);
+}
+.networkIntro b {
+  font-size: var(--insight-type-body-default-size);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-foreground-text-primary);
+}
+.network {
+  display: block;
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  margin: 0 auto;
+  font-family: var(--insight-font-family-sans);
+}
+.edge-strong,
+.edge-medium,
+.edge-weak {
+  stroke-width: 2;
+}
+.edge-strong {
+  stroke: var(--insight-color-off-black-100);
+}
+.edge-medium {
+  stroke: var(--insight-color-off-black-100);
+  stroke-dasharray: 6 3;
+}
+.edge-weak {
+  stroke: var(--insight-color-grey-50);
+  stroke-dasharray: 6 5;
+}
+.edgeTag {
+  fill: var(--insight-color-grey-100);
+}
+.edgeTagDark {
+  fill: var(--insight-color-off-black-100);
+}
+.edgeLabel {
+  fill: var(--insight-color-white);
+  font-size: 10px;
+  font-weight: var(--insight-font-weight-bold);
+  text-anchor: middle;
+}
+.nodeLabel {
+  fill: var(--insight-color-off-black-100);
+  text-anchor: middle;
+}
+.nodeCount {
+  fill: var(--insight-color-foreground-text-tertiary);
+  font-size: 11px;
+  text-anchor: middle;
+}
+.lineLegend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--insight-spacing-md) var(--insight-spacing-2xl);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 11px;
+  color: var(--insight-color-foreground-text-tertiary);
+}
+.lineLegend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+}
+.lineStrong,
+.lineMedium,
+.lineWeak {
+  width: 32px;
+  height: 0;
+  border-top: 2px solid var(--insight-color-off-black-100);
+}
+.lineMedium {
+  border-top-style: dashed;
+}
+.lineWeak {
+  border-top-style: dashed;
+  border-top-color: var(--insight-color-grey-50);
+}
+
+/* ── Protein paint ── */
+.protein {
+  display: block;
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  margin: 0 auto;
+  font-family: var(--insight-font-family-sans);
+}
+.stem {
+  stroke: var(--insight-color-off-black-100);
+  stroke-width: 1.5;
+}
+.head {
+  fill: var(--insight-color-off-black-100);
+}
+.ppLabel,
+.ppTick,
+.domainLabel {
+  font-size: 11px;
+  text-anchor: middle;
+}
+.ppLabel {
+  fill: var(--insight-color-foreground-text-secondary);
+}
+.ppTick {
+  fill: var(--insight-color-foreground-text-tertiary);
+}
+.domainLabel {
+  fill: var(--insight-color-off-black-100);
+  font-weight: var(--insight-font-weight-medium);
+}
+.backbone {
+  fill: var(--insight-color-grey-50);
+}

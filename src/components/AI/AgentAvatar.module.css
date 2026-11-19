@@ -1,0 +1,147 @@
+/* Agent avatar — ZAK prototype (GyEuTla6grBcuq1FKJ49LA, 13:1038). */
+.avatar {
+  --agent-avatar-size: 28px;
+  --agent-avatar-bg: var(--insight-color-grey-30);
+  --agent-mark-scale: 60%;
+  --agent-avatar-radius: var(--insight-radius-sm);
+  /* The ring/badge sits on whatever surface the avatar is on. */
+  --agent-avatar-surface: var(--insight-color-white);
+
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-shrink: 0;
+  width: var(--agent-avatar-size);
+  height: var(--agent-avatar-size);
+  vertical-align: middle;
+}
+.avatar[data-size="20"] {
+  --agent-avatar-radius: 3px;
+}
+.avatar[data-size="40"] {
+  --agent-avatar-radius: var(--insight-radius-md);
+}
+/* Beats the per-size radii above ([data-size] adds specificity). */
+.avatar.circle {
+  --agent-avatar-radius: 50%;
+}
+
+.tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--agent-avatar-radius);
+  background: var(--agent-avatar-bg);
+  overflow: hidden;
+}
+.tile > img,
+.tile > svg {
+  display: block;
+  width: var(--agent-mark-scale);
+  height: var(--agent-mark-scale);
+  object-fit: contain;
+}
+
+/* Status ------------------------------------------------------------ */
+/* Badge: a dot on the bottom-right corner, cut out of the tile by a surface ring. */
+.status {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: max(8px, calc(var(--agent-avatar-size) * 0.3));
+  height: max(8px, calc(var(--agent-avatar-size) * 0.3));
+  box-sizing: border-box;
+  border: 2px solid var(--agent-avatar-surface);
+  border-radius: 50%;
+  background: var(--insight-color-grey-75);
+}
+.status-done .status {
+  background: var(--insight-color-green-150);
+}
+.status-attention .status {
+  background: var(--insight-color-orange-150);
+}
+.status-blocked .status {
+  background: var(--insight-color-red-150);
+}
+
+/* Working: a brand-green arc runs round the tile; no dot. */
+.status-working .status {
+  display: none;
+}
+.status-working::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: calc(var(--agent-avatar-radius) + 3px);
+  background: conic-gradient(from var(--agent-spin, 0deg), var(--insight-color-green-150) 0 28%, transparent 28% 100%);
+  /* Keep only the 1.5px padding band: content-box minus border-box. */
+  padding: 1.5px;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: agent-spin 1.1s linear infinite;
+}
+.circle.status-working::before {
+  border-radius: 50%;
+}
+@property --agent-spin {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes agent-spin {
+  to {
+    --agent-spin: 360deg;
+  }
+}
+
+/* Group ------------------------------------------------------------- */
+.group {
+  --agent-avatar-size: 24px;
+  display: inline-flex;
+  align-items: center;
+  padding-left: 4px;
+}
+.group > * {
+  /* Light overlap: each round tile keeps its whole mark visible. */
+  margin-left: calc(var(--agent-avatar-size) * -0.16);
+}
+/* A stack is always round: square corners overlapping read as clutter. */
+.group > .avatar {
+  --agent-avatar-radius: 50%;
+}
+.group > .avatar .tile,
+.group > .more {
+  box-shadow: 0 0 0 2px var(--agent-avatar-surface, var(--insight-color-white));
+}
+.more {
+  display: inline-grid;
+  place-items: center;
+  min-width: var(--agent-avatar-size);
+  height: var(--agent-avatar-size);
+  padding: 0 4px;
+  box-sizing: border-box;
+  border-radius: var(--insight-radius-chip);
+  background: var(--insight-color-grey-30);
+  color: var(--insight-color-grey-100);
+  font-family: var(--insight-font-family-sans);
+  font-size: 11px;
+  font-weight: var(--insight-font-weight-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-working::before {
+    animation: none;
+    background: var(--insight-color-green-150);
+    opacity: 0.6;
+  }
+}

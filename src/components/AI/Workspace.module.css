@@ -1,0 +1,443 @@
+/* AI workspace shell + sidebar — ZAK prototype "Space" (1:6582) / "Introducing the agents" (1:5888).
+   Component tokens are local, mapped to core. Figma #e5e9ed (grey 91) → grey-30. */
+.layout {
+  --insight-components-workspace-sidebar-width: 248px;
+  --insight-components-workspace-rail-width: 60px;
+  --insight-components-workspace-panel-width: 440px;
+  --insight-components-workspace-rule: var(--insight-color-grey-30);
+  --insight-components-workspace-canvas: var(--insight-color-grey-10);
+
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  height: 100%;
+  min-height: 0;
+  font-family: var(--insight-font-family-sans);
+  background: var(--insight-components-workspace-canvas);
+}
+.withPanel {
+  grid-template-columns: auto minmax(0, 1fr) var(--insight-components-workspace-panel-width);
+}
+.canvas {
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  background: var(--insight-components-workspace-canvas);
+}
+.panel {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  border-left: 1px solid var(--insight-components-workspace-rule);
+}
+
+/* ── Panel resizer: a 12px hit strip centred on the panel's left rule ── */
+.resizer {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  bottom: 0;
+  left: -7px;
+  width: 12px;
+  cursor: col-resize;
+  touch-action: none;
+  outline: none;
+}
+/* The rule lights up green while hovered, focused or dragged. */
+.resizer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 5px;
+  width: 2px;
+  background: var(--insight-color-green-160);
+  opacity: 0;
+  transition: opacity 150ms ease 80ms;
+}
+.resizerGrip {
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  width: 6px;
+  height: 36px;
+  margin-top: -18px;
+  box-sizing: border-box;
+  border: 1px solid var(--insight-color-support-border-grey);
+  border-radius: var(--insight-radius-chip);
+  background: var(--insight-color-white);
+  box-shadow: 0 1px 2px rgba(39, 57, 87, 0.12);
+  /* Hidden at rest — the handle only shows itself once the pointer (or focus) finds the edge. */
+  opacity: 0;
+  transition:
+    opacity 150ms ease 80ms,
+    border-color 150ms ease,
+    background-color 150ms ease,
+    transform 200ms var(--insight-ease-emphasis);
+}
+.resizer:hover::before,
+.resizer:focus-visible::before,
+.resizing .resizer::before {
+  opacity: 1;
+}
+.resizer:hover .resizerGrip,
+.resizer:focus-visible .resizerGrip,
+.resizing .resizerGrip {
+  opacity: 1;
+  border-color: var(--insight-color-green-160);
+  background: var(--insight-color-green-10);
+  transform: scaleY(1.2);
+}
+.resizer:focus-visible .resizerGrip {
+  box-shadow: 0 0 0 3px var(--insight-color-green-10);
+}
+/* While dragging: no text selection, the cursor holds, and nothing animates behind it. */
+.resizing {
+  cursor: col-resize;
+  user-select: none;
+}
+.resizing .canvas,
+.resizing .panel {
+  pointer-events: none;
+}
+.resizing .resizer {
+  pointer-events: auto;
+}
+.panel > * {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Sidebar ── */
+/* Matches the DS Sidebar (Figma 3622:5402): 250 / 60px, support-grey right rule, header + account
+   from `SidebarHeader` / `SidebarAccount`, rows styled as `NavRow`. */
+.sidebar {
+  --insight-components-workspace-sidebar-width: 250px;
+  --insight-components-workspace-rail-width: 60px;
+
+  box-sizing: border-box;
+  border-right: 1px solid var(--insight-color-support-border-grey);
+  display: flex;
+  flex-direction: column;
+  width: var(--insight-components-workspace-sidebar-width);
+  height: 100%;
+  min-height: 0;
+  background: var(--insight-color-white);
+  font-family: var(--insight-font-family-sans);
+  color: var(--insight-color-off-black-100);
+  transition: width var(--insight-duration-medium) var(--insight-ease-emphasis);
+}
+.collapsed {
+  width: var(--insight-components-workspace-rail-width);
+}
+
+.navAction {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--insight-spacing-sm);
+  background: none;
+  color: var(--insight-color-grey-100);
+  cursor: pointer;
+}
+.navAction {
+  width: 24px;
+  height: 24px;
+}
+.navAction:hover {
+  background: var(--insight-color-grey-30);
+  color: var(--insight-color-off-black-100);
+}
+.navAction:focus-visible,
+.navMain:focus-visible,
+.search:focus-visible,
+.sectionToggle:focus-visible,
+.createRow:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: -2px;
+}
+.navAction svg {
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+}
+
+/* Search — grey-10 field, 13px placeholder, ⌘K key. */
+.searchWrap {
+  padding: var(--insight-spacing-sm) 14px var(--insight-spacing-10);
+}
+.search {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  width: 100%;
+  margin: 0;
+  padding: var(--insight-spacing-md) var(--insight-spacing-10);
+  border: 0;
+  border-radius: var(--insight-spacing-sm);
+  background: var(--insight-color-grey-10);
+  color: var(--insight-color-grey-100);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.search:hover {
+  background: var(--insight-color-grey-30);
+}
+.search > svg {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}
+.searchText {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  line-height: 1;
+}
+.kbd {
+  padding: 1px 5px;
+  border: 1px solid var(--insight-color-grey-30);
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-color-white);
+  color: var(--insight-color-grey-100);
+  font-family: inherit;
+  font-size: 10px;
+  line-height: 15px;
+}
+.collapsed .searchWrap {
+  padding-inline: var(--insight-spacing-md);
+}
+.collapsed .searchText,
+.collapsed .kbd {
+  display: none;
+}
+.collapsed .search {
+  justify-content: center;
+}
+
+/* Nav */
+.nav {
+  padding: var(--insight-spacing-md);
+}
+.navList {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.navItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: var(--insight-spacing-sm);
+}
+.navItem {
+  color: var(--insight-color-foreground-text-primary);
+  transition: background var(--insight-duration-fast) var(--insight-ease-emphasis);
+}
+.navItem:hover {
+  background: var(--insight-color-grey-30);
+}
+/* DS NavRow active: green-10 fill, green-300 medium label. */
+.navActive,
+.navActive:hover {
+  background: var(--insight-color-green-10);
+  color: var(--insight-color-green-300);
+}
+.navMain {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  min-width: 0;
+  min-height: 32px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--insight-spacing-sm) var(--insight-spacing-md);
+  border: 0;
+  border-radius: var(--insight-spacing-sm);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+.navIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+.navIcon svg {
+  width: var(--insight-icon-size-md);
+  height: var(--insight-icon-size-md);
+}
+/* Figma: primary items Medium, list items Regular — both 14 / 1.4. */
+.navLabel {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--insight-type-body-small-size);
+  line-height: 1.4;
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+  font-weight: var(--insight-font-weight-regular);
+}
+.navActive .navLabel {
+  font-weight: var(--insight-font-weight-medium);
+}
+.navItem .navAction {
+  margin-right: var(--insight-spacing-xs);
+}
+.collapsed .navMain {
+  justify-content: center;
+}
+.collapsed .navLabel,
+.collapsed .navItem .navAction {
+  display: none;
+}
+
+.sidebarBody {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: var(--insight-spacing-md);
+}
+.collapsed .sidebarBody {
+  visibility: hidden;
+}
+
+/* Sections — Spaces, Chat history */
+.section {
+  padding: var(--insight-spacing-md) 0;
+}
+.section .navList {
+  padding: 0 var(--insight-spacing-md);
+}
+.sectionHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-md);
+  min-height: 32px;
+  padding: 0 var(--insight-spacing-md) 0 var(--insight-spacing-xl);
+}
+.sectionTitle {
+  margin: 0;
+  font-size: var(--insight-type-body-small-size);
+  line-height: 16.5px;
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: 0.44px;
+  color: var(--insight-color-grey-100);
+}
+.sectionToggle {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-md);
+  min-height: 28px;
+  margin: 0 calc(-1 * var(--insight-spacing-xs)) 0 0;
+  padding: 0 var(--insight-spacing-xs) 0 0;
+  border: 0;
+  border-radius: var(--insight-spacing-sm);
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+.sectionChevron {
+  width: 14px;
+  height: 14px;
+  color: var(--insight-color-grey-100);
+  transform: rotate(180deg);
+  transition: transform var(--insight-duration-fast) ease;
+}
+.sectionChevronClosed {
+  transform: none;
+}
+
+/* Create row — dashed 24px tile + label */
+.createRow {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-10);
+  width: calc(100% - 2 * var(--insight-spacing-md));
+  margin: 0 var(--insight-spacing-md);
+  padding: var(--insight-spacing-sm) var(--insight-spacing-md);
+  border: 0;
+  border-radius: var(--insight-spacing-sm);
+  background: none;
+  color: var(--insight-color-grey-200);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.createRow:hover {
+  background: var(--insight-color-grey-10);
+}
+.createTile {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px dashed var(--insight-color-grey-75);
+  border-radius: var(--insight-radius-sm);
+}
+.createTile svg {
+  width: 14px;
+  height: 14px;
+}
+.createRow .navLabel {
+  font-weight: var(--insight-font-weight-regular);
+}
+
+/* Footer — DS Sidebar footer: rule above, 12px padding, `SidebarAccount` inside. */
+.sidebarFoot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-lg);
+  border-top: 1px solid var(--insight-color-support-border-grey);
+}
+.collapsed .sidebarFoot {
+  align-items: center;
+  border-top: none;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .withPanel {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .panel {
+    position: absolute;
+    z-index: 30;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(var(--insight-components-workspace-panel-width), 100%);
+    box-shadow: var(--insight-shadow-dropdown);
+    background: var(--insight-color-white);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sidebar,
+  .sectionChevron,
+  .resizer::before,
+  .resizerGrip {
+    transition: none;
+  }
+}

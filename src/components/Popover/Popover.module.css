@@ -1,0 +1,167 @@
+/* Figma Popup "Container" 3542:4078 — component tokens mapped locally. */
+.root {
+  --popover-background: var(--insight-color-white);          /* background-canvas */
+  --popover-border: var(--insight-color-grey-40);            /* border-neutral #ced8e2 */
+  --popover-title: var(--insight-color-off-black-100);
+  --popover-body: var(--insight-color-grey-200);
+  --popover-close: var(--insight-color-grey-100);
+  --popover-shadow: 0 0 8px rgba(39, 57, 87, 0.08), 0 16px 16px rgba(39, 57, 87, 0.16);
+  --popover-width: 290px;
+  --popover-gap: 10px;            /* distance trigger ↔ panel (room for the 7px arrow) */
+  --popover-arrow: 10px;          /* rotated square → 14×7 visible tip */
+  --popover-arrow-inset: 24px;    /* Figma: arrow 24px from the panel edge */
+  --popover-arrow-center: calc(var(--popover-arrow-inset) + var(--popover-arrow) / 2);
+
+  position: relative;
+  display: inline-flex;
+}
+
+.panel {
+  position: absolute;
+  z-index: 20;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--insight-spacing-10);
+  width: var(--popover-width);
+  max-width: calc(100vw - var(--insight-spacing-3xl));
+  padding: var(--insight-spacing-xl);
+  border: 1px solid var(--popover-border);
+  border-radius: var(--insight-radius-card);
+  background: var(--popover-background);
+  box-shadow: var(--popover-shadow);
+  font-family: var(--insight-font-family-sans);
+  text-align: left;
+  outline: none;
+}
+.panel[hidden] { display: none; }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-md);
+}
+.title {
+  margin: 0;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: var(--insight-font-weight-bold);
+  color: var(--popover-title);
+}
+.close {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin: -4px -4px -4px 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--insight-radius-sm);
+  background: transparent;
+  color: var(--popover-close);
+  cursor: pointer;
+}
+.close svg { width: var(--insight-icon-size-sm); height: var(--insight-icon-size-sm); }
+.close:hover { background: var(--insight-color-grey-20); color: var(--popover-title); }
+.close:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: 1px;
+}
+.body {
+  font-size: 13px;
+  line-height: 19.5px;
+  font-weight: var(--insight-font-weight-regular);
+  color: var(--popover-body);
+}
+.body > p { margin: 0; }
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: var(--insight-spacing-md);
+}
+
+/* ---------- Arrow ---------- */
+.arrow {
+  position: absolute;
+  width: var(--popover-arrow);
+  height: var(--popover-arrow);
+  background: var(--popover-background);
+  border: 1px solid transparent;
+  transform: rotate(45deg);
+  box-sizing: border-box;
+}
+
+/* placement=bottom → arrow on top edge (Figma Direction=Top) */
+[data-placement="bottom"] > .panel { top: calc(100% + var(--popover-gap)); }
+[data-placement="bottom"] > .panel > .arrow {
+  top: calc(var(--popover-arrow) / -2 - 1px);
+  border-top-color: var(--popover-border);
+  border-left-color: var(--popover-border);
+}
+/* placement=top → arrow on bottom edge (Figma Direction=Bellow) */
+[data-placement="top"] > .panel { bottom: calc(100% + var(--popover-gap)); }
+[data-placement="top"] > .panel > .arrow {
+  bottom: calc(var(--popover-arrow) / -2 - 1px);
+  border-bottom-color: var(--popover-border);
+  border-right-color: var(--popover-border);
+}
+/* placement=right → arrow on left edge (Figma Direction=Left) */
+[data-placement="right"] > .panel { left: calc(100% + var(--popover-gap)); }
+[data-placement="right"] > .panel > .arrow {
+  left: calc(var(--popover-arrow) / -2 - 1px);
+  border-left-color: var(--popover-border);
+  border-bottom-color: var(--popover-border);
+}
+/* placement=left → arrow on right edge (Figma Direction=Right) */
+[data-placement="left"] > .panel { right: calc(100% + var(--popover-gap)); }
+[data-placement="left"] > .panel > .arrow {
+  right: calc(var(--popover-arrow) / -2 - 1px);
+  border-top-color: var(--popover-border);
+  border-right-color: var(--popover-border);
+}
+
+/* ---------- Align (arrow always points at the trigger centre) ---------- */
+:is([data-placement="top"], [data-placement="bottom"])[data-align="start"] > .panel {
+  left: calc(50% - var(--popover-arrow-center));
+}
+:is([data-placement="top"], [data-placement="bottom"])[data-align="start"] > .panel > .arrow {
+  left: var(--popover-arrow-inset);
+}
+:is([data-placement="top"], [data-placement="bottom"])[data-align="center"] > .panel {
+  left: 50%;
+  transform: translateX(-50%);
+}
+:is([data-placement="top"], [data-placement="bottom"])[data-align="center"] > .panel > .arrow {
+  left: calc(50% - var(--popover-arrow) / 2);
+}
+:is([data-placement="top"], [data-placement="bottom"])[data-align="end"] > .panel {
+  right: calc(50% - var(--popover-arrow-center));
+}
+:is([data-placement="top"], [data-placement="bottom"])[data-align="end"] > .panel > .arrow {
+  right: var(--popover-arrow-inset);
+}
+
+:is([data-placement="left"], [data-placement="right"])[data-align="start"] > .panel {
+  top: calc(50% - var(--popover-arrow-center));
+}
+:is([data-placement="left"], [data-placement="right"])[data-align="start"] > .panel > .arrow {
+  top: var(--popover-arrow-inset);
+}
+:is([data-placement="left"], [data-placement="right"])[data-align="center"] > .panel {
+  top: 50%;
+  transform: translateY(-50%);
+}
+:is([data-placement="left"], [data-placement="right"])[data-align="center"] > .panel > .arrow {
+  top: calc(50% - var(--popover-arrow) / 2);
+}
+:is([data-placement="left"], [data-placement="right"])[data-align="end"] > .panel {
+  bottom: calc(50% - var(--popover-arrow-center));
+}
+:is([data-placement="left"], [data-placement="right"])[data-align="end"] > .panel > .arrow {
+  bottom: var(--popover-arrow-inset);
+}

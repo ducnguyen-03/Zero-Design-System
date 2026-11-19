@@ -1,0 +1,236 @@
+/* Biosamples tab — Figma "Insights" 15230:52569, Main Content 15230:52576. */
+
+.view {
+  /* Figma card border is #d0d9e2 (chip/disabled/bg) = grey-50. */
+  --bio-border: var(--insight-color-grey-50);
+  /* Figma body copy is rgba(0,0,0,.87); no token, nearest ink is off-black. */
+  --bio-ink: var(--insight-color-off-black-100);
+  --bio-side-width: 250px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-2xl);
+  width: 100%;
+  min-width: 0;
+  padding: var(--insight-spacing-xl);
+  box-sizing: border-box;
+  font-family: var(--insight-font-family-sans);
+  color: var(--bio-ink);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xl);
+  min-width: 0;
+}
+
+/* ── section header: title · toggle · download ── */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  min-height: 40px;
+}
+.sectionTitle {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  font-size: var(--insight-type-title-default-size);
+  line-height: var(--insight-type-title-default-line-height);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.toggle {
+  flex: 0 0 auto;
+  padding: 0;
+}
+
+/* ── card with a right-hand settings column ── */
+.card {
+  display: flex;
+  min-width: 0;
+  border: 1px solid var(--bio-border);
+  border-radius: var(--insight-radius-card);
+  background: var(--insight-color-white);
+}
+.cardMain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xl);
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: var(--insight-spacing-2xl);
+}
+.side {
+  flex: 0 0 var(--bio-side-width);
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+  padding: var(--insight-spacing-2xl);
+  border-left: 1px solid var(--bio-border);
+  box-sizing: border-box;
+}
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.groupTitle {
+  padding: 0;
+  margin-bottom: var(--insight-spacing-lg);
+  font-size: var(--insight-type-body-default-size);
+  line-height: var(--insight-type-body-default-line-height);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.switches {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--insight-spacing-md);
+}
+
+.pie {
+  display: flex;
+  justify-content: center;
+}
+.empty {
+  margin: 0;
+  padding: var(--insight-spacing-3xl) 0;
+  text-align: center;
+  font-size: var(--insight-type-body-small-size);
+  color: var(--insight-color-grey-100);
+}
+
+/* ── participant totals strip ── */
+.stats {
+  display: flex;
+  min-width: 0;
+  border: 1px solid var(--bio-border);
+  border-radius: var(--insight-radius-card);
+  overflow: hidden;
+}
+.statsLead {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  flex: 0 0 auto;
+  width: 170px;
+  padding: var(--insight-spacing-xl);
+  box-sizing: border-box;
+  background: var(--insight-color-grey-10);
+  border-right: 1px solid var(--bio-border);
+}
+.statsLead .statLabel {
+  width: 80px;
+}
+.statsIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--insight-radius-chip);
+  background: var(--bio-border);
+  color: var(--insight-color-off-black-100);
+}
+.statsIcon svg {
+  width: 28px;
+  height: 28px;
+}
+.statsList {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: var(--insight-spacing-xl) var(--insight-spacing-2xl);
+  overflow-x: auto;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1 1 0;
+  min-width: 120px;
+  padding: 0 var(--insight-spacing-xl);
+}
+.stat + .stat {
+  border-left: 1px solid var(--bio-border);
+}
+.statLabel {
+  font-size: 11.2px;
+  line-height: 16.8px;
+  font-weight: var(--insight-font-weight-medium);
+  text-transform: uppercase;
+  color: var(--insight-color-off-black-100);
+}
+.statValue {
+  margin: 0;
+  font-size: var(--insight-type-headline-h2-size);
+  line-height: 34px;
+  font-weight: var(--insight-font-weight-regular);
+  color: var(--insight-color-off-black-100);
+}
+
+.upset {
+  min-width: 0;
+  padding: var(--insight-spacing-xl);
+  border-radius: var(--insight-radius-card);
+  background: var(--insight-color-grey-10);
+  overflow-x: auto;
+}
+
+/* ── genomic alterations ── */
+.genomic {
+  border-color: var(--bio-border);
+  border-radius: var(--insight-radius-card);
+  padding: var(--insight-spacing-2xl);
+}
+.subtle {
+  font-size: var(--insight-type-body-small-size);
+  line-height: 21px;
+  font-weight: var(--insight-font-weight-regular);
+  color: var(--insight-color-grey-100);
+}
+
+/* ── participants table ── */
+.tableHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-md);
+  margin-bottom: calc(-1 * var(--insight-spacing-md));
+}
+.tableTitle {
+  margin: 0;
+  font-size: var(--insight-type-body-small-size);
+  line-height: 21px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.center {
+  text-align: center;
+}
+.check {
+  width: 20px;
+  height: 20px;
+  color: var(--insight-color-green-150);
+  vertical-align: middle;
+}
+
+@media (max-width: 960px) {
+  .card {
+    flex-direction: column;
+  }
+  .side {
+    flex-basis: auto;
+    border-left: 0;
+    border-top: 1px solid var(--bio-border);
+  }
+}

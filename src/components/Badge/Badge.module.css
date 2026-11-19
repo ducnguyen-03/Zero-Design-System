@@ -1,0 +1,133 @@
+/* Badge — Figma "Badge" (3412:13223), "Status Badge" (3412:13188) and
+   "Badge v1.1 / numeric" (3412:10503). Component tokens that tokens.css does not
+   define are mapped locally onto core --insight-color-* variables. */
+
+.badge {
+  --insight-component-badge-status-medium-size: var(--insight-type-label-status-size); /* 12px */
+  --insight-component-badge-status-medium-line-height: var(--insight-type-body-tiny-line-height); /* 16px */
+  --insight-component-badge-letter-spacing: 0.84px; /* Figma: 7% tracking, no core token */
+
+  --badge-bg: var(--insight-color-blue-30);
+  --badge-fg: var(--insight-color-blue-300);
+
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--insight-spacing-xs);
+  padding: var(--insight-spacing-xs) var(--insight-spacing-sm);
+  border: 0 solid var(--badge-fg);
+  border-radius: var(--insight-radius-input);
+  background: var(--badge-bg);
+  color: var(--badge-fg);
+  font-family: var(--insight-font-family-sans);
+  font-weight: var(--insight-font-weight-bold);
+  font-size: var(--insight-component-badge-status-medium-size);
+  line-height: var(--insight-component-badge-status-medium-line-height);
+  letter-spacing: var(--insight-component-badge-letter-spacing);
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* ── Variant (Figma --insight-components-badge-<variant>-*) ── */
+.primary {
+  --badge-bg: var(--insight-color-blue-30);
+  --badge-fg: var(--insight-color-blue-300);
+}
+.inverted {
+  --badge-bg: var(--insight-color-blue-10);
+  --badge-fg: var(--insight-color-blue-300);
+}
+.secondary {
+  --badge-bg: var(--insight-color-purple-10);
+  --badge-fg: var(--insight-color-purple-300);
+}
+.success {
+  --badge-bg: var(--insight-color-green-10);
+  --badge-fg: var(--insight-color-green-300);
+}
+.danger {
+  --badge-bg: var(--insight-color-red-10);
+  --badge-fg: var(--insight-color-red-300);
+}
+.warning {
+  --badge-bg: var(--insight-color-orange-10);
+  --badge-fg: var(--insight-color-orange-200);
+}
+.neutral {
+  --badge-bg: var(--insight-color-grey-50);
+  --badge-fg: var(--insight-color-grey-100);
+}
+
+/* ── Style ─────────────────────────────────────────── */
+.default {
+  border-radius: var(--insight-radius-input);
+}
+.rounded {
+  height: var(--insight-control-height-xs); /* 24 */
+  padding: var(--insight-spacing-xs) var(--insight-spacing-md);
+  border-radius: var(--insight-radius-button);
+}
+.outlined {
+  border-width: 1px;
+  border-radius: var(--insight-radius-button);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--insight-icon-size-xs);
+  height: var(--insight-icon-size-xs);
+}
+.icon > svg {
+  width: 100%;
+  height: 100%;
+}
+
+.label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Numeric (Badge v1.1) ──────────────────────────── */
+.count {
+  --insight-components-badge-numeric-indicator-neutral-background: var(--insight-color-grey-30);
+  --insight-components-badge-numeric-status-workflow-curated-background: var(--insight-color-green-10);
+  --insight-components-badge-numeric-status-workflow-danger-background: var(--insight-color-red-10);
+  --insight-components-badge-numeric-text-default: var(--insight-color-off-black-100);
+
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  padding: var(--insight-spacing-2xs) var(--insight-spacing-md);
+  border-radius: var(--insight-radius-md);
+  background: var(--insight-components-badge-numeric-indicator-neutral-background);
+  color: var(--insight-components-badge-numeric-text-default);
+  font-family: var(--insight-font-family-sans);
+  font-weight: var(--insight-font-weight-bold);
+  font-size: var(--insight-type-label-status-size);
+  line-height: var(--insight-type-body-tiny-line-height);
+  letter-spacing: 0.84px;
+  font-variant-numeric: tabular-nums;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.count-neutral {
+  background: var(--insight-components-badge-numeric-indicator-neutral-background);
+}
+.count-success {
+  background: var(--insight-components-badge-numeric-status-workflow-curated-background);
+}
+.count-danger {
+  background: var(--insight-components-badge-numeric-status-workflow-danger-background);
+}
+.block {
+  display: flex;
+  width: 100%;
+}

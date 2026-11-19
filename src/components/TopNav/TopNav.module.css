@@ -1,0 +1,227 @@
+/* Top Nav — Figma 3616:1498. Component tokens defined locally (not in tokens.css). */
+.topnav {
+  --insight-components-top-nav-background: var(--insight-color-white);
+  --insight-components-top-nav-foreground: var(--insight-color-off-black-200);
+  --insight-components-top-nav-tab-active-background: var(--insight-color-green-10);
+  --insight-components-top-nav-tab-active-indicator: var(--insight-color-green-175);
+  --insight-components-top-nav-tab-hover-background: var(--insight-color-grey-20);
+  --insight-components-top-nav-avatar-background: var(--insight-color-violet-100);
+  --insight-components-top-nav-focus-ring: var(--insight-color-green-160);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-xl);
+  height: 68px;
+  padding: 0 var(--insight-spacing-2xl);
+  background: var(--insight-components-top-nav-background);
+  color: var(--insight-components-top-nav-foreground);
+  font-family: var(--insight-font-family-sans);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.dark {
+  --insight-components-top-nav-background: var(--insight-color-off-black-200);
+  --insight-components-top-nav-foreground: var(--insight-color-white);
+  --insight-components-top-nav-tab-active-background: color-mix(in srgb, var(--insight-color-white) 10%, transparent);
+  --insight-components-top-nav-tab-active-indicator: var(--insight-color-green-50);
+  --insight-components-top-nav-tab-hover-background: color-mix(in srgb, var(--insight-color-white) 6%, transparent);
+  --insight-components-top-nav-focus-ring: var(--insight-color-green-50);
+}
+
+.start,
+.end {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.start {
+  gap: var(--insight-spacing-xl);
+  min-width: 0;
+}
+.end {
+  gap: var(--insight-spacing-lg);
+  flex-shrink: 0;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--insight-radius-xs);
+}
+.logo img {
+  display: block;
+  width: 134px;
+  height: 24px;
+}
+
+.tabs {
+  display: flex;
+  align-items: stretch;
+  height: 68px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 160px;
+  height: 68px;
+  padding: var(--insight-spacing-xl) var(--insight-spacing-3xl);
+  border-top: 4px solid transparent;
+  color: inherit;
+  text-decoration: none;
+  font-size: var(--insight-type-title-small-size);
+  line-height: var(--insight-type-title-small-line-height);
+  letter-spacing: var(--insight-type-title-small-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  white-space: nowrap;
+  transition: background var(--insight-duration-fast) var(--insight-ease-emphasis);
+}
+.tab:hover:not(.active) {
+  background: var(--insight-components-top-nav-tab-hover-background);
+}
+.tab.active {
+  background: var(--insight-components-top-nav-tab-active-background);
+  border-top-color: var(--insight-components-top-nav-tab-active-indicator);
+  font-weight: var(--insight-font-weight-bold);
+}
+.tab:focus-visible,
+.logo:focus-visible,
+.feedback:focus-visible,
+.avatar:focus-visible {
+  outline: 2px solid var(--insight-components-top-nav-focus-ring);
+  outline-offset: -2px;
+}
+
+.feedback {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  height: 32px;
+  padding: 0 var(--insight-spacing-lg);
+  border-radius: var(--insight-radius-button);
+  color: inherit;
+  text-decoration: none;
+  font-size: var(--insight-type-body-small-size);
+  line-height: var(--insight-type-body-small-line-height);
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  white-space: nowrap;
+}
+.feedback:hover {
+  background: var(--insight-components-top-nav-tab-hover-background);
+}
+.feedback svg {
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+}
+
+.userMenu {
+  position: relative;
+}
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: var(--insight-radius-chip);
+  background: var(--insight-components-top-nav-avatar-background);
+  color: var(--insight-color-white);
+  font-family: inherit;
+  font-size: var(--insight-type-body-small-size);
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  font-weight: var(--insight-font-weight-bold);
+  cursor: pointer;
+}
+.avatar:hover {
+  filter: brightness(0.95);
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + var(--insight-spacing-md));
+  right: 0;
+  z-index: 10;
+  min-width: 220px;
+  padding: var(--insight-spacing-md);
+  background: var(--insight-color-white);
+  border: 1px solid var(--insight-color-support-border-grey);
+  border-radius: var(--insight-radius-card);
+  box-shadow: var(--insight-shadow-dropdown);
+  color: var(--insight-color-foreground-text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-2xs);
+}
+.menuHeader {
+  display: flex;
+  flex-direction: column;
+  padding: var(--insight-spacing-md);
+}
+.menuName {
+  font-size: var(--insight-type-body-small-size);
+  font-weight: var(--insight-font-weight-medium);
+}
+.menuEmail {
+  font-size: var(--insight-type-body-tiny-size);
+  color: var(--insight-color-foreground-text-tertiary);
+}
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-md);
+  border: none;
+  background: none;
+  border-radius: var(--insight-radius-sm);
+  font-family: inherit;
+  font-size: var(--insight-type-body-small-size);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.menuItem:hover {
+  background: var(--insight-color-grey-30);
+}
+.menuItem:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: -2px;
+}
+.menuIcon {
+  display: inline-flex;
+}
+.menuIcon svg {
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .topnav {
+    padding: 0 var(--insight-spacing-xl);
+  }
+  .tab {
+    width: auto;
+    padding: var(--insight-spacing-xl);
+  }
+  .feedback {
+    display: none;
+  }
+}

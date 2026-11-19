@@ -1,0 +1,237 @@
+/* Button — Figma "buttons" set (3412:9145).
+   Each variant sets --btn-* custom properties per state; the base rule paints them.
+   Component tokens that Figma references but tokens.css does not define are mapped
+   locally here onto core --insight-color-* variables. */
+
+.btn {
+  /* Local component tokens (missing from tokens.css) */
+  --insight-components-button-outline-border-active: var(--insight-color-green-200);
+  --insight-components-button-outline-border-focus: var(--insight-color-green-175);
+  --insight-components-button-destructive-outline-label-default: var(--insight-color-red-200);
+  --insight-components-button-destructive-outline-label-hover: var(--insight-color-red-300);
+  --insight-components-button-destructive-outline-border-focus: var(--insight-color-red-200);
+
+  --btn-bg: transparent;
+  --btn-fg: var(--insight-components-button-label-primary);
+  --btn-border: transparent;
+  --btn-ring: transparent;
+
+  box-sizing: border-box;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--insight-spacing-xs);
+  height: var(--insight-control-height-lg);
+  padding: var(--insight-spacing-lg) var(--insight-spacing-xl);
+  margin: 0;
+  border: 1px solid var(--btn-border);
+  border-radius: var(--insight-radius-button-lg);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--insight-font-family-sans);
+  font-weight: var(--insight-font-weight-medium);
+  font-size: var(--insight-component-button-medium-size);
+  line-height: var(--insight-component-button-medium-line-height);
+  letter-spacing: var(--insight-component-button-medium-letter-spacing);
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  /* Buttons swap palette discretely — no transition, per the design system. */
+  transition: none;
+}
+
+/* Focus = a 3px ring drawn inside the edge (Figma: 3px border), so layout never shifts. */
+.btn:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 3px var(--btn-ring);
+}
+
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: var(--insight-icon-size-md);
+  height: var(--insight-icon-size-md);
+}
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+.label {
+  display: inline-flex;
+}
+
+/* ─── Sizes ─── */
+.md {
+  height: var(--insight-control-height-lg);
+}
+.sm {
+  height: var(--insight-control-height-sm);
+  border-radius: var(--insight-radius-button-sm);
+  /* Figma keeps 16px inline padding and a 20px icon at Small; only height + type shrink. */
+  padding: 0 var(--insight-spacing-xl);
+  font-size: var(--insight-component-button-small-size);
+  line-height: var(--insight-component-button-small-line-height);
+  letter-spacing: var(--insight-component-button-small-letter-spacing);
+}
+
+/* ─── Bold ─── */
+.bold {
+  --btn-bg: var(--insight-components-button-bold-background-default);
+  --btn-fg: var(--insight-components-button-label-primary);
+  --btn-ring: var(--insight-components-button-bold-border-focus);
+  border-color: transparent;
+}
+.bold.interactive:hover {
+  --btn-bg: var(--insight-components-button-bold-background-hover);
+}
+.bold.interactive:active {
+  --btn-bg: var(--insight-components-button-bold-background-active);
+}
+.bold:focus-visible {
+  --btn-bg: var(--insight-components-button-bold-background-focus);
+}
+.bold:disabled {
+  --btn-bg: var(--insight-components-button-bold-background-disabled);
+  --btn-fg: var(--insight-components-button-bold-label-disabled);
+  opacity: 0.48;
+}
+
+/* ─── Outline ─── */
+.outline {
+  --btn-border: var(--insight-components-button-outline-border-default);
+  --btn-fg: var(--insight-components-button-outline-label-default);
+  --btn-ring: var(--insight-components-button-outline-border-focus);
+}
+.outline.interactive:hover {
+  --btn-border: var(--insight-components-button-outline-border-hover);
+  --btn-fg: var(--insight-components-button-outline-label-hover);
+}
+.outline.interactive:active {
+  --btn-border: var(--insight-components-button-outline-border-active);
+  --btn-fg: var(--insight-components-button-outline-label-active);
+}
+.outline:disabled {
+  --btn-border: var(--insight-components-button-outline-border-disabled);
+  --btn-fg: var(--insight-components-button-outline-label-disabled);
+}
+
+/* ─── Subtle ─── */
+.subtle {
+  --btn-bg: var(--insight-components-button-subtle-background-default);
+  --btn-fg: var(--insight-components-button-label-primary);
+  --btn-ring: var(--insight-components-button-subtle-border-focus);
+  border-color: transparent;
+}
+.subtle.interactive:hover {
+  --btn-bg: var(--insight-components-button-subtle-background-hover);
+}
+.subtle.interactive:active {
+  --btn-bg: var(--insight-components-button-subtle-background-active);
+}
+.subtle:disabled {
+  --btn-bg: var(--insight-components-button-subtle-background-default);
+  --btn-fg: var(--insight-components-button-subtle-label-disabled);
+}
+
+/* ─── Text ─── */
+.text {
+  --btn-fg: var(--insight-components-button-text-label-default);
+  --btn-ring: var(--insight-components-button-text-border-focus);
+  border-color: transparent;
+  padding: var(--insight-spacing-lg);
+}
+.text.sm {
+  padding: 0 var(--insight-spacing-lg);
+}
+.text.interactive:hover {
+  --btn-bg: var(--insight-components-button-text-background-hover);
+  --btn-fg: var(--insight-components-button-text-label-hover);
+}
+.text.interactive:active {
+  --btn-bg: var(--insight-components-button-text-background-active);
+  --btn-fg: var(--insight-components-button-text-label-active);
+}
+.text:focus-visible {
+  --btn-fg: var(--insight-components-button-text-label-hover);
+}
+.text:disabled {
+  --btn-bg: transparent;
+  --btn-fg: var(--insight-components-button-text-label-disabled);
+}
+
+/* ─── Destructive outline (legacy `warning` maps here) ─── */
+.destructive {
+  --btn-border: var(--insight-components-button-destructive-outline-default);
+  --btn-fg: var(--insight-components-button-destructive-outline-label-default);
+  --btn-ring: var(--insight-components-button-destructive-outline-border-focus);
+}
+.destructive.interactive:hover,
+.destructive.interactive:active {
+  --btn-border: var(--insight-components-button-destructive-outline-hover);
+  --btn-fg: var(--insight-components-button-destructive-outline-label-hover);
+}
+.destructive:focus-visible {
+  --btn-fg: var(--insight-components-button-destructive-outline-label-hover);
+}
+.destructive:disabled {
+  --btn-border: var(--insight-components-button-outline-border-disabled);
+  --btn-fg: var(--insight-components-button-outline-label-disabled);
+}
+
+/* ─── Disabled / loading ─── */
+.btn:disabled {
+  cursor: not-allowed;
+}
+
+.loading {
+  cursor: progress;
+}
+/* Keep the label in the flow (preserves width) but hide it behind the loader. */
+.loading > .icon {
+  visibility: hidden;
+}
+/* opacity (not visibility) so the label still names the button for screen readers. */
+.loading > .label {
+  opacity: 0;
+}
+.loader {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.35;
+  animation: dotPulse 1s infinite ease-in-out;
+}
+.dot:nth-child(2) {
+  animation-delay: 0.16s;
+}
+.dot:nth-child(3) {
+  animation-delay: 0.32s;
+}
+@keyframes dotPulse {
+  0%,
+  80%,
+  100% {
+    opacity: 0.35;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dot {
+    animation: none;
+  }
+  .dot:nth-child(2) {
+    opacity: 1;
+  }
+}

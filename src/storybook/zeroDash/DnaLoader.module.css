@@ -1,0 +1,60 @@
+/* ZeroDash DNA loader (design: SAVvy / Curation `loading-spin` + `loading-flex`). */
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+}
+.frame {
+  position: relative;
+}
+.helix {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 128px;
+  height: 70px;
+  transform-origin: 0 0;
+}
+.dot {
+  position: absolute;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--insight-color-foreground-text-primary);
+  z-index: 1;
+  animation: dnaSpin 1.5s linear infinite;
+}
+.rung {
+  position: absolute;
+  top: 30px;
+  width: 1px;
+  height: 10px;
+  background: var(--insight-color-foreground-text-primary);
+  animation: dnaFlex 1.5s linear infinite;
+}
+.label {
+  font-size: var(--insight-type-body-small-size);
+  line-height: var(--insight-type-body-small-line-height);
+  color: var(--insight-color-grey-100);
+}
+.labelSm {
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: var(--insight-type-body-tiny-line-height);
+  color: var(--insight-color-grey-100);
+}
+@keyframes dnaSpin {
+  0% { transform: translateY(0) scale(1); }
+  25% { transform: translateY(30px) scale(2); }
+  50% { transform: translateY(60px) scale(1); }
+  75% { transform: translateY(30px) scale(0.3); }
+  100% { transform: translateY(0) scale(1); }
+}
+@keyframes dnaFlex {
+  0%, 50%, 100% { transform: scaleY(5); }
+  25%, 75% { transform: scaleY(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dot, .rung { animation-duration: 6s; }
+}

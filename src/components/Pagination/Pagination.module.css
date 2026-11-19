@@ -1,0 +1,42 @@
+/* Figma "Pagination / Rows Per Page" (3540:1211). Component tokens are local, mapped to core. */
+.root {
+  --component-pagination-item-default-text: var(--insight-color-off-black-100);
+
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--insight-spacing-10);
+  font-family: var(--insight-font-family-sans);
+  color: var(--component-pagination-item-default-text);
+}
+
+.label {
+  font-size: var(--insight-type-body-small-size);
+  line-height: var(--insight-type-body-small-line-height);
+  letter-spacing: 0.25px;
+  font-weight: var(--insight-font-weight-regular);
+  white-space: nowrap;
+}
+
+/* Rows selector = design-system Select (Dropdown, XS). */
+.select {
+  flex: none;
+}
+
+/* Arrows variant (Table Template 4): rows selector + two 32px icon buttons. */
+.arrows {
+  gap: var(--insight-spacing-md);
+}
+.arrowButtons {
+  display: inline-flex;
+  gap: var(--insight-spacing-md);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

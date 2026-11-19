@@ -1,0 +1,692 @@
+/* Charts — Insights summary page (Claude Design "Insights Onboarding"). Core tokens only; no chart library. */
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Proportion bar + legend ── */
+.prop {
+  display: flex;
+  gap: 2px;
+  height: 10px;
+  overflow: hidden;
+  border-radius: var(--insight-radius-chip);
+}
+.propSm {
+  height: 6px;
+}
+.propFill {
+  flex-shrink: 0;
+  border-radius: inherit;
+  background: var(--prop-fill, var(--insight-color-green-150));
+}
+.propRest {
+  flex: 1;
+  border-radius: inherit;
+  background: var(--insight-color-grey-30);
+}
+/* Hatched: the records exist, the viewer's access hides them. */
+.propHatched {
+  background: repeating-linear-gradient(135deg, var(--insight-color-grey-50) 0 3px, var(--insight-color-grey-30) 3px 6px);
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--insight-spacing-xs) var(--insight-spacing-lg);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--insight-font-family-sans);
+  font-size: 11.5px;
+  line-height: 16px;
+  color: var(--insight-color-grey-200);
+}
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-variant-numeric: tabular-nums;
+}
+.swatch {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.swatchSquare {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+.swatchHatched {
+  background: repeating-linear-gradient(135deg, var(--insight-color-grey-50) 0 2px, var(--insight-color-grey-30) 2px 4px);
+}
+
+/* ── Card ── */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+  min-width: 0;
+  padding: var(--insight-spacing-xl);
+  border: 1px solid var(--insight-color-grey-30);
+  border-radius: var(--insight-radius-lg);
+  background: var(--insight-color-white);
+  font-family: var(--insight-font-family-sans);
+}
+.cardHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--insight-spacing-sm) var(--insight-spacing-md);
+  min-height: 24px;
+}
+.cardTitle {
+  margin: 0;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.cardControls {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-sm);
+  font-size: 13px;
+  color: var(--insight-color-grey-200);
+}
+.cardActions {
+  display: inline-flex;
+  gap: var(--insight-spacing-xs);
+  margin-left: auto;
+}
+.cardBody {
+  min-width: 0;
+}
+.footnote {
+  margin: 0;
+  font-size: 12px;
+  line-height: 17px;
+  color: var(--insight-color-grey-100);
+}
+
+/* ── Metric ── */
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-sm);
+  min-width: 0;
+  padding: var(--insight-spacing-lg) var(--insight-spacing-xl);
+  border: 1px solid var(--insight-color-grey-30);
+  border-radius: var(--insight-radius-lg);
+  background: var(--insight-color-white);
+  font-family: var(--insight-font-family-sans);
+}
+.metricLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  font-size: 11.2px;
+  line-height: 1.4;
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--insight-color-grey-200);
+}
+.infoButton {
+  display: inline-flex;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--insight-color-grey-100);
+  cursor: help;
+}
+.infoButton svg {
+  width: 14px;
+  height: 14px;
+}
+.infoButton:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+.metricValue {
+  font-size: 32px;
+  line-height: 38px;
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: -0.01em;
+  color: var(--insight-color-off-black-100);
+  font-variant-numeric: tabular-nums;
+}
+.metricTotal {
+  font-size: 18px;
+  font-weight: var(--insight-font-weight-regular);
+  letter-spacing: 0;
+  color: var(--insight-color-grey-100);
+}
+.metricLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--insight-spacing-xs) var(--insight-spacing-lg);
+}
+.metricRest {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 11.5px;
+  line-height: 16px;
+  color: var(--insight-color-grey-200);
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.metricRest:hover {
+  color: var(--insight-color-off-black-100);
+}
+
+/* ── Tables (ranked, gene) ── */
+.tableWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  min-width: 0;
+  overflow-x: auto;
+}
+.compact td {
+  padding-block: var(--insight-spacing-md);
+}
+.keyed {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+}
+.gene {
+  font-weight: var(--insight-font-weight-medium);
+}
+.mixCell {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+}
+.mixCell > .num {
+  min-width: 4ch;
+}
+.mix {
+  display: inline-flex;
+  gap: 1px;
+  width: 64px;
+  height: 6px;
+  overflow: hidden;
+  border-radius: var(--insight-radius-chip);
+}
+.tableLegend {
+  padding-left: var(--insight-spacing-md);
+}
+
+/* ── Axis frame (bar, stacked, line) ── */
+.chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  min-width: 0;
+  font-family: var(--insight-font-family-sans);
+}
+.axisFrame {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--insight-spacing-sm);
+  min-width: 0;
+}
+.yTitle {
+  align-self: center;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 11px;
+  color: var(--insight-color-grey-100);
+}
+.yAxis {
+  position: relative;
+  flex-shrink: 0;
+  min-width: 28px;
+}
+.yAxis > span {
+  position: absolute;
+  right: 0;
+  transform: translateY(50%);
+  font-size: 10.5px;
+  line-height: 1;
+  color: var(--insight-color-grey-100);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.plotCol {
+  flex: 1;
+  min-width: 0;
+}
+.plot {
+  position: relative;
+  border-bottom: 1px solid var(--insight-color-grey-50);
+}
+.gridline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 1px dashed var(--insight-color-grey-30);
+}
+.bars {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  /* 3% up to 6 bars, then narrower so dense series (e.g. 48 quarters) keep their bars. */
+  gap: clamp(2px, min(3%, calc(18% / var(--bar-count, 6))), 24px);
+  padding: 0 clamp(4px, 2%, 16px);
+}
+.barSlot {
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  justify-content: center;
+  min-width: 0;
+}
+.bar {
+  display: block;
+  width: 100%;
+  max-width: 48px;
+  min-height: 1px;
+  border: 0;
+  padding: 0;
+  border-radius: 4px 4px 0 0;
+  transition: opacity var(--insight-duration-fast) ease, filter var(--insight-duration-fast) ease;
+}
+.barButton {
+  cursor: pointer;
+}
+.barButton:hover {
+  filter: brightness(0.92);
+}
+.barButton:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: 2px;
+}
+.barSelected {
+  box-shadow: 0 0 0 2px var(--insight-color-white), 0 0 0 4px var(--insight-color-off-black-100);
+}
+.barDim {
+  opacity: 0.35;
+}
+.stack {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 1px;
+  width: 100%;
+  max-width: 48px;
+  overflow: hidden;
+  border-radius: 4px 4px 0 0;
+}
+.stack > span {
+  min-height: 1px;
+  transition: opacity var(--insight-duration-fast) ease;
+}
+.xLabels {
+  display: flex;
+  /* 3% up to 6 bars, then narrower so dense series (e.g. 48 quarters) keep their bars. */
+  gap: clamp(2px, min(3%, calc(18% / var(--bar-count, 6))), 24px);
+  padding: var(--insight-spacing-xs) clamp(4px, 2%, 16px) 0;
+}
+.xLabels > span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 10.5px;
+  line-height: 14px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--insight-color-grey-200);
+}
+.xLabelsLine {
+  justify-content: space-between;
+  gap: 0;
+  padding: var(--insight-spacing-xs) 0 0;
+}
+.xLabelsLine > span {
+  flex: 0 1 auto;
+}
+.lineSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* ── Pie ── */
+.pieWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--insight-spacing-lg);
+  font-family: var(--insight-font-family-sans);
+}
+.pie {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.pie path {
+  transition: opacity var(--insight-duration-fast) ease;
+}
+.pie:hover path:not(:hover) {
+  opacity: 0.55;
+}
+.pieLabel {
+  font-size: 7.5px;
+  font-weight: var(--insight-font-weight-medium);
+  fill: var(--insight-color-white);
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: rgba(2, 32, 52, 0.18);
+  stroke-width: 0.6px;
+}
+
+/* ── UpSet ── */
+.upset {
+  --upset-row: 20px;
+  display: grid;
+  grid-template-columns: minmax(140px, auto) minmax(0, 1fr);
+  column-gap: var(--insight-spacing-md);
+  font-family: var(--insight-font-family-sans);
+}
+.upsetCorner {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--insight-spacing-sm);
+}
+.upsetYTitle {
+  align-self: center;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 11px;
+  color: var(--insight-color-grey-100);
+}
+.upsetTicks {
+  position: relative;
+  width: 32px;
+}
+.upsetTicks > span {
+  position: absolute;
+  right: 0;
+  transform: translateY(50%);
+  font-size: 10.5px;
+  color: var(--insight-color-grey-100);
+  font-variant-numeric: tabular-nums;
+}
+.upsetBars {
+  display: grid;
+  align-items: end;
+  gap: 6px;
+  border-bottom: 1px solid var(--insight-color-grey-50);
+}
+.upsetBar {
+  min-height: 1px;
+  border-radius: 3px 3px 0 0;
+  transition: opacity var(--insight-duration-fast) ease;
+}
+.upsetDim {
+  opacity: 0.3;
+}
+.upsetSets {
+  display: flex;
+  flex-direction: column;
+  margin: var(--insight-spacing-sm) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.upsetSet {
+  display: grid;
+  grid-template-columns: 4ch 56px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--insight-spacing-sm);
+  height: var(--upset-row);
+  font-size: 11.5px;
+  color: var(--insight-color-grey-200);
+}
+.upsetSize {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.upsetSizeBar {
+  display: flex;
+  justify-content: flex-end;
+  height: 6px;
+}
+.upsetSizeBar > span {
+  border-radius: 2px;
+}
+.upsetLabel {
+  overflow: hidden;
+  font-weight: var(--insight-font-weight-medium);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--insight-color-off-black-100);
+}
+.upsetMatrix {
+  display: grid;
+  gap: 6px;
+  margin-top: var(--insight-spacing-sm);
+}
+.upsetCol {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: var(--insight-radius-sm);
+}
+.upsetColHover {
+  background: var(--insight-color-grey-20);
+}
+.upsetDot {
+  position: relative;
+  z-index: 1;
+  width: 9px;
+  height: 9px;
+  margin: calc((var(--upset-row) - 9px) / 2) 0;
+  border-radius: 50%;
+  background: var(--insight-color-grey-30);
+}
+.upsetDotOn {
+  background: var(--insight-color-off-black-100);
+}
+.upsetLink {
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--insight-color-off-black-100);
+}
+
+/* ── Oncoprint ── */
+.onco {
+  --onco-label: minmax(64px, max-content);
+  --onco-pct: 36px;
+  --onco-cell: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  min-width: 0;
+  font-family: var(--insight-font-family-sans);
+}
+.oncoScroll {
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--insight-color-grey-50) transparent;
+}
+.oncoGrid {
+  display: grid;
+  gap: 2px;
+  width: max-content;
+}
+.oncoAxisNote {
+  align-self: end;
+  font-size: 10.5px;
+  color: var(--insight-color-grey-100);
+  white-space: nowrap;
+}
+.oncoTopCell {
+  display: flex;
+  align-items: flex-end;
+  height: 32px;
+}
+.oncoTopCell > span {
+  width: 100%;
+  min-height: 1px;
+  border-radius: 2px 2px 0 0;
+  background: var(--insight-color-grey-75);
+}
+.oncoLabel {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  padding-right: var(--insight-spacing-md);
+  background: var(--insight-color-white);
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: var(--insight-font-weight-medium);
+  font-style: italic;
+  color: var(--insight-color-off-black-100);
+  white-space: nowrap;
+}
+.oncoLabelMuted {
+  font-style: normal;
+  font-weight: var(--insight-font-weight-regular);
+  color: var(--insight-color-grey-200);
+}
+.oncoPct {
+  font-size: 11px;
+  line-height: 20px;
+  text-align: right;
+  padding-right: var(--insight-spacing-xs);
+  font-variant-numeric: tabular-nums;
+  color: var(--insight-color-grey-100);
+}
+.oncoCell {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  height: 20px;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.oncoGene {
+  background: var(--insight-color-grey-20);
+}
+.oncoGene > span {
+  flex: 1;
+}
+.oncoCellHi {
+  outline: 1.5px solid var(--insight-color-off-black-100);
+  outline-offset: 0;
+}
+.oncoFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-md);
+}
+.oncoHover {
+  font-size: 12px;
+  color: var(--insight-color-grey-100);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Frequency heatmap ── */
+.heat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+  min-width: 0;
+  font-family: var(--insight-font-family-sans);
+}
+.heatTable {
+  border-collapse: separate;
+  border-spacing: 6px;
+  margin: -6px;
+}
+.heatTable th {
+  font-size: 12px;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-grey-200);
+  white-space: nowrap;
+}
+.heatTable thead th {
+  padding-bottom: var(--insight-spacing-xs);
+  text-align: center;
+}
+.heatTable tbody th {
+  padding-right: var(--insight-spacing-md);
+  text-align: left;
+  font-style: italic;
+  color: var(--insight-color-off-black-100);
+}
+.heatTable td {
+  padding: 0;
+}
+.heatCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 84px;
+  min-height: 64px;
+  padding: var(--insight-spacing-md);
+  border-radius: var(--insight-radius-lg);
+  box-sizing: border-box;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.heatCell b {
+  font-size: 15px;
+  font-weight: var(--insight-font-weight-medium);
+}
+.heatHigh {
+  background: var(--insight-color-red-200);
+  color: var(--insight-color-white);
+}
+.heatMed {
+  background: var(--insight-color-orange-100);
+  color: var(--insight-color-off-black-100);
+}
+.heatLow {
+  background: var(--insight-color-yellow-30);
+  color: var(--insight-color-off-black-100);
+}
+.heatVl {
+  background: var(--insight-color-grey-30);
+  color: var(--insight-color-grey-200);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar,
+  .stack > span,
+  .pie path,
+  .upsetBar {
+    transition: none;
+  }
+}

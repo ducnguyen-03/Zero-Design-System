@@ -1,0 +1,62 @@
+/* Figma "Snackbar" 3412:11540 — component tokens mapped locally. */
+.snack {
+  --insight-components-snackbar-background-default: var(--insight-color-off-black-200);
+  --insight-components-snackbar-text-on-dark: var(--insight-color-white);
+  --insight-component-toast-action-size: 14px;
+  --insight-component-toast-action-line-height: 20px;
+  --insight-component-toast-action-letter-spacing: 0.25px;
+  --insight-shadow-snackbar: 0 1px 16px rgba(0, 0, 0, 0.12), 0 6px 12px rgba(0, 0, 0, 0.12),
+    0 4px 8px rgba(0, 0, 0, 0.12); /* Elevation/Snackbar */
+
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xl);
+  max-width: 100%;
+  padding: var(--insight-spacing-xl);
+  overflow: hidden;
+  border-radius: var(--insight-radius-card);
+  background: var(--insight-components-snackbar-background-default);
+  box-shadow: var(--insight-shadow-snackbar);
+  color: var(--insight-components-snackbar-text-on-dark);
+  font-family: var(--insight-font-family-sans);
+  font-weight: var(--insight-font-weight-bold);
+  font-size: var(--insight-component-toast-action-size);
+  line-height: var(--insight-component-toast-action-line-height);
+  letter-spacing: var(--insight-component-toast-action-letter-spacing);
+}
+
+/* 24px icon slot containing a 20px filled circle (Figma Icon / tick, Icon / warning). */
+.ico {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  margin: 2px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--insight-color-white);
+}
+.ico svg {
+  width: var(--insight-icon-size-xs);
+  height: var(--insight-icon-size-xs);
+}
+.bang {
+  font-size: 13px;
+  line-height: 1;
+  font-weight: var(--insight-font-weight-bold);
+}
+
+.success .ico { background: var(--insight-color-green-150); }
+.warning .ico { background: var(--insight-color-orange-150); }
+.error .ico {
+  background: var(--insight-color-red-300);
+  box-shadow: 0 0 0 2px var(--insight-color-red-10);
+}
+
+.message {
+  min-width: 0;
+  overflow-wrap: break-word;
+}

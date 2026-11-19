@@ -1,0 +1,447 @@
+/* Figma "table-block" (3412:10304) + "Table Template" / Table V3 (3593:11439).
+   Component tokens are local, mapped to core. */
+.table,
+.container {
+  --insight-components-table-border-default: var(--insight-color-support-border-grey);
+  /* Hover is a quiet neutral wash (same grey as the DS text-button hover); the rule stays put.
+     Selected keeps a faint brand tint so it reads as "chosen", not just "pointed at". */
+  --insight-components-table-border-hover: var(--insight-components-table-border-default);
+  --insight-components-table-background-hover: var(--insight-color-grey-20);
+  --insight-components-table-background-selected: color-mix(in srgb, var(--insight-color-green-10) 60%, var(--insight-color-white));
+  --insight-components-table-text-primary: var(--insight-color-off-black-100);
+  --insight-components-table-text-secondary: var(--insight-color-grey-200);
+  --insight-components-table-indicator-neutral-background: var(--insight-color-grey-30);
+  --insight-components-table-header-text: var(--insight-color-foreground-text-tertiary);
+  /* Figma "Label/Regular": 11.2px medium, 1.4 line height, 7% tracking, uppercase. */
+  --insight-components-table-header-size: 11.2px;
+  --insight-components-table-header-letter-spacing: 0.784px;
+  /* Figma "Body/Small/Default": 14px, 1.4 line height, 1% tracking. */
+  --insight-components-table-body-size: var(--insight-type-body-small-size);
+  --insight-components-table-body-letter-spacing: var(--insight-type-body-small-letter-spacing);
+}
+
+.table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-family: var(--insight-font-family-sans);
+  font-size: var(--insight-components-table-body-size);
+  line-height: 1.4;
+  letter-spacing: var(--insight-components-table-body-letter-spacing);
+  font-weight: var(--insight-font-weight-regular);
+  color: var(--insight-components-table-text-primary);
+  background: var(--insight-color-background-system-secondary);
+}
+.fullWidth {
+  width: 100%;
+}
+
+.caption {
+  text-align: left;
+  padding: 0 0 var(--insight-spacing-md);
+  font-weight: var(--insight-font-weight-medium);
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Header cell (Figma "Table Column Header") ---------- */
+.th {
+  height: 32px;
+  padding: var(--insight-spacing-xs) var(--insight-spacing-md);
+  text-align: left;
+  font-size: var(--insight-components-table-header-size);
+  line-height: 1.4;
+  letter-spacing: var(--insight-components-table-header-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  text-transform: uppercase;
+  color: var(--insight-components-table-header-text);
+  border-bottom: 1px solid var(--insight-components-table-border-default);
+  border-right: 1px solid var(--insight-components-table-border-default);
+  white-space: nowrap;
+  vertical-align: middle;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+.th:last-child {
+  border-right: none;
+}
+/* Grouped header (e.g. Point mutations): the sub-header row sits under a top rule. */
+.head tr + tr > .th {
+  border-top: 1px solid var(--insight-components-table-border-default);
+}
+/* Hover (cell foundation) only for interactive headers. */
+.sortable:hover {
+  background: var(--insight-components-table-background-hover);
+  color: var(--insight-components-table-text-primary);
+}
+.thInner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+}
+.thLabel {
+  display: inline-flex;
+  align-items: center;
+}
+
+.sortButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  cursor: pointer;
+  border-radius: var(--insight-radius-xs);
+}
+.sortButton:focus-visible,
+.thAdd:focus-visible {
+  outline: 2px solid var(--insight-color-green-175);
+  outline-offset: 2px;
+}
+.sortIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--insight-spacing-xs);
+  border-radius: 32px;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+.sortIcon svg {
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+}
+.sortable:hover .sortIcon,
+.sortButton:focus-visible .sortIcon,
+.sorted .sortIcon {
+  opacity: 1;
+}
+
+.thAdd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0;
+  border-radius: var(--insight-radius-xs);
+}
+.thAdd svg {
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+}
+.th:hover .thAdd,
+.thAdd:focus-visible {
+  opacity: 1;
+}
+
+/* ---------- Body cell (Figma "Attribute") ---------- */
+.td {
+  padding: var(--insight-spacing-xl) var(--insight-spacing-md);
+  text-align: left;
+  vertical-align: middle;
+  color: var(--insight-components-table-text-primary);
+  border-bottom: 1px solid var(--insight-components-table-border-default);
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+.row:hover > .td {
+  background: var(--insight-components-table-background-hover);
+  border-bottom-color: var(--insight-components-table-border-hover);
+}
+.selected > .td,
+.selected:hover > .td {
+  background: var(--insight-components-table-background-selected);
+}
+.secondary {
+  color: var(--insight-components-table-text-secondary);
+}
+.clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.align-center {
+  text-align: center;
+}
+.align-end {
+  text-align: right;
+}
+.truncate {
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-xs);
+  border-radius: var(--insight-radius-input);
+  background: var(--insight-components-table-indicator-neutral-background);
+  color: var(--insight-components-table-text-primary);
+  white-space: nowrap;
+}
+
+/* Table Template type tag ("development status"): Label/Status Bold */
+.badgeLabel {
+  padding: var(--insight-spacing-xs) var(--insight-spacing-sm);
+  font-size: var(--insight-type-label-status-size);
+  line-height: 1.3;
+  letter-spacing: var(--insight-type-label-status-letter-spacing);
+  font-weight: var(--insight-font-weight-bold);
+  text-transform: uppercase;
+  color: var(--insight-components-table-text-secondary);
+}
+
+/* Badge Number */
+.count {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  box-sizing: border-box;
+  width: 90px;
+  padding: var(--insight-spacing-2xs) var(--insight-spacing-md);
+  border-radius: var(--insight-radius-md);
+  background: var(--insight-components-table-indicator-neutral-background);
+  color: var(--insight-components-table-text-primary);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Dropdown — design-system Select (Text Dropdown, XS). */
+.dropdown {
+  display: inline-flex;
+}
+
+/* Add Button */
+.addButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  border-radius: var(--insight-radius-button);
+  background: var(--insight-components-table-indicator-neutral-background);
+  color: var(--insight-components-table-text-primary);
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+.addButton svg {
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+}
+.addButton:hover {
+  background: var(--insight-color-grey-40);
+}
+.addButton:focus-visible {
+  outline: 2px solid var(--insight-color-green-175);
+  outline-offset: 2px;
+}
+
+/* Avatar */
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--insight-radius-button);
+  border: 1px solid var(--insight-color-white);
+  overflow: hidden;
+  background: var(--insight-color-turquoise-30);
+  color: var(--insight-color-off-black-100);
+  font-size: 10px;
+  line-height: 1;
+  font-weight: var(--insight-font-weight-medium);
+  letter-spacing: 0;
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.avatarMd {
+  width: 32px;
+  height: 32px;
+  font-size: var(--insight-type-body-small-size);
+}
+
+/* ---------- Table V3 shell (Figma Table Template) ---------- */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xl);
+  min-width: 0;
+  font-family: var(--insight-font-family-sans);
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xl);
+  background: var(--insight-color-background-system-secondary);
+  border: 1px solid var(--insight-components-table-border-default);
+  border-radius: var(--insight-radius-card);
+  overflow: hidden;
+}
+.scroll {
+  overflow-x: auto;
+}
+/* Rows inside the card carry an extra 8px inset (Figma pl-8 on each row). */
+.card .th:first-child,
+.card .td:first-child {
+  padding-left: var(--insight-spacing-xl);
+}
+/* Without a footer the card border closes the table, so drop the last row rule. */
+.card:not(.hasFooter) .body > .row:last-child > .td {
+  border-bottom: none;
+}
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 var(--insight-spacing-md) var(--insight-spacing-md);
+}
+.after {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Toolbar (Figma "Actions" row) */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-xl);
+}
+.toolbarSearch {
+  flex: 0 1 372px;
+  min-width: 200px;
+}
+.toolbarRight {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-xl);
+  min-width: 0;
+}
+.toolbarSummary {
+  font-size: var(--insight-type-body-small-size);
+  line-height: 1.4;
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-components-table-text-primary);
+  white-space: nowrap;
+}
+.toolbarActions {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+}
+
+/* Row-selection checkbox: 16px slot, ~14px box (Figma 13.3px) */
+.checkbox {
+  position: relative;
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+.checkboxInput {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.checkboxBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  margin: 1px;
+  box-sizing: border-box;
+  border: 1px solid var(--insight-color-grey-100);
+  border-radius: 3px;
+  background: var(--insight-color-white);
+  color: var(--insight-color-white);
+  pointer-events: none;
+}
+/* Control mark (not a standalone icon): heavier stroke so it reads at 12px. */
+.checkboxMark {
+  width: var(--insight-icon-size-xs);
+  height: var(--insight-icon-size-xs);
+  stroke-width: 3;
+  opacity: 0;
+}
+.checkboxInput:checked + .checkboxBox,
+.checkboxInput:indeterminate + .checkboxBox {
+  background: var(--insight-color-green-175);
+  border-color: var(--insight-color-green-175);
+}
+.checkboxInput:checked + .checkboxBox .checkboxMark,
+.checkboxInput:indeterminate + .checkboxBox .checkboxMark {
+  opacity: 1;
+}
+.checkboxInput:focus-visible + .checkboxBox {
+  outline: 2px solid var(--insight-color-green-175);
+  outline-offset: 2px;
+}
+.checkboxInput:disabled + .checkboxBox {
+  border-color: var(--insight-color-grey-40);
+  background: var(--insight-color-grey-30);
+}
+
+/* Row kebab menu */
+.rowMenu {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--insight-spacing-2xs);
+  border: none;
+  border-radius: var(--insight-radius-sm);
+  background: transparent;
+  color: var(--insight-components-table-text-primary);
+  cursor: pointer;
+  vertical-align: middle;
+}
+.rowMenu svg {
+  width: var(--insight-icon-size-md);
+  height: var(--insight-icon-size-md);
+}
+.rowMenu:hover {
+  background: var(--insight-color-grey-30);
+}
+.rowMenu:focus-visible {
+  outline: 2px solid var(--insight-color-green-175);
+  outline-offset: 1px;
+}

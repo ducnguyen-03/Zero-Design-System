@@ -1,0 +1,121 @@
+/* Sidebar nav row — Figma Sidebar 3622:5402 ("Input Base" rows). */
+.navrow {
+  --insight-components-nav-row-label: var(--insight-color-foreground-text-primary);
+  --insight-components-nav-row-background-hover: var(--insight-color-grey-30);
+  --insight-components-nav-row-background-active: var(--insight-color-green-10);
+  --insight-components-nav-row-label-active: var(--insight-color-green-300);
+  --insight-components-nav-row-focus-ring: var(--insight-color-green-160);
+  --insight-components-nav-row-tooltip-background: var(--insight-color-white);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 32px;
+  padding: var(--insight-spacing-sm) var(--insight-spacing-md);
+  border: none;
+  border-radius: var(--insight-radius-sm);
+  background: none;
+  font-family: var(--insight-font-family-sans);
+  font-size: var(--insight-type-body-small-size);
+  line-height: 20px;
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+  font-weight: var(--insight-font-weight-regular);
+  color: var(--insight-components-nav-row-label);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--insight-duration-fast) var(--insight-ease-emphasis);
+}
+.navrow.sm {
+  min-height: 28px;
+  padding: var(--insight-spacing-xs) var(--insight-spacing-md);
+  gap: var(--insight-spacing-md);
+}
+.navrow:hover:not(.active):not(.disabled) {
+  background: var(--insight-components-nav-row-background-hover);
+}
+.navrow.active {
+  background: var(--insight-components-nav-row-background-active);
+  color: var(--insight-components-nav-row-label-active);
+  font-weight: var(--insight-font-weight-medium);
+}
+.navrow.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.navrow:focus-visible {
+  outline: 2px solid var(--insight-components-nav-row-focus-ring);
+  outline-offset: -2px;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+.icon svg {
+  width: var(--insight-icon-size-md);
+  height: var(--insight-icon-size-md);
+}
+.sm .icon {
+  width: 16px;
+  height: 16px;
+}
+.sm .icon svg {
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+}
+
+.label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.trailing {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  font-size: var(--insight-type-body-tiny-size);
+  color: var(--insight-color-foreground-text-tertiary);
+}
+
+/* ── Compressed (icon-only) ─────────────────────────────── */
+.navrow.collapsed {
+  width: 32px;
+  height: 32px;
+  min-height: 32px;
+  padding: var(--insight-spacing-sm);
+  justify-content: center;
+}
+.tooltip {
+  position: absolute;
+  left: calc(100% + var(--insight-spacing-md));
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  padding: var(--insight-spacing-xs) var(--insight-spacing-md);
+  border-radius: var(--insight-radius-sm);
+  background: var(--insight-components-nav-row-tooltip-background);
+  box-shadow: var(--insight-shadow-dropdown);
+  color: var(--insight-color-foreground-text-primary);
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: var(--insight-type-body-tiny-line-height);
+  font-weight: var(--insight-font-weight-medium);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--insight-duration-fast) var(--insight-ease-emphasis);
+}
+.collapsed:hover .tooltip,
+.collapsed:focus-visible .tooltip {
+  opacity: 1;
+  visibility: visible;
+}

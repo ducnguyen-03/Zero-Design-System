@@ -1,0 +1,201 @@
+/* Figma "Calendar Atoms" (3412:11591) + "Calendar" (3412:11634).
+   Component tokens are local, mapped to core. */
+.calendar {
+  --insight-components-calendar-atom-background-selected: var(--insight-color-green-200);
+  --insight-components-calendar-atom-background-range: var(--insight-color-green-10);
+  --insight-components-calendar-atom-background-hover: var(--insight-color-grey-30);
+  --insight-components-calendar-atom-text-primary: var(--insight-color-off-black-100);
+  --insight-components-calendar-atom-text-inclusive: var(--insight-color-off-black-200);
+  --insight-components-calendar-atom-text-on-dark: var(--insight-color-white);
+  --insight-components-calendar-atom-text-inactive: var(--insight-color-grey-40);
+  --insight-components-calendar-border: var(--insight-color-support-border-grey);
+  /* Date Cell (small) */
+  --insight-component-calendar-date-cell-size: 14px;
+  --insight-component-calendar-date-cell-line-height: 20px;
+  --insight-component-calendar-date-cell-letter-spacing: 0.25px;
+  /* Month Title (also used by medium / large cells) */
+  --insight-component-calendar-month-title-size: 16px;
+  --insight-component-calendar-month-title-line-height: 24px;
+  --insight-component-calendar-month-title-letter-spacing: 0.16px;
+
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--insight-spacing-2xl);
+  box-sizing: border-box;
+  padding: var(--insight-spacing-10);
+  background: var(--insight-color-background-system-secondary);
+  border: 1px solid var(--insight-components-calendar-border);
+  border-radius: var(--insight-radius-card);
+  font-family: var(--insight-font-family-sans);
+  color: var(--insight-components-calendar-atom-text-inclusive);
+}
+.multi {
+  box-shadow: var(--insight-shadow-modal);
+  padding: var(--insight-spacing-xl);
+}
+
+/* Size tokens: the date button is --cal-day; each cell adds 1px padding. */
+.sm {
+  --cal-day: 32px;
+  --cal-weekday-h: 20px;
+  --cal-font-size: var(--insight-component-calendar-date-cell-size);
+  --cal-line-height: var(--insight-component-calendar-date-cell-line-height);
+  --cal-letter-spacing: var(--insight-component-calendar-date-cell-letter-spacing);
+  --cal-font-weight: var(--insight-font-weight-regular);
+}
+.md {
+  --cal-day: 36px;
+  --cal-weekday-h: 24px;
+  --cal-font-size: var(--insight-component-calendar-month-title-size);
+  --cal-line-height: var(--insight-component-calendar-month-title-line-height);
+  --cal-letter-spacing: var(--insight-component-calendar-month-title-letter-spacing);
+  --cal-font-weight: var(--insight-font-weight-medium);
+}
+.lg {
+  --cal-day: 46px;
+  --cal-weekday-h: 26px;
+  --cal-font-size: var(--insight-component-calendar-month-title-size);
+  --cal-line-height: var(--insight-component-calendar-month-title-line-height);
+  --cal-letter-spacing: var(--insight-component-calendar-month-title-letter-spacing);
+  --cal-font-weight: var(--insight-font-weight-medium);
+}
+
+.month {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-md);
+  height: 32px;
+}
+.title {
+  margin: 0;
+  flex: 1;
+  text-align: center;
+  font-size: var(--insight-component-calendar-month-title-size);
+  line-height: var(--insight-component-calendar-month-title-line-height);
+  letter-spacing: var(--insight-component-calendar-month-title-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-components-calendar-atom-text-primary);
+}
+.nav,
+.navSpacer {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+.nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: var(--insight-radius-input);
+  background: transparent;
+  color: var(--insight-components-calendar-atom-text-primary);
+  cursor: pointer;
+}
+.nav svg {
+  width: var(--insight-icon-size-md);
+  height: var(--insight-icon-size-md);
+}
+.nav:hover {
+  background: var(--insight-components-calendar-atom-background-hover);
+}
+.nav:focus-visible {
+  outline: 2px solid var(--insight-color-green-175);
+  outline-offset: 0;
+}
+
+.grid {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* Week Day atom */
+.weekday {
+  width: calc(var(--cal-day) + 2px);
+  height: var(--cal-weekday-h);
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+  font-size: var(--cal-font-size);
+  line-height: var(--cal-line-height);
+  letter-spacing: var(--cal-letter-spacing);
+  font-weight: var(--cal-font-weight);
+  color: var(--insight-components-calendar-atom-text-primary);
+}
+
+/* Cell wrapper (the 1px-padded atom frame) */
+.cell {
+  padding: var(--insight-spacing-3xs);
+  width: var(--cal-day);
+  height: var(--cal-day);
+}
+.cellSelected {
+  background: var(--insight-components-calendar-atom-background-selected);
+  border-radius: var(--insight-radius-input);
+}
+.cellPeriod {
+  background: var(--insight-components-calendar-atom-background-range);
+}
+
+/* Date atom */
+.day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--cal-day);
+  height: var(--cal-day);
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: var(--insight-radius-input);
+  background: transparent;
+  color: var(--insight-components-calendar-atom-text-inclusive);
+  font-family: inherit;
+  font-size: var(--cal-font-size);
+  line-height: var(--cal-line-height);
+  letter-spacing: var(--cal-letter-spacing);
+  font-weight: var(--cal-font-weight);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+button.day {
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+button.day:hover {
+  background: var(--insight-components-calendar-atom-background-hover);
+}
+button.day:focus-visible {
+  outline: 2px solid var(--insight-color-green-175);
+  outline-offset: 0;
+  position: relative;
+  z-index: 1;
+}
+.today {
+  box-shadow: inset 0 0 0 1px var(--insight-color-grey-75);
+}
+.period,
+button.period:hover {
+  background: var(--insight-components-calendar-atom-background-range);
+}
+.selected,
+button.selected:hover {
+  background: var(--insight-components-calendar-atom-background-selected);
+  color: var(--insight-components-calendar-atom-text-on-dark);
+  box-shadow: none;
+}
+.inactive,
+button.inactive:hover {
+  color: var(--insight-components-calendar-atom-text-inactive);
+  background: transparent;
+  cursor: default;
+}

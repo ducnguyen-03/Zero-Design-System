@@ -1,0 +1,155 @@
+/* Chip — Figma "Chips" set (3412:10136).
+   Type Fill/Outline × Size Small/Medium/Large × Icon × Clearable × Border Rounded/Soft.
+   Component tokens Figma references but tokens.css does not define are mapped locally. */
+
+.chip {
+  --insight-components-chips-indicator-neutral-background: var(--insight-color-grey-30);
+  --insight-components-chips-text-primary: var(--insight-color-off-black-100);
+  --insight-components-chips-border-default: var(--insight-color-grey-75);
+  --insight-component-chip-label-size: var(--insight-component-button-small-size); /* 14px */
+  --insight-component-chip-label-line-height: var(--insight-component-button-small-line-height); /* 20px */
+  --insight-component-chip-label-letter-spacing: var(--insight-component-button-small-letter-spacing); /* 0.25px */
+  --insight-radius-chip-soft: 6px; /* Figma "Soft" — no core radius token at 6px */
+
+  --chip-bg: var(--insight-components-chips-indicator-neutral-background);
+  --chip-fg: var(--insight-components-chips-text-primary);
+  --chip-border: var(--insight-components-chips-border-default);
+  --chip-icon: var(--insight-icon-size-md);
+  --chip-pad-start: var(--insight-spacing-lg);
+  --chip-pad-end: var(--insight-spacing-lg);
+
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  height: 28px;
+  padding: 0 var(--chip-pad-end) 0 var(--chip-pad-start);
+  border: none;
+  border-radius: var(--insight-radius-chip);
+  background: var(--chip-bg);
+  color: var(--chip-fg);
+  font-family: var(--insight-font-family-sans);
+  font-weight: var(--insight-font-weight-medium);
+  font-size: var(--insight-component-chip-label-size);
+  line-height: var(--insight-component-chip-label-line-height);
+  letter-spacing: var(--insight-component-chip-label-letter-spacing);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* ── Type ─────────────────────────────────────────── */
+.fill {
+  background: var(--chip-bg);
+}
+.outline {
+  background: transparent;
+  border: 1px solid var(--chip-border);
+}
+
+/* ── Size ─────────────────────────────────────────── */
+.sm {
+  height: var(--insight-control-height-xs); /* 24 */
+  --chip-icon: var(--insight-icon-size-sm);
+}
+.md {
+  height: 28px;
+  --chip-icon: var(--insight-icon-size-md);
+}
+.lg {
+  height: var(--insight-control-height-sm); /* 32 */
+  --chip-icon: var(--insight-icon-size-lg);
+}
+
+/* ── Border ───────────────────────────────────────── */
+.rounded {
+  border-radius: var(--insight-radius-chip);
+}
+.soft {
+  border-radius: var(--insight-radius-chip-soft);
+}
+
+/* ── Padding / gap per content (Figma auto-layout) ─ */
+.hasIcon {
+  gap: var(--insight-spacing-xs);
+  --chip-pad-start: var(--insight-spacing-md);
+}
+.sm.hasIcon {
+  --chip-pad-start: var(--insight-spacing-sm);
+}
+.hasRemove {
+  gap: var(--insight-spacing-md);
+  --chip-pad-end: var(--insight-spacing-md);
+}
+.sm.hasRemove {
+  --chip-pad-end: var(--insight-spacing-sm);
+}
+/* Fill · Large · Icon · Clearable hugs the thumbnail at 4px (Outline stays 8px). */
+.fill.lg.hasIcon.hasRemove {
+  --chip-pad-start: var(--insight-spacing-xs);
+}
+
+/* ── Tinted colours (optional) ────────────────────── */
+.blue    { --chip-bg: var(--chip-blue-bg);    --chip-fg: var(--chip-blue-fg);    --chip-border: var(--chip-blue-fg); }
+.green   { --chip-bg: var(--chip-green-bg);   --chip-fg: var(--chip-green-fg);   --chip-border: var(--chip-green-fg); }
+.grey    { --chip-bg: var(--chip-grey-bg);    --chip-fg: var(--chip-grey-fg);    --chip-border: var(--chip-grey-fg); }
+.violet  { --chip-bg: var(--chip-violet-bg);  --chip-fg: var(--chip-violet-fg);  --chip-border: var(--chip-violet-fg); }
+.purple  { --chip-bg: var(--chip-purple-bg);  --chip-fg: var(--chip-purple-fg);  --chip-border: var(--chip-purple-fg); }
+.magenta { --chip-bg: var(--chip-magenta-bg); --chip-fg: var(--chip-magenta-fg); --chip-border: var(--chip-magenta-fg); }
+.red     { --chip-bg: var(--chip-red-bg);     --chip-fg: var(--chip-red-fg);     --chip-border: var(--chip-red-fg); }
+.orange  { --chip-bg: var(--chip-orange-bg);  --chip-fg: var(--chip-orange-fg);  --chip-border: var(--chip-orange-fg); }
+
+/* ── Parts ────────────────────────────────────────── */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--chip-icon);
+  height: var(--chip-icon);
+  overflow: hidden;
+  border-radius: var(--insight-radius-chip);
+}
+.icon > svg,
+.icon > img {
+  width: 100%;
+  height: 100%;
+}
+.icon > img {
+  object-fit: cover;
+}
+
+.label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--chip-icon);
+  height: var(--chip-icon);
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--insight-radius-chip);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.remove svg {
+  width: 100%;
+  height: 100%;
+}
+.remove:hover {
+  background: var(--insight-color-grey-50);
+}
+.remove:active {
+  background: var(--insight-color-grey-60);
+}
+.remove:focus-visible {
+  outline: 2px solid var(--insight-color-green-150);
+  outline-offset: 1px;
+}

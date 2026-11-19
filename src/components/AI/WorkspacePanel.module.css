@@ -1,0 +1,339 @@
+/* Space panels — ZAK prototype "Space" right column (1:6773): Agents, Instructions, Sources, Routines.
+   Figma eyebrow #8292a6 → grey-100 (contrast). Figma disc border #e5e9ed → grey-30. */
+.panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-lg);
+  min-width: 0;
+  padding: var(--insight-spacing-lg);
+  border: 1px solid var(--insight-color-support-border-grey);
+  border-radius: var(--insight-radius-lg);
+  background: var(--insight-color-white);
+  font-family: var(--insight-font-family-sans);
+  color: var(--insight-color-off-black-100);
+}
+.head {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  min-height: 24px;
+}
+.title {
+  margin: 0;
+  font-size: 11.2px;
+  line-height: 1.4;
+  letter-spacing: 0.784px;
+  font-weight: var(--insight-font-weight-medium);
+  text-transform: uppercase;
+  color: var(--insight-color-grey-100);
+}
+.count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  box-sizing: border-box;
+  padding: 0 var(--insight-spacing-xs);
+  border-radius: var(--insight-radius-chip);
+  background: var(--insight-color-grey-30);
+  color: var(--insight-color-grey-100);
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 1.3;
+  font-weight: var(--insight-font-weight-medium);
+}
+.headAction {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin: 0 0 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: var(--insight-radius-sm);
+  background: none;
+  color: var(--insight-color-grey-200);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.headAction:hover {
+  background: var(--insight-color-grey-30);
+}
+.headAction:focus-visible,
+.disc:focus-visible,
+.spaceCard:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: 1px;
+}
+.headAction svg {
+  width: var(--insight-icon-size-md);
+  height: var(--insight-icon-size-md);
+}
+.description {
+  margin: 0;
+  font-size: var(--insight-type-body-small-size);
+  line-height: 1.4;
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+}
+
+/* ── Source discs ── */
+.disc {
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--insight-color-grey-30);
+  border-radius: 50%;
+  background: var(--insight-color-white);
+  color: var(--insight-color-off-black-100);
+}
+.disc svg {
+  width: 13px;
+  height: 13px;
+}
+.more {
+  font-size: 10px;
+  line-height: 1;
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-grey-200);
+}
+.stackWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+}
+.stackLabel {
+  font-size: var(--insight-type-body-small-size);
+  line-height: 1.4;
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-grey-100);
+}
+.stack {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+}
+.stackItem {
+  display: inline-flex;
+}
+.overlap {
+  gap: 0;
+}
+.overlap > * + * {
+  margin-left: -4px;
+}
+.overlap .disc {
+  box-shadow: 0 0 0 1px var(--insight-color-white);
+}
+
+/* Source row */
+.source {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  min-width: 0;
+  padding: var(--insight-spacing-md);
+  border-radius: var(--insight-radius-md);
+  background: var(--insight-color-grey-10);
+}
+.sourceText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.sourceName {
+  font-size: var(--insight-type-body-small-size);
+  line-height: 1.4;
+  font-weight: var(--insight-font-weight-medium);
+}
+.sourceDetail {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 1.3;
+  color: var(--insight-color-grey-100);
+}
+.sourceStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-xs);
+  flex-shrink: 0;
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 1.3;
+  color: var(--insight-color-grey-200);
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--insight-color-green-160);
+}
+.s-syncing .dot {
+  background: var(--insight-color-blue-150);
+}
+.s-error .dot {
+  background: var(--insight-color-red-200);
+}
+.s-error .sourceStatus {
+  color: var(--insight-color-red-300);
+}
+.s-off .dot {
+  background: var(--insight-color-grey-75);
+}
+.s-off .sourceName,
+.s-off .disc {
+  color: var(--insight-color-grey-100);
+}
+.sourceAction {
+  flex-shrink: 0;
+}
+
+/* ── Routines ── */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.routine {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-md);
+  border-radius: var(--insight-radius-md);
+  background: var(--insight-color-grey-30);
+  font-family: var(--insight-font-family-sans);
+  color: var(--insight-color-off-black-100);
+}
+.routineIcon {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--insight-color-white);
+  color: var(--insight-color-grey-200);
+}
+.routineIcon svg {
+  width: var(--insight-icon-size-md);
+  height: var(--insight-icon-size-md);
+}
+.routineText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.routineName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--insight-type-body-small-size);
+  line-height: 1.4;
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+}
+.routineSchedule {
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 1.3;
+  color: var(--insight-color-grey-100);
+}
+.paused {
+  background: var(--insight-color-grey-10);
+}
+.paused .routineName {
+  color: var(--insight-color-grey-200);
+}
+
+/* ── Agent roster ── */
+.roster {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+  min-width: 0;
+  padding: var(--insight-spacing-md);
+  border: 1px solid var(--insight-color-grey-30);
+  border-radius: var(--insight-radius-md);
+  background: var(--insight-color-white);
+  font-family: var(--insight-font-family-sans);
+}
+.rosterName {
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: var(--insight-type-body-default-size);
+  line-height: 1.5;
+  letter-spacing: var(--insight-type-body-default-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+}
+.role {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--insight-spacing-xs) var(--insight-spacing-lg);
+  border-radius: var(--insight-radius-chip);
+  background: var(--insight-color-grey-30);
+  color: var(--insight-color-grey-200);
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 1.3;
+  font-weight: var(--insight-font-weight-medium);
+  white-space: nowrap;
+}
+.roster .role {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rosterStatus {
+  margin-left: auto;
+}
+
+/* ── Space card ── */
+.spaceCard {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  width: 100%;
+  margin: 0;
+  padding: var(--insight-spacing-lg);
+  border: 1px solid var(--insight-color-grey-30);
+  border-radius: var(--insight-radius-lg);
+  background: var(--insight-color-white);
+  color: var(--insight-color-off-black-100);
+  font-family: var(--insight-font-family-sans);
+  text-align: left;
+  cursor: pointer;
+}
+.spaceCard:hover {
+  border-color: var(--insight-color-grey-50);
+}
+.spaceHead {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-md);
+}
+.spaceTitle {
+  font-size: var(--insight-type-title-default-size);
+  line-height: 1.5;
+  letter-spacing: var(--insight-type-title-default-letter-spacing);
+  font-weight: var(--insight-font-weight-medium);
+}
+.spaceChevron {
+  margin-left: auto;
+  width: var(--insight-icon-size-sm);
+  height: var(--insight-icon-size-sm);
+  color: var(--insight-color-grey-100);
+}
+.spaceDesc {
+  font-size: var(--insight-type-body-small-size);
+  line-height: 1.4;
+  letter-spacing: var(--insight-type-body-small-letter-spacing);
+}

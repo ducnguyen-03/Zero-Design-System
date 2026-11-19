@@ -1,0 +1,219 @@
+/* Study monitoring tab — Figma Insights-UI 15230:84688. */
+
+.root {
+  /* Figma swatches with no exact token. */
+  --sm-teal: #23c6bc;
+  --sm-green: #0c9f6e;
+  --sm-amber: #f59e0c;
+  --sm-border: var(--insight-color-grey-50);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+  padding: var(--insight-spacing-3xl);
+  font-family: var(--insight-font-family-sans);
+  color: var(--insight-color-off-black-100);
+}
+
+/* ── Stat cards ───────────────────────────────────────── */
+.stats,
+.shares {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--insight-spacing-md);
+}
+.stat {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-xl);
+  padding: var(--insight-spacing-xl);
+  background: var(--insight-color-white);
+  border: 1px solid var(--sm-border);
+  border-radius: var(--insight-radius-card);
+}
+.statIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--insight-color-grey-30);
+}
+.statIcon svg {
+  width: 32px;
+  height: 32px;
+}
+.statText {
+  display: flex;
+  flex-direction: column;
+  font-weight: var(--insight-font-weight-medium);
+}
+.statValue {
+  font-size: 24px;
+  line-height: 28px;
+}
+.statLabel {
+  font-size: var(--insight-type-body-tiny-size);
+  line-height: 18px;
+  text-transform: uppercase;
+}
+
+/* ── Donut cards ──────────────────────────────────────── */
+.share {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xl);
+  padding: var(--insight-spacing-xl);
+  background: var(--insight-color-white);
+  border: 1px solid var(--sm-border);
+  border-radius: var(--insight-radius-card);
+}
+.shareTitle {
+  margin: 0;
+  font-size: var(--insight-type-title-default-size);
+  line-height: 32px;
+  font-weight: var(--insight-font-weight-medium);
+}
+.donut {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-sm);
+  margin: 0;
+  padding: var(--insight-spacing-xl);
+  list-style: none;
+}
+.legendRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--insight-spacing-md);
+  font-size: var(--insight-type-body-default-size);
+  line-height: 24px;
+}
+.legendName {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--insight-spacing-sm);
+  min-width: 0;
+}
+.dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.legendValue {
+  display: inline-flex;
+  gap: var(--insight-spacing-sm);
+  white-space: nowrap;
+}
+.legendValue strong {
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-200);
+}
+.legendPct {
+  color: var(--insight-color-grey-100);
+}
+
+/* ── Participants per quarter ─────────────────────────── */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-xl);
+  margin-top: var(--insight-spacing-2xl);
+}
+.sectionHead {
+  display: flex;
+  align-items: center;
+  gap: var(--insight-spacing-sm);
+}
+.sectionTitle {
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: var(--insight-type-headline-h3-size, 24px);
+  line-height: 28px;
+  font-weight: var(--insight-font-weight-medium);
+}
+.segmented {
+  display: flex;
+  gap: var(--insight-spacing-sm);
+}
+.segment {
+  height: 32px;
+  padding: 0 var(--insight-spacing-xl);
+  background: none;
+  border: none;
+  border-radius: 50px;
+  font: inherit;
+  font-size: var(--insight-type-body-small-size);
+  font-weight: var(--insight-font-weight-medium);
+  color: var(--insight-color-off-black-100);
+  cursor: pointer;
+}
+.segment:hover {
+  background: var(--insight-color-grey-20);
+}
+.segment:focus-visible {
+  outline: 2px solid var(--insight-color-green-160);
+  outline-offset: 2px;
+}
+.segmentActive,
+.segmentActive:hover {
+  background: var(--insight-color-green-10);
+  color: var(--insight-color-green-300);
+}
+.card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 192px;
+  background: var(--insight-color-white);
+  border: 1px solid var(--sm-border);
+  border-radius: var(--insight-radius-card);
+}
+.cardMain {
+  min-width: 0;
+  padding: var(--insight-spacing-2xl);
+  overflow-x: auto;
+}
+.quarterChart {
+  min-width: 960px;
+}
+.pieWrap {
+  display: flex;
+  justify-content: center;
+  padding: var(--insight-spacing-xl) 0;
+}
+.side {
+  padding: var(--insight-spacing-2xl) var(--insight-spacing-xl);
+  border-left: 1px solid var(--sm-border);
+}
+.switchGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--insight-spacing-md);
+}
+.panelTitle {
+  font-size: var(--insight-type-body-small-size);
+  font-weight: var(--insight-font-weight-medium);
+}
+
+@media (max-width: 1100px) {
+  .stats,
+  .shares {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .side {
+    border-left: none;
+    border-top: 1px solid var(--sm-border);
+  }
+}
